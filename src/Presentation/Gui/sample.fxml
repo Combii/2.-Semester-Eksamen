@@ -7,17 +7,16 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-
-<AnchorPane maxHeight="400" maxWidth="600" minHeight="400" minWidth="600" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Presentation.Controller.Controller">
+<AnchorPane onKeyPressed= "#pressEnter" prefHeight="300.0" prefWidth="300.0" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Presentation.Controller.Controller">
    <children>
-      <Text layoutX="162.0" layoutY="83.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Another CC Login">
+      <Text layoutX="14.0" layoutY="79.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Another CC Login">
          <font>
             <Font size="33.0" />
          </font>
       </Text>
-      <TextField layoutX="216.0" layoutY="144.0" promptText="Username" />
-      <PasswordField layoutX="217.0" layoutY="187.0" promptText="Password" />
-      <Button fx:id="loginButton" layoutX="217.0" layoutY="261.0" mnemonicParsing="false" onAction="#clickLogin" text="Login" />
-      <Button fx:id="cancelButton" layoutX="322.0" layoutY="261.0" mnemonicParsing="false" onAction="#clickCancel" text="Cancel" ></Button>
+      <TextField layoutX="25.0" layoutY="137.0" promptText="Username" AnchorPane.bottomAnchor="136.0" AnchorPane.leftAnchor="25.0" AnchorPane.rightAnchor="108.0" AnchorPane.topAnchor="137.0" />
+      <PasswordField layoutX="25.0" layoutY="186.0" promptText="Password" />
+      <Button fx:id="loginButton" layoutX="25.0" layoutY="248.0" mnemonicParsing="false" onAction="#clickLogin" text="Login" />
+      <Button fx:id="cancelButton" layoutX="91.0" layoutY="248.0" mnemonicParsing="false" onAction="#clickCancel" text="Cancel" />
    </children>
 </AnchorPane>
