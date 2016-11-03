@@ -1,5 +1,6 @@
 package Presentation.Controller;
 
+import com.sun.tools.javac.comp.Enter;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -7,6 +8,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.input.KeyEvent;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
@@ -69,4 +71,16 @@ public class Controller {
     public void noButton(ActionEvent actionEvent) throws IOException {
         handleButtonAction(actionEvent);
     }
+
+
+
+    @FXML
+    public void pressEnter(KeyEvent event) throws IOException {
+        switch (event.getCode()) {
+            case ENTER:
+                handleButtonAction(new ActionEvent(loginButton,null));
+        }
+    }
+
+
 }
