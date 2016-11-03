@@ -1,13 +1,14 @@
 package Presentation.Controller;
 
+import com.sun.tools.javac.comp.Enter;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.input.KeyEvent;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
@@ -39,13 +40,13 @@ public class Controller {
         Parent root = null;
         boolean check = true;
 
-        if(event.getSource()==loginButton){
+        if (event.getSource() == loginButton) {
             //get reference to the button's stage
-            stage=(Stage) loginButton.getScene().getWindow();
+            stage = (Stage) loginButton.getScene().getWindow();
             //load up OTHER FXML document
             root = FXMLLoader.load(getClass().getResource("/Presentation/Gui/pageAfterLogin.fxml"));
         }
-        else if(event.getSource()==cancelButton){
+        else if (event.getSource() == cancelButton) {
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/Presentation/Gui/AlertBox.fxml"));
             root = fxmlLoader.load();
             stage = new Stage();
@@ -55,10 +56,10 @@ public class Controller {
             stage.show();
             check = false;
         }
-        else if(event.getSource()==noButton){
+        else if (event.getSource() == noButton) {
             System.exit(0);
         }
-        if(check) {
+        if (check) {
             //create a new scene with root and set the stage
             Scene scene = new Scene(root);
             stage.setScene(scene);
@@ -70,4 +71,16 @@ public class Controller {
     public void noButton(ActionEvent actionEvent) throws IOException {
         handleButtonAction(actionEvent);
     }
+
+
+
+    @FXML
+    public void pressEnter(KeyEvent event) throws IOException {
+        switch (event.getCode()) {
+            case ENTER:
+                handleButtonAction(new ActionEvent(loginButton,null));
+        }
+    }
+
+
 }
