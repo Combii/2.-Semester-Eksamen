@@ -1,17 +1,18 @@
 package Presentation;
 
-import Dao.Database;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
+
 public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception{
-        Parent root = FXMLLoader.load(getClass().getResource("Gui/sample.fxml"));
+
+        Parent root = FXMLLoader.load(getClass().getClassLoader().getResource("sample.fxml"));
         primaryStage.setTitle("Login");
         primaryStage.setResizable(false);
         primaryStage.setScene(new Scene(root));
@@ -20,8 +21,8 @@ public class Main extends Application {
     }
 
     public static void main(String[] args){
-        //launch(args);
-        Database db = new Database();
-        db.getUsers();
+        launch(args);
+        //Database db = new Database();
+        //db.getUsers();
     }
 }
