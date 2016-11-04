@@ -2,9 +2,6 @@ package Dao;
 
 import java.sql.*;
 
-/**
- * Created by bitchass on 03-11-2016.
- */
 public class Database {
 
     private String url = "jdbc:mysql://sql7.freemysqlhosting.net:3306/";
