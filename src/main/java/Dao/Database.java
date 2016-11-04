@@ -1,18 +1,11 @@
 package Dao;
 
-import javax.xml.transform.Result;
 import java.sql.*;
 
 /**
  * Created by bitchass on 03-11-2016.
  */
 public class Database {
-
-    /*private String url = "jdbc:mysql://localhost:3306/";
-    private String dbName = "erhvervstest";
-    private String driver = "com.mysql.jdbc.Driver";
-    private String userName = "root";
-    private String password = "JuboKijeCepd1_";*/
 
     private String url = "jdbc:mysql://sql7.freemysqlhosting.net:3306/";
     private String dbName = "sql7143001";
