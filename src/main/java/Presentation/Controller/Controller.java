@@ -1,6 +1,5 @@
 package Presentation.Controller;
 
-import com.sun.tools.javac.comp.Enter;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -44,11 +43,11 @@ public class Controller {
             //get reference to the button's stage
             stage = (Stage) loginButton.getScene().getWindow();
             //load up OTHER FXML document
-            root = FXMLLoader.load(getClass().getResource("/Presentation/Gui/pageAfterLogin.fxml"));
+            root = FXMLLoader.load(getClass().getClassLoader().getResource("pageAfterLogin.fxml"));
         }
         else if (event.getSource() == cancelButton) {
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/Presentation/Gui/AlertBox.fxml"));
-            root = fxmlLoader.load();
+            FXMLLoader FXMLLoader = new FXMLLoader(getClass().getClassLoader().getResource("AlertBox.fxml"));
+            root = FXMLLoader.load();
             stage = new Stage();
             stage.initModality(Modality.APPLICATION_MODAL);
             stage.initStyle(StageStyle.UNDECORATED);
@@ -73,12 +72,11 @@ public class Controller {
     }
 
 
-
     @FXML
     public void pressEnter(KeyEvent event) throws IOException {
         switch (event.getCode()) {
             case ENTER:
-                handleButtonAction(new ActionEvent(loginButton,null));
+                handleButtonAction(new ActionEvent(loginButton, null));
         }
     }
 
