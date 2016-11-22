@@ -1,30 +1,43 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="330.0" prefWidth="427.0" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <TableView layoutX="224.0" layoutY="81.0" prefHeight="199.0" prefWidth="170.0">
-        <columns>
-          <TableColumn prefWidth="199.0" text="Director" />
-        </columns>
-      </TableView>
-      <Text layoutX="24.0" layoutY="56.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Search Directors">
+      <TextField layoutX="69.0" layoutY="129.0" promptText="Name" />
+      <MenuBar layoutY="2.0" prefHeight="25.0" prefWidth="600.0">
+         <menus>
+            <Menu mnemonicParsing="false" text="Menu">
+               <items>
+                  <MenuItem mnemonicParsing="false" text="Browse menu" />
+                  <MenuItem mnemonicParsing="false" text="Edit Accounts" />
+                  <MenuItem mnemonicParsing="false" text="Create new admin" />
+                  <MenuItem mnemonicParsing="false" text="Logout" />
+               </items>
+            </Menu>
+         </menus>
+      </MenuBar>
+      <Text layoutX="66.0" layoutY="73.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Search Directors">
          <font>
             <Font size="24.0" />
          </font>
       </Text>
-      <HBox layoutX="21.0" layoutY="81.0" prefHeight="23.0" prefWidth="170.0">
-         <children>
-            <TextField prefHeight="25.0" prefWidth="169.0" />
-         </children>
-      </HBox>
+      <Text layoutX="71.0" layoutY="116.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Search name of Director" />
+      <TableView layoutX="276.0" layoutY="50.0" prefHeight="336.0" prefWidth="307.0">
+         <columns>
+            <TableColumn prefWidth="199.0" text="Name" />
+         </columns>
+      </TableView>
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#f2f2f2" height="31.0" layoutX="70.0" stroke="#0000001d" strokeType="INSIDE" width="145.0" />
+      <Text layoutX="79.0" layoutY="21.0" strokeType="OUTSIDE" strokeWidth="0.0" text="&quot;Username&quot;" />
    </children>
 </AnchorPane>

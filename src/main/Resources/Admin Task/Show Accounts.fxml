@@ -8,12 +8,13 @@
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <TextField layoutX="115.0" layoutY="130.0" promptText="username/email" />
+      <TextField layoutX="69.0" layoutY="129.0" promptText="username/email" />
       <MenuBar layoutY="2.0" prefHeight="25.0" prefWidth="600.0">
          <menus>
             <Menu mnemonicParsing="false" text="Menu">
@@ -26,17 +27,19 @@
             </Menu>
          </menus>
       </MenuBar>
-      <Text layoutX="120.0" layoutY="71.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Show accounts">
+      <Text layoutX="66.0" layoutY="73.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Show accounts">
          <font>
             <Font size="24.0" />
          </font>
       </Text>
-      <Text layoutX="120.0" layoutY="118.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Search by username/email" />
-      <TableView layoutX="372.0" layoutY="96.0" prefHeight="208.0" prefWidth="198.0">
+      <Text layoutX="71.0" layoutY="116.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Search by Username or E-mail" />
+      <TableView layoutX="276.0" layoutY="50.0" prefHeight="336.0" prefWidth="307.0">
          <columns>
             <TableColumn prefWidth="199.0" text="Name" />
          </columns>
       </TableView>
-      <ComboBox layoutX="115.0" layoutY="168.0" prefWidth="150.0" />
+      <ComboBox layoutX="72.0" layoutY="173.0" prefHeight="27.0" prefWidth="162.0" promptText="Show All" />
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#f2f2f2" height="31.0" layoutX="70.0" stroke="#0000001d" strokeType="INSIDE" width="145.0" />
+      <Text layoutX="79.0" layoutY="21.0" strokeType="OUTSIDE" strokeWidth="0.0" text="&quot;Username&quot;" />
    </children>
 </AnchorPane>
