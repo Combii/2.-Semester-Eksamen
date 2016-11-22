@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <TextField layoutX="125.0" layoutY="111.0" promptText="First name" />
+      <TextField layoutX="309.0" layoutY="111.0" promptText="Last name" />
+      <TextField layoutX="125.0" layoutY="154.0" prefHeight="25.0" prefWidth="333.0" promptText="Username" />
+      <Button layoutX="122.0" layoutY="246.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="156.0" text="Confirm" />
+      <Button layoutX="306.0" layoutY="246.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="156.0" text="Cancel" />
+      <MenuBar layoutY="2.0" prefHeight="25.0" prefWidth="600.0">
+         <menus>
+            <Menu mnemonicParsing="false" text="Menu">
+               <items>
+                  <MenuItem mnemonicParsing="false" text="Browse menu" />
+                  <MenuItem mnemonicParsing="false" text="Edit Accounts" />
+                  <MenuItem mnemonicParsing="false" text="Create new admin" />
+                  <MenuItem mnemonicParsing="false" text="Logout" />
+               </items>
+            </Menu>
+         </menus>
+      </MenuBar>
+      <TextField layoutX="125.0" layoutY="188.0" prefHeight="25.0" prefWidth="333.0" promptText="Username" text="Email" />
+   </children>
+</AnchorPane>
