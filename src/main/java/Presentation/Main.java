@@ -11,12 +11,11 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
-        Parent root = FXMLLoader.load(getClass().getResource("/LoginPage.fxml"));
-        primaryStage.setTitle("Login");
+        Parent root = FXMLLoader.load(getClass().getResource("/Login/Login.fxml"));
+        primaryStage.setTitle("Another CC Login");
         primaryStage.setResizable(false);
         primaryStage.setScene(new Scene(root));
         primaryStage.show();
-
     }
 
     public static void main(String[] args) {
