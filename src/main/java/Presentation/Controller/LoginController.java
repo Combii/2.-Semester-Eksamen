@@ -1,39 +1,30 @@
 package Presentation.Controller;
 
-import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.CheckBox;
+import BusinessLogic.PasswordStorage;
+import BusinessLogic.UserValidation;
+import javafx.event.ActionEvent;
 import javafx.scene.control.TextField;
 
-import java.awt.event.ActionEvent;
+import java.sql.SQLException;
 
 /**
  * Created by David Stovlbaek
  * 25 November 2016.
  */
 public class LoginController {
+    public TextField username;
+    public TextField password;
 
-        @FXML
-        private TextField username;
-        private TextField password;
-        private Button loginButton;
+    public void clickedOnLoginButton(ActionEvent actionEvent) throws PasswordStorage.CannotPerformOperationException, SQLException, PasswordStorage.InvalidHashException {
+        int number =  UserValidation.isUser(username.getText(), password.getText());
+        System.out.println(number);
+    }
 
-        @FXML
-        private CheckBox customerLoginCheckBox;
+    public void customerLoginCheckBox(ActionEvent actionEvent) {
 
-        @FXML
-        private CheckBox rememberMeCheckBox;
+    }
 
-        @FXML
-        void clickedOnLoginButton(ActionEvent event) {
-        }
+    public void rememberMeCheckBox(ActionEvent actionEvent) {
 
-        @FXML
-        void customerLoginCheckBox(ActionEvent event) {
-        }
-
-        @FXML
-        void rememberMeCheckBox(ActionEvent event) {
-        }
-
+    }
 }
