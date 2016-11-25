@@ -11,48 +11,47 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Presentation.Controller.BrowseMenuController">
    <children>
       <SplitPane dividerPositions="0.21943887775551102" layoutX="189.0" layoutY="325.0" prefHeight="700.0" prefWidth="1000.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <items>
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
                <children>
-                  <TreeView layoutX="8.0" layoutY="96.0" prefHeight="698.0" prefWidth="215.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                  <TreeView fx:id="treeView" layoutX="8.0" layoutY="96.0" prefHeight="698.0" prefWidth="215.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
                </children>
             </AnchorPane>
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
                <children>
                   <HBox layoutX="55.0" layoutY="39.0" prefHeight="27.0" prefWidth="333.0" spacing="50.0">
                      <children>
-                        <TextField promptText="Search" />
-                        <ComboBox prefWidth="150.0" promptText="Gender" />
+                        <TextField fx:id="search" promptText="Search" />
+                        <ComboBox fx:id="gender" prefWidth="150.0" promptText="Gender" />
                      </children>
                   </HBox>
                   <VBox layoutX="435.0" layoutY="39.0" prefHeight="74.0" prefWidth="318.0" spacing="20.0">
                      <children>
                         <HBox prefHeight="27.0" prefWidth="293.0" spacing="40.0">
                            <children>
-                              <TextField prefHeight="27.0" prefWidth="80.0" promptText="Age from" />
-                              <TextField prefHeight="27.0" prefWidth="80.0" promptText="Age to" />
-                              <Button mnemonicParsing="false" prefWidth="80.0" text="Search" />
+                              <TextField fx:id="ageFrom" prefHeight="27.0" prefWidth="80.0" promptText="Age from" />
+                              <TextField fx:id="ageTo" prefHeight="27.0" prefWidth="80.0" promptText="Age to" />
+                              <Button fx:id="search2" mnemonicParsing="false" prefWidth="80.0" text="Search" />
                            </children>
                         </HBox>
                         <HBox prefHeight="27.0" prefWidth="293.0" spacing="40.0">
                            <children>
-                              <Button mnemonicParsing="false" prefHeight="27.0" prefWidth="80.0" text="Select all">
+                              <Button fx:id="selectAll" mnemonicParsing="false" prefHeight="27.0" prefWidth="80.0" text="Select all">
                                  <HBox.margin>
                                     <Insets />
                                  </HBox.margin>
                               </Button>
-                              <Button mnemonicParsing="false" prefHeight="27.0" prefWidth="80.0" text="Edit" />
-                              <Button mnemonicParsing="false" prefWidth="80.0" text="Upload" />
+                              <Button fx:id="edit" mnemonicParsing="false" prefHeight="27.0" prefWidth="80.0" text="Edit" />
+                              <Button fx:id="upload" mnemonicParsing="false" prefWidth="80.0" text="Upload" />
                            </children>
                         </HBox>
                      </children>
                   </VBox>
                   <ScrollPane layoutY="169.0" prefHeight="449.0" prefWidth="775.0" AnchorPane.bottomAnchor="80.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="169.0" />
-                  <Button layoutX="673.0" layoutY="640.0" mnemonicParsing="false" prefWidth="80.0" text="Submit" />
+                  <Button fx:id="submit" layoutX="673.0" layoutY="640.0" mnemonicParsing="false" prefWidth="80.0" text="Submit" />
                </children>
             </AnchorPane>
         </items>
