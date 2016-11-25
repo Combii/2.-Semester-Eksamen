@@ -5,10 +5,10 @@ import java.sql.*;
 public class Database {
 
     private String url = "jdbc:mysql://sql7.freemysqlhosting.net:3306/";
-    private String dbName = "sql7143001";
+    private String dbName = "sql7146226";
     private String driver = "com.mysql.jdbc.Driver";
-    private String userName = "sql7143001";
-    private String password = "nbvkeyktFX";
+    private String userName = "sql7146226";
+    private String password = "5hrN2C6eYs";
 
     public Database() {
     }
