@@ -30,8 +30,8 @@ public class LoginController {
         try {
             int number = UserValidation.isUser(username.getText(), password.getText());
 
-            Stage stage = null;
-            Parent root = null;
+            Stage stage;
+            Parent root;
 
 
             if (number == 0) {
