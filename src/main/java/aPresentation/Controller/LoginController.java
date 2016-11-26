@@ -1,4 +1,4 @@
-package Presentation.Controller;
+package aPresentation.Controller;
 
 import BusinessLogic.PasswordStorage;
 import BusinessLogic.UserValidation;
@@ -17,7 +17,6 @@ public class LoginController {
 
     public void clickedOnLoginButton(ActionEvent actionEvent) throws PasswordStorage.CannotPerformOperationException, SQLException, PasswordStorage.InvalidHashException {
         int number =  UserValidation.isUser(username.getText(), password.getText());
-        System.out.println(number);
     }
 
     public void customerLoginCheckBox(ActionEvent actionEvent) {

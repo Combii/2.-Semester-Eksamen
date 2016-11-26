@@ -20,7 +20,6 @@ public class UserValidation {
 
         String hashPassword = accountDao.getHashPassword(username);
 
-
         if(!PasswordStorage.verifyPassword(password, hashPassword)){
             return -2;
         }
