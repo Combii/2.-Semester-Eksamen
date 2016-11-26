@@ -21,9 +21,6 @@ public class Database{
         if(database == null){
             database = new Database();
         }
-        if(connection == null){
-           connection = DriverManager.getConnection(url+dbName,userName,password);
-        }
         return database;
     }
 
@@ -38,7 +35,10 @@ public class Database{
         connection = null;
     }
 
-    public Connection getConnection() {
+    public Connection getConnection() throws SQLException {
+        if(connection == null){
+            connection = DriverManager.getConnection(url+dbName,userName,password);
+        }
         return connection;
     }
 }
