@@ -1,6 +1,7 @@
 package BusinessLogic;
 
 import Dao.AccountDao;
+import Dao.Database;
 
 import java.sql.SQLException;
 
@@ -31,5 +32,9 @@ public class UserValidation {
         int userType = accountDao.getUserType(username);
 
         return userType;
+    }
+
+    public static void startConnectionToDB() throws SQLException {
+        Database.startConnection();
     }
 }

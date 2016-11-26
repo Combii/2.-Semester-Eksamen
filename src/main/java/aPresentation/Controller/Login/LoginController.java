@@ -42,7 +42,7 @@ public class LoginController {
 
     @FXML
     public void initialize() throws SQLException {
-        Database.startConnection();
+        UserValidation.startConnectionToDB();
     }
 
 
