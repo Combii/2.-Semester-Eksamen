@@ -23,7 +23,7 @@ public class BrowseMenuController {
         Parent root;
             stage = (Stage) splitPane.getScene().getWindow();
             //load up OTHER FXML document
-            root = FXMLLoader.load(getClass().getResource("/Admin Task/Create admin account.fxml"));
+            root = FXMLLoader.load(getClass().getResource("/Admin Task/Create new account.fxml"));
             //create a new scene with root and set the stage
             Scene scene = new Scene(root);
             stage.setScene(scene);
