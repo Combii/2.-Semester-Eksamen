@@ -59,7 +59,7 @@ public class LoginController {
         catch (SQLNonTransientConnectionException e){
             textOverLoginButton.setText("Could not connect to Online Database");
         }
-        catch (NullPointerException e){
+        catch (StringIndexOutOfBoundsException e){
             textOverLoginButton.setText("Username or Password is incorrect");
             password.clear();
         }
