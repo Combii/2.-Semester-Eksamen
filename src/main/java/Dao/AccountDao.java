@@ -26,7 +26,7 @@ public class AccountDao {
         rs.next();
 
         boolean rBoolean = rs.getBoolean(1);
-        closeStatementAndResultset();
+        closeStatementAndResultsetAndConnection();
         return rBoolean;
     }
 
@@ -36,7 +36,7 @@ public class AccountDao {
             ResultSet rs = ps.executeQuery();
             rs.next();
             String rString = rs.getString(1);
-            closeStatementAndResultset();
+            closeStatementAndResultsetAndConnection();
             return rString;
         }
         catch (Exception e){
@@ -49,7 +49,7 @@ public class AccountDao {
         ResultSet rs = ps.executeQuery();
         rs.next();
         String rString = rs.getString(1);
-        closeStatementAndResultset();
+        closeStatementAndResultsetAndConnection();
         return rString;
     }
 
@@ -58,19 +58,17 @@ public class AccountDao {
         ResultSet rs = ps.executeQuery();
         rs.next();
         int rInt = rs.getInt(1);
-        closeStatementAndResultset();
+        closeStatementAndResultsetAndConnection();
         return rInt;
     }
 
-    // Good to close connection to database
-    public void closeConnection() throws SQLException {
-        conn.close();
-    }
 
-    // Need to close ResultSet and PreparedStatement after use
-    private void closeStatementAndResultset(){
+    // Need to close ResultSet, PreparedStatement and connection after use
+    private void closeStatementAndResultsetAndConnection(){
         try { rs.close(); } catch (Exception e) { /* ignored */ }
         try { ps.close(); } catch (Exception e) { /* ignored */ }
+        try { conn.close(); } catch (Exception e) { /* ignored */ }
+
     }
 
 }
