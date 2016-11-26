@@ -9,14 +9,18 @@ import java.sql.SQLException;
  */
 public class UserValidation {
 
-    //Returns 0 = Admin, 1 = Employee, 2 = Customer, -1 if user is not in DB and -2 Password typed is not equal to DB
+    //Returns 0 = Admin, 1 = Employee, 2 = Customer, -1 if user is not in DB or incorrect typed username and -2 Password typed is not equal to DB
 
    public static int isUser(String username, String password) throws SQLException, HashCode.InvalidHashException, HashCode.CannotPerformOperationException {
-            AccountDao accountDao = new AccountDao();
+       AccountDao accountDao = new AccountDao();
 
-        if(!accountDao.userExists(username)){
-            return -1;
+        String checkUsername = accountDao.getUsername(username);
+        if(checkUsername != null){
+            if(!checkUsername.equals(username))
+                return -1;
         }
+        else
+            return -1;
 
         String hashPassword = accountDao.getHashPassword(username);
 

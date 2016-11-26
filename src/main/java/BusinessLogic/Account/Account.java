@@ -11,6 +11,8 @@ public class Account {
         return username;
     }
 
+    private Account(){}
+
     public static void setLoggedInUsername(String username) {
         Account.username = username.substring(0, 1).toUpperCase() + username.substring(1);;
     }
