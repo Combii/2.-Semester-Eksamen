@@ -30,6 +30,20 @@ public class AccountDao {
         return rBoolean;
     }
 
+    public String getUsername(String username) throws SQLException {
+        try {
+            PreparedStatement ps = conn.prepareStatement("SELECT username FROM Account WHERE username = '" + username + "';");
+            ResultSet rs = ps.executeQuery();
+            rs.next();
+            String rString = rs.getString(1);
+            closeStatementAndResultset();
+            return rString;
+        }
+        catch (Exception e){
+            return null;
+        }
+    }
+
     public String getHashPassword(String username) throws SQLException {
         PreparedStatement ps = conn.prepareStatement("SELECT password_hash FROM Account WHERE username = '" + username + "';");
         ResultSet rs = ps.executeQuery();
