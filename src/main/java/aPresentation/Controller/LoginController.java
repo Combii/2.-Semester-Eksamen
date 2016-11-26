@@ -10,6 +10,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.text.Text;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -77,4 +78,24 @@ public class LoginController {
 
     }
 
+
+    public void keyPressedUsername(KeyEvent keyEvent) {
+        textOverLoginButton.setText("");
+        if(keyEvent.getCode().toString().equals("ENTER"))
+            try {
+                clickedOnLoginButton(new ActionEvent());
+            } catch (HashCode.CannotPerformOperationException e) {
+                e.printStackTrace();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            } catch (HashCode.InvalidHashException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+    }
+
+    public void keyPressedPassword(KeyEvent keyEvent) {
+        keyPressedUsername(keyEvent);
+    }
 }
