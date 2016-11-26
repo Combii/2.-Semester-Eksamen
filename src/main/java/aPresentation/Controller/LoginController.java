@@ -1,5 +1,6 @@
 package aPresentation.Controller;
 
+import BusinessLogic.Account.Account;
 import BusinessLogic.HashCode;
 import BusinessLogic.UserValidation;
 import javafx.event.ActionEvent;
@@ -33,6 +34,7 @@ public class LoginController {
             Stage stage;
             Parent root;
 
+            Account.setLoggedInUsername(username.getText());
 
             if (number == 0) {
                 stage = (Stage) loginButton.getScene().getWindow();

@@ -17,7 +17,7 @@
       <TextField fx:id="firstName" layoutX="125.0" layoutY="111.0" promptText="First name" />
       <TextField fx:id="lastName" layoutX="309.0" layoutY="111.0" prefHeight="27.0" prefWidth="147.0" promptText="Last name" />
       <TextField fx:id="username" layoutX="125.0" layoutY="154.0" prefHeight="25.0" prefWidth="333.0" promptText="Username" />
-      <Button layoutX="214.0" layoutY="319.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="156.0" text="Confirm" />
+      <Button fx:id="confirmButton" layoutX="217.0" layoutY="336.0" mnemonicParsing="false" onAction="#clickedOnConfirmButton" prefHeight="25.0" prefWidth="156.0" text="Confirm" />
       <MenuBar layoutY="2.0" prefHeight="25.0" prefWidth="600.0">
          <menus>
             <Menu mnemonicParsing="false" text="Menu">
@@ -39,8 +39,8 @@
       <TextField fx:id="password" layoutX="125.0" layoutY="222.0" prefHeight="25.0" prefWidth="333.0" promptText="Password" />
       <TextField fx:id="confirmPassword" layoutX="125.0" layoutY="256.0" prefHeight="25.0" prefWidth="333.0" promptText="Confirm Password" />
       <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#f2f2f2" height="31.0" layoutX="70.0" stroke="#0000001d" strokeType="INSIDE" width="145.0" />
-      <Text layoutX="79.0" layoutY="21.0" strokeType="OUTSIDE" strokeWidth="0.0" text="&quot;Username&quot;" />
-      <CheckBox layoutX="127.0" layoutY="289.0" mnemonicParsing="false" text="Admin" />
-      <Text layoutX="200.0" layoutY="303.0" strokeType="OUTSIDE" strokeWidth="0.0" text="If not checked account will be Employee" />
+      <Text fx:id="usernameMenuBar" layoutX="79.0" layoutY="21.0" strokeType="OUTSIDE" strokeWidth="0.0" text="&quot;Username&quot;" />
+      <CheckBox fx:id="checkBoxAdmin" layoutX="127.0" layoutY="289.0" mnemonicParsing="false" text="Admin" />
+      <Text fx:id="textRightToAdminCheckBox" layoutX="200.0" layoutY="303.0" strokeType="OUTSIDE" strokeWidth="0.0" text="If not checked account will be Employee" />
    </children>
 </AnchorPane>
