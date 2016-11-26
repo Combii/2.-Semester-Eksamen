@@ -4,17 +4,18 @@
 <?import javafx.scene.control.ButtonBar?>
 <?import javafx.scene.control.CheckBox?>
 <?import javafx.scene.control.Hyperlink?>
+<?import javafx.scene.control.PasswordField?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="287.0" prefWidth="451.0" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="287.0" prefWidth="451.0" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="aPresentation.Controller.LoginController">
    <children>
       <ButtonBar layoutX="144.0" layoutY="305.0" prefHeight="40.0" prefWidth="80.0" />
-      <TextField fx:id="password" layoutX="93.0" layoutY="103.0" prefHeight="28.0" prefWidth="274.0" promptText="Password" />
     <Button fx:id="loginButton" layoutX="94.0" layoutY="222.0" mnemonicParsing="false" onAction="#clickedOnLoginButton" prefHeight="25.0" prefWidth="108.0" text="Login" />
       <TextField fx:id="username" layoutX="93.0" layoutY="60.0" prefHeight="25.0" prefWidth="274.0" promptText="Username" />
       <Hyperlink layoutX="92.0" layoutY="131.0" text="Find my account" />
       <CheckBox fx:id="customerLoginCheckBox" layoutX="245.0" layoutY="171.0" mnemonicParsing="false" onAction="#customerLoginCheckBox" text="Customer Login" />
       <CheckBox fx:id="rememberMeCheckBox" layoutX="92.0" layoutY="171.0" mnemonicParsing="false" onAction="#rememberMeCheckBox" text="Remember me" />
+      <PasswordField fx:id="password" layoutX="93.0" layoutY="104.0" prefHeight="27.0" prefWidth="274.0" promptText="Password" />
    </children>
 </AnchorPane>
