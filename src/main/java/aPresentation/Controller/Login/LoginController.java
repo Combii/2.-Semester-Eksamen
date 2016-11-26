@@ -52,13 +52,16 @@ public class LoginController {
             }
             else if(number == -1){
                 textOverLoginButton.setText("Username or Password is incorrect");
+                password.clear();
             }
             else if(number == -2){
                 textOverLoginButton.setText("Password typed does not match to username");
+                password.clear();
             }
         }
         catch (NullPointerException e){
             textOverLoginButton.setText("Username or Password is incorrect");
+            password.clear();
         }
 
     }
