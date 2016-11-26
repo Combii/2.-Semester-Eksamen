@@ -4,6 +4,7 @@ import BusinessLogic.Account.Account;
 import BusinessLogic.HashCode;
 import BusinessLogic.UserValidation;
 import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -22,17 +23,20 @@ import java.sql.SQLException;
  * 25 November 2016.
  */
 public class LoginController {
+
+    @FXML
     public TextField username;
     public TextField password;
     public Button loginButton;
     public Text textOverLoginButton;
+    public Stage stage;
+    public Parent root;
 
     public void clickedOnLoginButton(ActionEvent actionEvent) throws HashCode.CannotPerformOperationException, SQLException, HashCode.InvalidHashException, IOException {
         try {
             int number = UserValidation.isUser(username.getText(), password.getText());
 
-            Stage stage;
-            Parent root;
+
 
             Account.setLoggedInUsername(username.getText());
 
@@ -58,7 +62,14 @@ public class LoginController {
 
     }
 
-    public void customerLoginCheckBox(ActionEvent actionEvent) {
+    public void customerLoginCheckBox(ActionEvent actionEvent) throws IOException {
+
+        stage = (Stage) loginButton.getScene().getWindow();
+        root = FXMLLoader.load(getClass().getResource("/Login/CustomerLogin.fxml"));
+        Scene scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
+
 
     }
 
