@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="aPresentation.Controller.CreateNewAccountController">
+   <children>
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#c5cbd0" height="224.0" layoutX="111.0" layoutY="90.0" stroke="#00000045" strokeType="INSIDE" width="368.0" />
+      <TextField fx:id="firstName" layoutX="125.0" layoutY="111.0" promptText="First name" />
+      <TextField fx:id="lastName" layoutX="309.0" layoutY="111.0" prefHeight="27.0" prefWidth="147.0" promptText="Last name" />
+      <TextField fx:id="username" layoutX="125.0" layoutY="154.0" prefHeight="25.0" prefWidth="333.0" promptText="Username" />
+      <Button fx:id="confirmButton" layoutX="217.0" layoutY="336.0" mnemonicParsing="false" onAction="#clickedOnConfirmButton" prefHeight="25.0" prefWidth="156.0" text="Confirm" />
+      <MenuBar layoutY="2.0" prefHeight="25.0" prefWidth="600.0">
+         <menus>
+            <Menu mnemonicParsing="false" text="Menu">
+               <items>
+                  <MenuItem mnemonicParsing="false" text="Browse menu" />
+                  <MenuItem mnemonicParsing="false" text="Edit Accounts" />
+                  <MenuItem mnemonicParsing="false" text="Create new admin" />
+                  <MenuItem mnemonicParsing="false" text="Logout" />
+               </items>
+            </Menu>
+         </menus>
+      </MenuBar>
+      <Text layoutX="170.0" layoutY="69.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Create a new Account">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </Text>
+      <TextField fx:id="email" layoutX="125.0" layoutY="188.0" prefHeight="25.0" prefWidth="333.0" promptText="Email" />
+      <TextField fx:id="password" layoutX="125.0" layoutY="222.0" prefHeight="25.0" prefWidth="333.0" promptText="Password" />
+      <TextField fx:id="confirmPassword" layoutX="125.0" layoutY="256.0" prefHeight="25.0" prefWidth="333.0" promptText="Confirm Password" />
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#f2f2f2" height="31.0" layoutX="70.0" stroke="#0000001d" strokeType="INSIDE" width="145.0" />
+      <Text fx:id="usernameMenuBar" layoutX="79.0" layoutY="21.0" strokeType="OUTSIDE" strokeWidth="0.0" text="&quot;Username&quot;" />
+      <CheckBox fx:id="checkBoxAdmin" layoutX="127.0" layoutY="289.0" mnemonicParsing="false" text="Admin" />
+      <Text fx:id="textRightToAdminCheckBox" layoutX="200.0" layoutY="303.0" strokeType="OUTSIDE" strokeWidth="0.0" text="If not checked account will be Employee" />
+   </children>
+</AnchorPane>
