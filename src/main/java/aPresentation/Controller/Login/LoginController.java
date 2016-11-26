@@ -3,6 +3,8 @@ package aPresentation.Controller.Login;
 import BusinessLogic.Account.Account;
 import BusinessLogic.HashCode;
 import BusinessLogic.UserValidation;
+import Dao.AccountDao;
+import Dao.Database;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -11,6 +13,8 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
@@ -28,9 +32,19 @@ public class LoginController {
     public TextField username;
     public TextField password;
     public Button loginButton;
+
+    public AnchorPane anchorPane;
     public Text textOverLoginButton;
+
     public Stage stage;
     public Parent root;
+
+
+    @FXML
+    public void initialize() throws SQLException {
+        UserValidation.startConnectionToDB();
+    }
+
 
     public void clickedOnLoginButton(ActionEvent actionEvent) throws HashCode.CannotPerformOperationException, SQLException, HashCode.InvalidHashException, IOException {
         try {
@@ -59,7 +73,7 @@ public class LoginController {
         catch (SQLNonTransientConnectionException e){
             textOverLoginButton.setText("Could not connect to Online Database");
         }
-        catch (NullPointerException e){
+        catch (StringIndexOutOfBoundsException e){
             textOverLoginButton.setText("Username or Password is incorrect");
             password.clear();
         }
@@ -86,18 +100,19 @@ public class LoginController {
         if(keyEvent.getCode().toString().equals("ENTER"))
             try {
                 clickedOnLoginButton(new ActionEvent());
-            } catch (HashCode.CannotPerformOperationException e) {
-                e.printStackTrace();
-            } catch (SQLException e) {
-                e.printStackTrace();
-            } catch (HashCode.InvalidHashException e) {
-                e.printStackTrace();
-            } catch (IOException e) {
-                e.printStackTrace();
+            } catch (Exception e){
+            e.printStackTrace();
             }
     }
 
     public void keyPressedPassword(KeyEvent keyEvent) {
+        keyPressedUsername(keyEvent);
+    }
+
+    public void onMousePressedAnchorPane(MouseEvent mouseEvent) {
+        anchorPane.requestFocus();
+    }
+    public void keyPressedAnchorPane(KeyEvent keyEvent) {
         keyPressedUsername(keyEvent);
     }
 }

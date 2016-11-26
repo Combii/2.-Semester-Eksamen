@@ -18,6 +18,7 @@ public class BrowseMenuController {
     public MenuItem createNewAccountMenuBar;
     public AnchorPane splitPane;
 
+
     public void clickedCreateNewAccountMenuBar(ActionEvent actionEvent) throws IOException {
         Stage stage;
         Parent root;
