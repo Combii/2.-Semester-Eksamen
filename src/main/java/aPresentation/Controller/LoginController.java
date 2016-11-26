@@ -1,14 +1,10 @@
 package aPresentation.Controller;
 
-import BusinessLogic.PasswordStorage;
+import BusinessLogic.HashCode;
 import BusinessLogic.UserValidation;
 import javafx.event.ActionEvent;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.TextField;
 
-import java.io.IOException;
 import java.sql.SQLException;
 
 /**
@@ -19,7 +15,7 @@ public class LoginController {
     public TextField username;
     public TextField password;
 
-    public void clickedOnLoginButton(ActionEvent actionEvent) throws PasswordStorage.CannotPerformOperationException, SQLException, PasswordStorage.InvalidHashException {
+    public void clickedOnLoginButton(ActionEvent actionEvent) throws HashCode.CannotPerformOperationException, SQLException, HashCode.InvalidHashException {
         int number =  UserValidation.isUser(username.getText(), password.getText());
 
         if(number == 0){

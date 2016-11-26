@@ -13,7 +13,7 @@ import javax.xml.bind.DatatypeConverter;
  * we downloaded this from https://github.com/defuse/password-hashing
  */
 
-public class PasswordStorage
+public class HashCode
 {
 
     @SuppressWarnings("serial")

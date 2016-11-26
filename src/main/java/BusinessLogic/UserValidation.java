@@ -11,7 +11,7 @@ public class UserValidation {
 
     //Returns 0 = Admin, 1 = Employee, 2 = Customer and -1 if user is not in DB, -2 Password typed is not equal to DB
 
-   public static int isUser(String username, String password) throws SQLException, PasswordStorage.InvalidHashException, PasswordStorage.CannotPerformOperationException {
+   public static int isUser(String username, String password) throws SQLException, HashCode.InvalidHashException, HashCode.CannotPerformOperationException {
             AccountDao accountDao = new AccountDao();
 
         if(!accountDao.userExists(username)){
@@ -20,7 +20,7 @@ public class UserValidation {
 
         String hashPassword = accountDao.getHashPassword(username);
 
-        if(!PasswordStorage.verifyPassword(password, hashPassword)){
+        if(!HashCode.verifyPassword(password, hashPassword)){
             return -2;
         }
 
