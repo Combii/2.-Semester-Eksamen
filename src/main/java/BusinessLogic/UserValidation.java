@@ -29,6 +29,4 @@ public class UserValidation {
         accountDao.closeConnection();
         return userType;
     }
-
-
 }
