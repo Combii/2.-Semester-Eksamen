@@ -122,6 +122,6 @@ buildNumber.properties
 .mvn/timing.properties
 
 # Our stuff
-.idea
+# .idea
 .iml
 
