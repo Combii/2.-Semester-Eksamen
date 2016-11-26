@@ -20,11 +20,9 @@ public class BrowseMenuController {
 
 
     public void clickedCreateNewAccountMenuBar(ActionEvent actionEvent) throws IOException {
-        Stage stage;
-        Parent root;
-            stage = (Stage) splitPane.getScene().getWindow();
+        Stage stage = (Stage) splitPane.getScene().getWindow();
             //load up OTHER FXML document
-            root = FXMLLoader.load(getClass().getResource("/Admin Task/Create new account.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("/Admin Task/Create new account.fxml"));
             //create a new scene with root and set the stage
             Scene scene = new Scene(root);
             stage.setScene(scene);

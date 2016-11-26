@@ -67,8 +67,6 @@ public class AccountDao {
     private void closeStatementAndResultsetAndConnection(){
         try { rs.close(); } catch (Exception e) { /* ignored */ }
         try { ps.close(); } catch (Exception e) { /* ignored */ }
-        try { conn.close(); } catch (Exception e) { /* ignored */ }
-
     }
 
 }

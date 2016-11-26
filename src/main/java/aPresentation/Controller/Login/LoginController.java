@@ -42,7 +42,12 @@ public class LoginController {
 
     @FXML
     public void initialize() throws SQLException {
-        UserValidation.startConnectionToDB();
+        try {
+            UserValidation.startConnectionToDB();
+        }
+        catch (SQLNonTransientConnectionException e){
+            textOverLoginButton.setText("Could not connect to Online Database");
+        }
     }
 
 
@@ -69,9 +74,6 @@ public class LoginController {
                 textOverLoginButton.setText("Password typed does not match to username");
                 password.clear();
             }
-        }
-        catch (SQLNonTransientConnectionException e){
-            textOverLoginButton.setText("Could not connect to Online Database");
         }
         catch (StringIndexOutOfBoundsException e){
             textOverLoginButton.setText("Username or Password is incorrect");
@@ -112,7 +114,5 @@ public class LoginController {
     public void onMousePressedAnchorPane(MouseEvent mouseEvent) {
         anchorPane.requestFocus();
     }
-    public void keyPressedAnchorPane(KeyEvent keyEvent) {
-        keyPressedUsername(keyEvent);
-    }
+
 }
