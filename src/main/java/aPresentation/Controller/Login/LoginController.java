@@ -12,12 +12,11 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.text.Text;
-import javafx.stage.Modality;
 import javafx.stage.Stage;
-import javafx.stage.StageStyle;
 
 import java.io.IOException;
 import java.sql.SQLException;
+import java.sql.SQLNonTransientConnectionException;
 
 /**
  * Created by David Stovlbaek
@@ -36,8 +35,6 @@ public class LoginController {
     public void clickedOnLoginButton(ActionEvent actionEvent) throws HashCode.CannotPerformOperationException, SQLException, HashCode.InvalidHashException, IOException {
         try {
             int number = UserValidation.isUser(username.getText(), password.getText());
-
-
 
             Account.setLoggedInUsername(username.getText());
 
@@ -59,11 +56,13 @@ public class LoginController {
                 password.clear();
             }
         }
+        catch (SQLNonTransientConnectionException e){
+            textOverLoginButton.setText("Could not connect to Online Database");
+        }
         catch (NullPointerException e){
             textOverLoginButton.setText("Username or Password is incorrect");
             password.clear();
         }
-
     }
 
     public void customerLoginCheckBox(ActionEvent actionEvent) throws IOException {
