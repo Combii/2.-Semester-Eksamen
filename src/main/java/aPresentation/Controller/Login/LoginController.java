@@ -64,6 +64,7 @@ public class LoginController {
                 //create a new scene with root and set the stage
                 Scene scene = new Scene(root);
                 stage.setScene(scene);
+                stage.centerOnScreen();
                 stage.show();
             }
             else if(number == -1){

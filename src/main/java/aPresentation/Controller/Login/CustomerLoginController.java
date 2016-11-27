@@ -37,6 +37,7 @@ public class CustomerLoginController {
         root = FXMLLoader.load(getClass().getResource("/Login/Login.fxml"));
         Scene scene = new Scene(root);
         stage.setScene(scene);
+        stage.centerOnScreen();
         stage.show();
     }
 

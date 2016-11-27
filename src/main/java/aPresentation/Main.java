@@ -15,6 +15,7 @@ public class Main extends Application {
         primaryStage.setTitle("Another CC Login");
         primaryStage.setResizable(false);
         primaryStage.setScene(new Scene(root));
+        primaryStage.centerOnScreen();
         primaryStage.show();
     }
 
