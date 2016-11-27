@@ -34,6 +34,28 @@ public class UserValidation {
         return userType;
     }
 
+    public static boolean isValidUsername(String username) throws SQLException {
+
+        AccountDao dao = new AccountDao();
+
+        //Is username already in DB?
+        if(!dao.userExists(username)) {
+
+            return username.matches("^[A-Za-z0-9_]{8,20}$");
+
+        }
+
+        return false;
+
+    }
+
+    public static boolean isValidPassword(String password) {
+
+        //Must be between 8 and 15 characters, contain at least four numbers and one upper case.
+        return password.matches("^(?=.*[A-Z])(?=.*[0-9]{4,}).{8,15}$");
+        
+    }
+
     public static void startConnectionToDB() throws SQLException {
         Database.startConnection();
     }
