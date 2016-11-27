@@ -62,7 +62,6 @@ public class AccountDao {
         return rInt;
     }
 
-
     // Need to close ResultSet, PreparedStatement and connection after use
     private void closeStatementAndResultsetAndConnection(){
         try { rs.close(); } catch (Exception e) { /* ignored */ }
