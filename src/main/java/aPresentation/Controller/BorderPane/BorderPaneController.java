@@ -33,7 +33,7 @@ public class BorderPaneController {
 
         username.setText(Account.getLoggedInUsername());
         //Makes rectangle fit with username
-        double width = new Text(username.getText()).getLayoutBounds().getWidth();
+        double width = username.getLayoutBounds().getWidth();
         rectangleUsername.setWidth(width+20);
     }
 
