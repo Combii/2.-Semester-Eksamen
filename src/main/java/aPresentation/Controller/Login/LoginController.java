@@ -3,8 +3,6 @@ package aPresentation.Controller.Login;
 import BusinessLogic.Account.Account;
 import BusinessLogic.HashCode;
 import BusinessLogic.UserValidation;
-import Dao.AccountDao;
-import Dao.Database;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -60,7 +58,7 @@ public class LoginController {
             if (number == 0) {
                 stage = (Stage) loginButton.getScene().getWindow();
                 //load up OTHER FXML document
-                root = FXMLLoader.load(getClass().getResource("/Admin Task/Browse Menu/BrowseMenu.fxml"));
+                root = FXMLLoader.load(getClass().getResource("/Admin Task/BorderPane/BorderPane.fxml"));
                 //create a new scene with root and set the stage
                 Scene scene = new Scene(root);
                 stage.setScene(scene);

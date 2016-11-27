@@ -3,9 +3,6 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ComboBox?>
-<?import javafx.scene.control.Menu?>
-<?import javafx.scene.control.MenuBar?>
-<?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.SplitPane?>
 <?import javafx.scene.control.TextField?>
@@ -14,9 +11,9 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="aPresentation.Controller.BrowseMenuController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="aPresentation.Controller.BrowseMenu.BrowseMenuController">
    <children>
-      <SplitPane dividerPositions="0.21943887775551102" layoutX="189.0" layoutY="28.0" prefHeight="672.0" prefWidth="1000.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="28.0">
+      <SplitPane dividerPositions="0.21943887775551102" layoutX="189.0" prefHeight="700.0" prefWidth="1000.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <items>
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
                <children>
@@ -59,17 +56,5 @@
             </AnchorPane>
         </items>
       </SplitPane>
-      <MenuBar prefHeight="29.0" prefWidth="1000.0">
-         <menus>
-            <Menu mnemonicParsing="false" text="Menu">
-               <items>
-                  <MenuItem mnemonicParsing="false" text="Browse menu" />
-                  <MenuItem mnemonicParsing="false" text="Edit Accounts" />
-                  <MenuItem fx:id="createNewAccountMenuBar" mnemonicParsing="false" onAction="#clickedCreateNewAccountMenuBar" text="Create new Account" />
-                  <MenuItem mnemonicParsing="false" text="Logout" />
-               </items>
-            </Menu>
-         </menus>
-      </MenuBar>
    </children>
 </AnchorPane>

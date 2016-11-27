@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.text.Text?>
+
+<BorderPane fx:id="borderPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="aPresentation.Controller.BorderPane.BorderPaneController">
+   <top>
+      <AnchorPane prefHeight="22.0" prefWidth="600.0" BorderPane.alignment="CENTER">
+         <children>
+            <MenuBar prefHeight="19.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+              <menus>
+                <Menu mnemonicParsing="false" text="Menu">
+                  <items>
+                    <MenuItem mnemonicParsing="false" onAction="#clickedBrowseMenu" text="Browse Menu" />
+                        <MenuItem mnemonicParsing="false" onAction="#clickedEditAccounts" text="Edit Accounts" />
+                        <MenuItem mnemonicParsing="false" onAction="#clickedCreateNewAccount" text="Create new Account" />
+                        <MenuItem mnemonicParsing="false" onAction="#clickedLogout" text="Logout" />
+                  </items>
+                </Menu>
+              </menus>
+            </MenuBar>
+            <Rectangle fx:id="rectangleUsername" arcHeight="5.0" arcWidth="5.0" fill="#f2f2f2" height="30.0" layoutX="70.0" stroke="#e3e1e1" strokeType="INSIDE" width="125.0" />
+            <Text fx:id="username" layoutX="79.0" layoutY="18.0" strokeType="OUTSIDE" strokeWidth="0.0" text="&quot;Username&quot;" />
+         </children>
+      </AnchorPane>
+   </top>
+</BorderPane>
