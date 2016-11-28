@@ -29,9 +29,7 @@ public class UserValidation {
             return -2;
         }
 
-        int userType = accountDao.getUserType(username);
-
-        return userType;
+       return accountDao.getUserType(username);
     }
 
     public static boolean isValidUsername(String username) throws SQLException {
