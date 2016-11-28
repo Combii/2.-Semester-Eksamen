@@ -13,17 +13,11 @@ public class GeneratePassword {
         String password = "";
         Random r = new Random();
 
-        for (int i = 0; i <= 9; i++) {
+        for (int i = 0; i <= 12; i++) {
             password += symbols.charAt(r.nextInt(symbols.length()));
         }
 
         return password;
-    }
-
-    public static void main(String[] args) {
-        for (int i = 0; i < 1000; i++) {
-            System.out.println(generatePassword());
-        }
     }
 
 }
