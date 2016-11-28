@@ -46,7 +46,9 @@ public class CustomerLoginController {
 
                 stage = (Stage) loginButton.getScene().getWindow();
                 root = FXMLLoader.load(getClass().getResource("/Login/Customermenu.fxml"));
-
+                Scene scene = new Scene(root);
+                stage.setScene(scene);
+                stage.show();
             }
         } catch (SQLException e) {
             passwordWasIncorrect.setText("Password incorrect");
