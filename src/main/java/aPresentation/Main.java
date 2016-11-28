@@ -13,10 +13,13 @@ public class Main extends Application {
     public void start(Stage primaryStage) throws Exception {
         Parent root = FXMLLoader.load(getClass().getResource("/Login/Login.fxml"));
         primaryStage.setTitle("Another CC Login");
-        primaryStage.setResizable(false);
+        primaryStage.setResizable(true);
         primaryStage.setScene(new Scene(root));
         primaryStage.centerOnScreen();
         primaryStage.show();
+
+
+
     }
 
 
