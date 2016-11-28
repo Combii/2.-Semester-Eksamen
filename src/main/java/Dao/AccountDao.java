@@ -9,7 +9,7 @@ import java.sql.SQLException;
 /**
  * Created by Boris Grumwald on 25/11/2016.
  */
-public class AccountDao {
+public class AccountDao implements AccountDaoInterface {
 
     private Connection conn;
     private PreparedStatement ps = null;
@@ -20,6 +20,7 @@ public class AccountDao {
         conn = d.getConnection();
     }
 
+    @Override
     public boolean userExists(String username) throws SQLException{
         PreparedStatement ps = conn.prepareStatement("SELECT EXISTS(SELECT * FROM Account WHERE username = '" + username + "');");
         ResultSet rs = ps.executeQuery();
@@ -30,6 +31,7 @@ public class AccountDao {
         return rBoolean;
     }
 
+    @Override
     public String getUsername(String username) throws SQLException {
         try {
             PreparedStatement ps = conn.prepareStatement("SELECT username FROM Account WHERE username = '" + username + "';");
@@ -44,6 +46,7 @@ public class AccountDao {
         }
     }
 
+    @Override
     public String getHashPassword(String username) throws SQLException {
         PreparedStatement ps = conn.prepareStatement("SELECT password_hash FROM Account WHERE username = '" + username + "';");
         ResultSet rs = ps.executeQuery();
@@ -53,6 +56,7 @@ public class AccountDao {
         return rString;
     }
 
+    @Override
     public int getUserTypeByUsername(String username) throws SQLException {
         PreparedStatement ps = conn.prepareStatement("SELECT userType FROM Account WHERE username = '" + username + "';");
         ResultSet rs = ps.executeQuery();
@@ -63,6 +67,7 @@ public class AccountDao {
     }
 
 
+    @Override
     public int getUserTypeByPassword(String passwordHash) throws SQLException {
 
         PreparedStatement ps = conn.prepareStatement("SELECT userType FROM Account WHERE password_hash = '" + passwordHash + "';");
