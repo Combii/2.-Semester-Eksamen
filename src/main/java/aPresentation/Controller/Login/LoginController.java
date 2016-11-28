@@ -53,9 +53,8 @@ public class LoginController {
         try {
             int number = UserValidation.isUser(username.getText(), password.getText());
 
-            Account.setLoggedInUsername(username.getText());
-
             if (number == 0) {
+                Account.setLoggedInUsername(username.getText());
                 stage = (Stage) loginButton.getScene().getWindow();
                 //load up OTHER FXML document
                 root = FXMLLoader.load(getClass().getResource("/Admin Task/BorderPane/BorderPane.fxml"));
