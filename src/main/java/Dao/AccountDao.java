@@ -62,6 +62,7 @@ public class AccountDao {
         return rInt;
     }
 
+
     public int getUserTypeByPassword(String passwordHash) throws SQLException {
 
         PreparedStatement ps = conn.prepareStatement("SELECT userType FROM Account WHERE password_hash = '" + passwordHash + "';");
@@ -72,7 +73,6 @@ public class AccountDao {
         return rInt;
 
     }
-
 
     // Need to close ResultSet, PreparedStatement and connection after use
     private void closeStatementAndResultsetAndConnection(){

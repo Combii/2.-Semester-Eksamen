@@ -28,9 +28,9 @@ public class UserValidation {
             return -2;
         }
 
-        int userType = accountDao.getUserTypeByUsername(username);
 
-        return userType;
+       return accountDao.getUserType(username);
+
     }
 
     public static boolean isCustomer(String password) throws HashCode.CannotPerformOperationException, SQLException {
