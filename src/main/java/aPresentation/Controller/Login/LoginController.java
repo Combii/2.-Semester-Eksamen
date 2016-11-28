@@ -97,7 +97,6 @@ public class LoginController {
 
     }
 
-
     public void keyPressedUsername(KeyEvent keyEvent) {
         textOverLoginButton.setText("");
         if(keyEvent.getCode().toString().equals("ENTER"))
