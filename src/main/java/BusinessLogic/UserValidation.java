@@ -29,7 +29,7 @@ public class UserValidation {
         }
 
 
-       return accountDao.getUserType(username);
+       return accountDao.getUserTypeByUsername(username);
 
     }
 
