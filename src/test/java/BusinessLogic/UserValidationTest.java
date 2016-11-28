@@ -14,6 +14,11 @@ public class UserValidationTest {
     }
 
     @Test
+    public void isCustomer() throws Exception {
+
+    }
+
+    @Test
     public void isValidUsername() throws Exception {
 
     }

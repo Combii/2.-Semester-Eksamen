@@ -53,13 +53,25 @@ public class AccountDao {
         return rString;
     }
 
-    public int getUserType(String username) throws SQLException {
+    public int getUserTypeByUsername(String username) throws SQLException {
         PreparedStatement ps = conn.prepareStatement("SELECT userType FROM Account WHERE username = '" + username + "';");
         ResultSet rs = ps.executeQuery();
         rs.next();
         int rInt = rs.getInt(1);
         closeStatementAndResultsetAndConnection();
         return rInt;
+    }
+
+
+    public int getUserTypeByPassword(String passwordHash) throws SQLException {
+
+        PreparedStatement ps = conn.prepareStatement("SELECT userType FROM Account WHERE password_hash = '" + passwordHash + "';");
+        ResultSet rs = ps.executeQuery();
+        rs.next();
+        int rInt = rs.getInt(1);
+        closeStatementAndResultsetAndConnection();
+        return rInt;
+
     }
 
     // Need to close ResultSet, PreparedStatement and connection after use
