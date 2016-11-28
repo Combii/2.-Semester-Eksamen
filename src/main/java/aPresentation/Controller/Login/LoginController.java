@@ -64,6 +64,9 @@ public class LoginController {
                 stage.setScene(scene);
                 stage.centerOnScreen();
                 stage.show();
+                stage.setHeight(750);
+                stage.setWidth(1000);
+                stage.centerOnScreen();
             }
             else if(number == -1){
                 textOverLoginButton.setText("Username or Password is incorrect");
