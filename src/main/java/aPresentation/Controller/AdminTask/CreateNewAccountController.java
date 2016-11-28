@@ -2,9 +2,6 @@ package aPresentation.Controller.AdminTask;
 
 import BusinessLogic.UserValidation;
 import javafx.event.ActionEvent;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.TextField;
@@ -42,10 +39,12 @@ public class CreateNewAccountController{
     if(!UserValidation.isValidUsername(username.getText())){
         textWarning.setText("Username must be between 8-20 characters and only letters");
     }
+    if(!password.getText().equals(confirmPassword.getText())){
+        textWarning.setText("Password does not match");
+    }
     if(!UserValidation.isValidPassword(password.getText())){
         textWarning.setText("Password must be between 8-15 characters, least four numbers and one upper case");
     }
-
 
     }
 

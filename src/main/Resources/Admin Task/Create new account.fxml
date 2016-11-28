@@ -11,21 +11,21 @@
 
 <AnchorPane fx:id="anchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#clickedMouseAnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="aPresentation.Controller.AdminTask.CreateNewAccountController">
    <children>
-      <Rectangle fx:id="rectangle" arcHeight="5.0" arcWidth="5.0" fill="#c5cbd0" height="224.0" layoutX="111.0" layoutY="90.0" onMouseClicked="#clickedMouseRectangle" stroke="#00000045" strokeType="INSIDE" width="368.0" />
-      <TextField fx:id="firstName" layoutX="125.0" layoutY="111.0" onKeyPressed="#keyPressedFirstName" promptText="First name" />
-      <TextField fx:id="lastName" layoutX="309.0" layoutY="111.0" onKeyPressed="#keyPressedLastName" prefHeight="27.0" prefWidth="147.0" promptText="Last name" />
-      <TextField fx:id="username" layoutX="125.0" layoutY="154.0" onKeyPressed="#keyPressedUsername" prefHeight="25.0" prefWidth="333.0" promptText="Username" />
-      <Button fx:id="confirmButton" layoutX="217.0" layoutY="344.0" mnemonicParsing="false" onAction="#clickedOnConfirmButton" prefHeight="25.0" prefWidth="156.0" text="Confirm" />
       <Text layoutX="170.0" layoutY="69.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Create a new Account">
          <font>
             <Font size="24.0" />
          </font>
       </Text>
+      <Rectangle fx:id="rectangle" arcHeight="5.0" arcWidth="5.0" fill="#c5cbd0" height="224.0" layoutX="111.0" layoutY="90.0" onMouseClicked="#clickedMouseRectangle" stroke="#00000045" strokeType="INSIDE" width="368.0" />
+      <TextField fx:id="firstName" layoutX="125.0" layoutY="111.0" onKeyPressed="#keyPressedFirstName" promptText="First name" />
+      <TextField fx:id="lastName" layoutX="309.0" layoutY="111.0" onKeyPressed="#keyPressedLastName" prefHeight="27.0" prefWidth="147.0" promptText="Last name" />
+      <TextField fx:id="username" layoutX="125.0" layoutY="154.0" onKeyPressed="#keyPressedUsername" prefHeight="25.0" prefWidth="333.0" promptText="Username" />
       <TextField fx:id="email" layoutX="125.0" layoutY="188.0" onKeyPressed="#keyPressedEmail" prefHeight="25.0" prefWidth="333.0" promptText="Email" />
+      <PasswordField fx:id="password" layoutX="125.0" layoutY="222.0" onKeyPressed="#keyPressedPassword" prefHeight="27.0" prefWidth="333.0" promptText="Password" />
+      <PasswordField fx:id="confirmPassword" layoutX="125.0" layoutY="257.0" onKeyPressed="#keyPressedConfirmPassword" prefHeight="27.0" prefWidth="333.0" promptText="Confirm Password" />
       <CheckBox fx:id="checkBoxAdmin" layoutX="127.0" layoutY="289.0" mnemonicParsing="false" text="Admin" />
       <Text fx:id="textRightToAdminCheckBox" layoutX="200.0" layoutY="303.0" strokeType="OUTSIDE" strokeWidth="0.0" text="If not checked account will be Employee" />
       <Text fx:id="textWarning" fill="RED" layoutX="18.0" layoutY="333.0" strokeType="OUTSIDE" strokeWidth="0.0" textAlignment="CENTER" wrappingWidth="547.999986410141" />
-      <PasswordField fx:id="password" layoutX="125.0" layoutY="222.0" onKeyPressed="#keyPressedPassword" prefHeight="27.0" prefWidth="333.0" promptText="Password" />
-      <PasswordField fx:id="confirmPassword" layoutX="125.0" layoutY="257.0" onKeyPressed="#keyPressedConfirmPassword" prefHeight="27.0" prefWidth="333.0" promptText="Confirm Password" />
+      <Button fx:id="confirmButton" layoutX="217.0" layoutY="344.0" mnemonicParsing="false" onAction="#clickedOnConfirmButton" prefHeight="25.0" prefWidth="156.0" text="Confirm" />
    </children>
 </AnchorPane>
