@@ -1,7 +1,6 @@
 package BusinessLogic;
 
 import Dao.AccountDao;
-import Dao.AccountDaoInterface;
 import Dao.Database;
 
 import java.sql.SQLException;
@@ -14,33 +13,33 @@ public class UserValidation {
     //Returns 0 = Admin, 1 = Employee, 2 = Customer, -1 if user is not in DB or incorrect typed username and -2 Password typed is not equal to DB
 
     public static int isUser(String username, String password) throws SQLException, HashCode.InvalidHashException, HashCode.CannotPerformOperationException {
-        AccountDaoInterface accountDaoInterface = new AccountDao();
+        AccountDao accountDao = new AccountDao();
 
-        String checkUsername = accountDaoInterface.getUsername(username);
+        String checkUsername = accountDao.getUsername(username);
         if (checkUsername != null) {
             if (!checkUsername.equals(username))
                 return -1;
         } else
             return -1;
 
-        String hashPassword = accountDaoInterface.getHashPassword(username);
+        String hashPassword = accountDao.getHashPassword(username);
 
         if (!HashCode.verifyPassword(password, hashPassword)) {
             return -2;
         }
 
 
-       return accountDaoInterface.getUserTypeByUsername(username);
+       return accountDao.getUserTypeByUsername(username);
 
     }
 
     public static boolean isCustomer(String password) throws HashCode.CannotPerformOperationException, SQLException {
 
-        AccountDaoInterface accountDaoInterface = new AccountDao();
+        AccountDao accountDao = new AccountDao();
 
         String hashPassword = HashCode.createHash(password);
 
-        int userType = accountDaoInterface.getUserTypeByPassword(hashPassword);
+        int userType = accountDao.getUserTypeByPassword(hashPassword);
 
         return userType == 2;
 
@@ -48,7 +47,7 @@ public class UserValidation {
 
     public static boolean isValidUsername(String username) throws SQLException {
 
-        AccountDaoInterface dao = new AccountDao();
+        AccountDao dao = new AccountDao();
 
         //Is username already in DB?
         //Must be between 8-20 characters and contain only letters, numbers
