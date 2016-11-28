@@ -37,14 +37,8 @@ public class UserValidation {
         AccountDao dao = new AccountDao();
 
         //Is username already in DB?
-        if(!dao.userExists(username)) {
-
-            return username.matches("^[A-Za-z0-9_]{8,20}$");
-
-        }
-
-        return false;
-
+        //Must be between 8-20 characters and contain only letters, numbers
+        return !dao.userExists(username) && username.matches("^[\\p{L}\\p{M}*+]{8,20}$");
     }
 
     public static boolean isValidPassword(String password) {
