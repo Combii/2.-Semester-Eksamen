@@ -4,12 +4,12 @@ package BusinessLogic.Account;
  * Created by David Stovlbaek
  * 29 November 2016.
  */
-public class AAccount {
+public class Account {
     private String username;
     private String password;
     private int userType;
 
-    public AAccount(String username, String password, int userType) {
+    public Account(String username, String password, int userType) {
         this.username = username;
         this.password = password;
         this.userType = userType;
