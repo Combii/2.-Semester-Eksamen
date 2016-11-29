@@ -1,7 +1,7 @@
 package aPresentation.Controller.BorderPane;
 
 
-import BusinessLogic.Account.Account;
+import aPresentation.ActiveAccountInformation.ActiveAccount;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -31,7 +31,7 @@ public class BorderPaneController {
     public void initialize() throws IOException {
         changeBorderPaneCenter("/Admin Task/Browse Menu/BrowseMenu.fxml");
 
-        username.setText(Account.getLoggedInUsername());
+        username.setText(ActiveAccount.getLoggedInUsername());
         //Makes rectangle fit with username
         double width = username.getLayoutBounds().getWidth();
         rectangleUsername.setWidth(width+20);
