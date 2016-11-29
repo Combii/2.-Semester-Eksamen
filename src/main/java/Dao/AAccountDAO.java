@@ -34,7 +34,7 @@ public class AAccountDAO implements DAO<Account> {
         int userType = account.getUserType();
 
         if (account instanceof Customer) {
-            ps = conn.prepareStatement("INSERT INTO Account VALUES (NULL, '"+name+"','"+password+"',"+userType+");");
+            ps = conn.prepareStatement("INSERT INTO Account VALUES (ID, '"+name+"','"+password+"',"+userType+");");
             ps.executeUpdate();
         } else {
             Administrator a = (Administrator) account;
@@ -42,10 +42,20 @@ public class AAccountDAO implements DAO<Account> {
             String email = a.getEmail();
             String lastName = a.getLastName();
 
-            ps = conn.prepareStatement("INSERT INTO Account VALUES (NULL, '" + username + "','" + password + "'," + userType + ");");
+
+            ps = conn.prepareStatement("INSERT INTO Account VALUES (ID, '" + username + "','" + password + "'," + userType + ");");
             ps.executeUpdate();
-            ps = conn.prepareStatement("INSERT INTO UserInformation VALUES (NULL, '" + name + "','" + lastName + "', '" + email + "');");
+
+            //Is needed to check latest ID inserted into Account. Could also do AUTO_INCREMENT in table UserInformation
+            PreparedStatement ps = conn.prepareStatement("SELECT * FROM Account WHERE ID = (SELECT MAX(ID) FROM Account)");
+            ResultSet rs = ps.executeQuery();
+            rs.next();
+            int id = rs.getInt(1);
+
+
+            ps = conn.prepareStatement("INSERT INTO UserInformation VALUES ('" + id + "', '" + name + "','" + lastName + "', '" + email + "');");
             ps.executeUpdate();
+
         }
 
 
