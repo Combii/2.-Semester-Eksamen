@@ -46,7 +46,7 @@ public class AAccountDAO implements DAO<Account> {
             ps = conn.prepareStatement("INSERT INTO Account VALUES (ID, '" + username + "','" + password + "'," + userType + ");");
             ps.executeUpdate();
 
-
+            //Is needed to check latest ID inserted into Account. Could also do AUTO_INCREMENT in table UserInformation
             PreparedStatement ps = conn.prepareStatement("SELECT * FROM Account WHERE ID = (SELECT MAX(ID) FROM Account)");
             ResultSet rs = ps.executeQuery();
             rs.next();
