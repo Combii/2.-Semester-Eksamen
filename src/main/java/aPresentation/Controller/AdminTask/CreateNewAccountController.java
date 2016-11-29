@@ -41,6 +41,9 @@ public class CreateNewAccountController{
     if(!UserValidation.isValidUsername(username.getText())){
         textWarning.setText("Username must be between 8-20 characters and only letters");
     }
+    if(!UserValidation.isValidEmail(email.getText())){
+            textWarning.setText("Email is not valid");
+    }
     if(!password.getText().equals(confirmPassword.getText())){
         textWarning.setText("Password does not match");
     }
