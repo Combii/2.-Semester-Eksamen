@@ -40,7 +40,10 @@ public class CreateNewAccountController{
     public void clickedOnConfirmButton(ActionEvent actionEvent) throws SQLException {
 
     if(!UserValidation.isValidUsername(username.getText())){
-        textWarning.setText("Username must be between 8-20 characters and only letters");
+        textWarning.setText("Username must be between 4-20 characters and only letters");
+    }
+    else if(UserValidation.userExist(username.getText())){
+        textWarning.setText("Username is already saved in Database");
     }
     else if(!UserValidation.isValidEmail(email.getText())){
             textWarning.setText("Email is not valid");

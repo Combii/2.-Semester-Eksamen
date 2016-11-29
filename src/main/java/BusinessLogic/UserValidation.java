@@ -1,6 +1,9 @@
 package BusinessLogic;
 
+import BusinessLogic.Account.Account;
+import Dao.AAccountDAO;
 import Dao.AccountDao;
+import Dao.DAO;
 import Dao.Database;
 
 import java.sql.SQLException;
@@ -45,13 +48,16 @@ public class UserValidation {
 
     }
 
-    public static boolean isValidUsername(String username) throws SQLException {
+    public static boolean isValidUsername(String username) {
 
+        //Must be between 4-20 characters and contain only letters, numbers
+        return username.matches("^[\\p{L}\\p{M}*+]{4,20}$");
+    }
+
+    public static boolean userExist(String username) throws SQLException{
         AccountDao dao = new AccountDao();
-
-        //Is username already in DB?
-        //Must be between 8-20 characters and contain only letters, numbers
-        return !dao.userExists(username) && username.matches("^[\\p{L}\\p{M}*+]{8,20}$");
+       //Is username already in DB?
+     return dao.userExists(username);
     }
 
     public static boolean isValidPassword(String password) {
