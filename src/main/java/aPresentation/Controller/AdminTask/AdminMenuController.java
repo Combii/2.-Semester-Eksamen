@@ -1,9 +1,7 @@
 package aPresentation.Controller.AdminTask;
 
-import Dao.AccountDao;
+import Dao.EditAdminDao;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 
@@ -16,21 +14,27 @@ import java.sql.SQLException;
  */
 public class AdminMenuController {
 
-    @FXML private TextField firstName;
+    @FXML
+    private TextField firstName;
 
-    @FXML private TextField lastName;
+    @FXML
+    private TextField lastName;
 
-    @FXML private TextField userName;
+    @FXML
+    private TextField userName;
 
-    @FXML private TextField email;
+    @FXML
+    private TextField email;
 
-    @FXML private Button confirm;
+    @FXML
+    private Button confirm;
 
-    @FXML private Button delete;
+    @FXML
+    private Button delete;
 
-    @FXML private void handleConfirmButton() throws SQLException {
-        //TODO create connection to database
-        AccountDao ad = new AccountDao();
+    @FXML
+    private void handleConfirmButton() throws SQLException {
+        EditAdminDao ead = new EditAdminDao();
         try {
 
         }
@@ -39,12 +43,11 @@ public class AdminMenuController {
         }
     }
 
-    @FXML private void handleDeleteButton() throws SQLException, IOException {
-        //TODO create connection to database
-        AccountDao ad = new AccountDao();
+    @FXML
+    private void handleDeleteButton() throws SQLException, IOException {
+        EditAdminDao ead = new EditAdminDao();
         try {
-
-
+            ead.deleteAdmin(firstName.getText());
         }
         catch (Exception e) {
             e.printStackTrace();
