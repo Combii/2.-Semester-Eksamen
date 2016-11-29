@@ -2,18 +2,40 @@ package BusinessLogic.Account;
 
 /**
  * Created by David Stovlbaek
- * 26 November 2016.
+ * 29 November 2016.
  */
 public class Account {
-    private static String username;
+    private String username;
+    private String password;
+    private int userType;
 
-    public static String getLoggedInUsername() {
+    public Account(String username, String password, int userType) {
+        this.username = username;
+        this.password = password;
+        this.userType = userType;
+    }
+
+    public String getUsername() {
         return username;
     }
 
-    private Account(){}
+    public String getPassword() {
+        return password;
+    }
 
-    public static void setLoggedInUsername(String username) {
-        Account.username = username.substring(0, 1).toUpperCase() + username.substring(1);;
+    public int getUserType() {
+        return userType;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public void setUserType(int userType) {
+        this.userType = userType;
     }
 }
