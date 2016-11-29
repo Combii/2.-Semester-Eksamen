@@ -1,4 +1,4 @@
-package BusinessLogic.Account;
+package BusinessLogic;
 
 import java.util.Random;
 

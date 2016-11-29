@@ -29,6 +29,7 @@ public class CreateNewAccountController{
     public TextField password;
     public TextField email;
     public TextField confirmPassword;
+
     private int userType = 1;
 
     public Button confirmButton;
