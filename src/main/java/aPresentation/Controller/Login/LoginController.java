@@ -1,6 +1,6 @@
 package aPresentation.Controller.Login;
 
-import BusinessLogic.Account.Account;
+import aPresentation.ActiveAccountInformation.ActiveAccount;
 import BusinessLogic.HashCode;
 import BusinessLogic.UserValidation;
 import javafx.event.ActionEvent;
@@ -54,7 +54,7 @@ public class LoginController {
             int number = UserValidation.isUser(username.getText(), password.getText());
 
             if (number == 0) {
-                Account.setLoggedInUsername(username.getText());
+                ActiveAccount.setLoggedInUsername(username.getText());
                 stage = (Stage) loginButton.getScene().getWindow();
                 //load up OTHER FXML document
                 root = FXMLLoader.load(getClass().getResource("/Admin Task/BorderPane/BorderPane.fxml"));
