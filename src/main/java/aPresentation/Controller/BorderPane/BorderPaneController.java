@@ -42,6 +42,7 @@ public class BorderPaneController {
     }
 
     public void clickedEditAccounts(ActionEvent actionEvent) {
+        changeBorderPaneCenter("/Admin Task/Edit Admin.fxml");
     }
 
     public void clickedCreateNewAccount(ActionEvent actionEvent) throws IOException {
