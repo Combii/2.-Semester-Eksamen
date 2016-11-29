@@ -11,6 +11,7 @@ public class Account {
     private String name;
 
     public Account(String name, String password, int userType) {
+        this.name = name;
         this.password = password;
         this.userType = userType;
     }
