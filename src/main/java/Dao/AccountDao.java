@@ -2,7 +2,6 @@ package Dao;
 
 
 
-import BusinessLogic.Account.Account;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
