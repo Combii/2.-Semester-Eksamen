@@ -12,10 +12,18 @@ public class Database{
 
     private static Database database = null;
     private static Connection connection = null;
+    private static Statement statement;
 
 
     //private constructor to avoid client applications to use constructor
-    private Database() {}
+    private Database() {
+        try {
+            connection = DriverManager.getConnection(url + dbName, userName, password);
+        }
+        catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
 
     public static Database getDatabase() throws SQLException {
         if(database == null){
@@ -40,5 +48,17 @@ public class Database{
             connection = DriverManager.getConnection(url+dbName,userName,password);
         }
         return connection;
+    }
+
+    public static ResultSet query(String query) throws SQLException {
+        statement = Database.connection.createStatement();
+        ResultSet res = statement.executeQuery(query);
+        return res;
+    }
+
+    // method for Data Manipulation (DML)
+    public static void queryUpdate(String query) throws SQLException {
+        statement = Database.connection.createStatement();
+        statement.executeUpdate(query);
     }
 }

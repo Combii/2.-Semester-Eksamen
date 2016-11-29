@@ -125,3 +125,5 @@ buildNumber.properties
 # .idea
 # .iml
 
+.idea/codeStyleSettings.xml
+.idea/workspace.xml___jb_tmp___
