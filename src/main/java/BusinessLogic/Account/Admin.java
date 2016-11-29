@@ -7,11 +7,13 @@ package BusinessLogic.Account;
 public class Admin extends Account {
 
     private String username;
+    private String email;
     private String lastName;
 
-    public Admin(String username, String password, int userType, String name, String lastName) {
+    public Admin(String username, String password, int userType, String name, String lastName, String email) {
         super(name, password, userType);
         this.username = username;
+        this.email = email;
         this.lastName = lastName;
     }
 }

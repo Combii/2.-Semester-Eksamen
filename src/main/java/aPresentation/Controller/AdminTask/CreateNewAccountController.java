@@ -52,7 +52,7 @@ public class CreateNewAccountController{
         textWarning.setText("Password must be between 8-15 characters, least four numbers and one upper case");
     }
     else{
-        CreateNewAccount.createNewAccount(username.getText(), password.getText(), email.getText(), userType);
+        CreateNewAccount.createNewAccount(username.getText(), password.getText(), email.getText(), userType, firstName.getText(), lastName.getText());
     }
     }
 
