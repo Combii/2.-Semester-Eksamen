@@ -5,7 +5,13 @@ package BusinessLogic.Account;
  * 29 November 2016.
  */
 public class Admin extends Account {
-    public Admin(String username, String password, int userType) {
-        super(username, password, userType);
+
+    private String username;
+    private String lastName;
+
+    public Admin(String username, String password, int userType, String name, String lastName) {
+        super(name, password, userType);
+        this.username = username;
+        this.lastName = lastName;
     }
 }
