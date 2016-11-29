@@ -1,6 +1,6 @@
 package aPresentation.Controller.AdminTask;
 
-import Dao.EditAdminDao;
+import BusinessLogic.EditAdminBLogic;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
@@ -13,6 +13,8 @@ import java.sql.SQLException;
  * @version 25-11-2016.
  */
 public class AdminMenuController {
+
+    private EditAdminBLogic eab;
 
     @FXML
     private TextField firstName;
@@ -34,7 +36,7 @@ public class AdminMenuController {
 
     @FXML
     private void handleConfirmButton() throws SQLException {
-        EditAdminDao ead = new EditAdminDao();
+        eab = new EditAdminBLogic();
         try {
 
         }
@@ -45,9 +47,9 @@ public class AdminMenuController {
 
     @FXML
     private void handleDeleteButton() throws SQLException, IOException {
-        EditAdminDao ead = new EditAdminDao();
+        eab = new EditAdminBLogic();
         try {
-            ead.deleteAdmin(firstName.getText());
+            eab.deleteAdmin(firstName.getText());
         }
         catch (Exception e) {
             e.printStackTrace();
