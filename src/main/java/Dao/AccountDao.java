@@ -1,15 +1,19 @@
 package Dao;
 
 
+import BusinessLogic.Account.Account;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by Boris Grumwald on 25/11/2016.
  */
-public class AccountDao {
+public class AccountDao implements DAO<Account> {
 
     private Connection conn;
     private PreparedStatement ps = null;
@@ -80,4 +84,66 @@ public class AccountDao {
         try { ps.close(); } catch (Exception e) { /* ignored */ }
     }
 
+    @Override
+    public void save(Account account) {
+
+    }
+
+    @Override
+    public Account get(String name) throws SQLException {
+
+        PreparedStatement ps = conn.prepareStatement("SELECT * FROM Account WHERE username = '" + name + "');");
+        ResultSet rs = ps.executeQuery();
+        return new Account()
+
+    }
+
+    @Override
+    public boolean exists(Account account) throws SQLException {
+        PreparedStatement ps = conn.prepareStatement("SELECT EXISTS(SELECT * FROM Account WHERE username = '" + account.getUsername() + "');");
+        ResultSet rs = ps.executeQuery();
+        rs.next();
+
+        boolean rBoolean = rs.getBoolean(1);
+        closeStatementAndResultsetAndConnection();
+        return rBoolean;
+    }
+
+    @Override
+    public boolean exists(int id) throws SQLException {
+
+        PreparedStatement ps = conn.prepareStatement("SELECT EXISTS(SELECT * FROM Account WHERE ID = '" + id + "');");
+        ResultSet rs = ps.executeQuery();
+        rs.next();
+
+        boolean rBoolean = rs.getBoolean(1);
+        closeStatementAndResultsetAndConnection();
+        return rBoolean;
+
+    }
+
+    @Override
+    public List<Account> findAll() throws SQLException {
+
+        PreparedStatement ps = conn.prepareStatement("SELECT * FROM Account;");
+        ResultSet rs = ps.executeQuery();
+
+        List<Account> toReturn = new ArrayList<>();
+
+
+        while (rs.next()) {
+
+        }
+
+    }
+
+    @Override
+    public List<Account> findAllByName() {
+        return null;
+    }
+
+    @Override
+    public void delete(String id) {
+
+    }
 }
