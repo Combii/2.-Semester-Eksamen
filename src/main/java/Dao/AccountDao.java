@@ -1,6 +1,12 @@
 package Dao;
 
 
+
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -19,7 +25,7 @@ public class AccountDao {
         conn = d.getConnection();
     }
 
-    public boolean userExists(String username) throws SQLException{
+    public boolean userExists(String username) throws SQLException {
         PreparedStatement ps = conn.prepareStatement("SELECT EXISTS(SELECT * FROM Account WHERE username = '" + username + "');");
         ResultSet rs = ps.executeQuery();
         rs.next();
@@ -37,8 +43,7 @@ public class AccountDao {
             String rString = rs.getString(1);
             closeStatementAndResultsetAndConnection();
             return rString;
-        }
-        catch (Exception e){
+        } catch (Exception e) {
             return null;
         }
     }
@@ -74,12 +79,16 @@ public class AccountDao {
     }
 
     // Need to close ResultSet, PreparedStatement and connection after use
-    private void closeStatementAndResultsetAndConnection(){
-        try { rs.close(); } catch (Exception e) { /* ignored */ }
-        try { ps.close(); } catch (Exception e) { /* ignored */ }
+    private void closeStatementAndResultsetAndConnection() {
+        try {
+            rs.close();
+        } catch (Exception e) { /* ignored */ }
+        try {
+            ps.close();
+        } catch (Exception e) { /* ignored */ }
     }
 
-    public List getUser() throws SQLException{
+    public List getUser() throws SQLException {
         try {
             PreparedStatement ps = conn.prepareStatement("SELECT ID, username FROM Account");
             ResultSet rs = ps.executeQuery();
@@ -87,20 +96,19 @@ public class AccountDao {
             int columnCount = md.getColumnCount();
             List<List<String>> list = new ArrayList<List<String>>();
 
-            while(rs.next()){
+            while (rs.next()) {
                 List<String> row = new ArrayList<String>(columnCount);
                 int i = 1;
-                while(i <= columnCount){
+                while (i <= columnCount) {
                     row.add(rs.getString(i++));
                 }
                 list.add(row);
             }
             closeStatementAndResultsetAndConnection();
             return list;
-        }
-        catch (Exception e){
+        } catch (Exception e) {
             return null;
         }
     }
-
 }
+
