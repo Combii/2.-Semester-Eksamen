@@ -37,43 +37,7 @@ public class ShowAccountsController {
     public ShowAccountsController()throws SQLException {
         masterData.add(new UserInformation());
     }
-    private void initialize() {
-        // 0. Initialize the columns.
-        username.setCellValueFactory(cellData -> cellData.getValue().firstNameProperty());
-        id.setCellValueFactory(cellData -> cellData.getValue().lastNameProperty());
-
-        // 1. Wrap the ObservableList in a FilteredList (initially display all data).
-        FilteredList<UserInformation> filteredData = new FilteredList<UserInformation>(masterData, p -> true);
-
-        // 2. Set the filter Predicate whenever the filter changes.
-        name.textProperty().addListener((observable, oldValue, newValue) -> {
-            filteredData.setPredicate(person -> {
-                // If filter text is empty, display all persons.
-                if (newValue == null || newValue.isEmpty()) {
-                    return true;
-                }
-
-                // Compare first name and last name of every person with filter text.
-                String lowerCaseFilter = newValue.toLowerCase();
-
-                if (person.getFirstName().toLowerCase().contains(lowerCaseFilter)) {
-                    return true; // Filter matches first name.
-                } else if (person.getLastName().toLowerCase().contains(lowerCaseFilter)) {
-                    return true; // Filter matches last name.
-                }
-                return false; // Does not match.
-            });
-        });
-
-        // 3. Wrap the FilteredList in a SortedList.
-        SortedList<UserInformation> sortedData = new SortedList<UserInformation>(filteredData);
-
-        // 4. Bind the SortedList comparator to the TableView comparator.
-        sortedData.comparatorProperty().bind(table.comparatorProperty());
-
-        // 5. Add sorted (and filtered) data to the table.
-        table.setItems(sortedData);
-    }
+    //http://code.makery.ch/blog/javafx-8-tableview-sorting-filtering/
 
 
 }
