@@ -28,6 +28,7 @@ public class CreateNewAccountController{
     public TextField password;
     public TextField email;
     public TextField confirmPassword;
+    
 
     public Button confirmButton;
     public CheckBox checkBoxAdmin;
