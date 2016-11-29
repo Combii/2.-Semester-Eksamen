@@ -2,6 +2,7 @@ package aPresentation.Controller.AdminTask;
 
 import BusinessLogic.UserValidation;
 import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.TextField;
@@ -28,9 +29,9 @@ public class CreateNewAccountController{
     public TextField password;
     public TextField email;
     public TextField confirmPassword;
+    private int userType = 1;
 
     public Button confirmButton;
-    public CheckBox checkBoxAdmin;
     public Text textRightToAdminCheckBox;
     public Text textWarning;
 
@@ -84,5 +85,12 @@ public class CreateNewAccountController{
 
     public void clickedMouseRectangle(MouseEvent mouseEvent) {
         rectangle.requestFocus();
+    }
+
+    public void clickedCheckBoxAdmin(ActionEvent actionEvent) {
+        if(userType == 1)
+            userType = 0;
+        else
+            userType = 1;
     }
 }
