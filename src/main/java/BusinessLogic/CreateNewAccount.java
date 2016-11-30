@@ -25,14 +25,6 @@ public class CreateNewAccount {
             }
             if (account != null) {
                 saveAccountToDB();
-                Alert alert2 = new Alert(Alert.AlertType.INFORMATION);
-                alert2.setTitle("Account created");
-                alert2.setHeaderText(null);
-                alert2.setContentText("First name: " + firstName + "\n" +
-                        "Last name: " + lastName + "\n" +
-                        "Username: " + username + "\n" +
-                        "E-mail: " + email);
-                alert2.showAndWait();
             }
         }
         catch (Exception e){
