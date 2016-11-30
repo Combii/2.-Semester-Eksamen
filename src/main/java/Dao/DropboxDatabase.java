@@ -9,6 +9,8 @@ import com.dropbox.core.v2.files.ListFolderResult;
 import com.dropbox.core.v2.files.Metadata;
 import com.dropbox.core.v2.users.FullAccount;
 
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 
@@ -66,13 +68,14 @@ public class DropboxDatabase {
         return null;
     }
 
-    public void uploadFiles(InputStream file){
+    public void uploadFiles(String pathOfFile, String pathOfDropBox){
         // Upload "test.txt" to Dropbox
-        try (InputStream in = file) {
-            FileMetadata metadata = client.files().uploadBuilder("/test.txt").uploadAndFinish(in);
-        } catch (Exception e) {
+        try (InputStream in = new FileInputStream(pathOfFile)) {
+            FileMetadata metadata = client.files().uploadBuilder(pathOfDropBox)
+                    .uploadAndFinish(in);
+        }
+        catch (Exception e){
             e.printStackTrace();
         }
     }
-
 }
