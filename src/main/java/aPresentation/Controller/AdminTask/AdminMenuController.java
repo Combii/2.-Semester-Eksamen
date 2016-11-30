@@ -40,8 +40,7 @@ public class AdminMenuController {
         eab = new EditAdminBLogic();
         try {
 
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
@@ -49,8 +48,6 @@ public class AdminMenuController {
     @FXML
     private void handleDeleteButton() throws SQLException, IOException {
         eab = new EditAdminBLogic();
-<<<<<<< HEAD
-
         try {
             if (eab.deleteAdmin(firstName.getText())) {
                 Alert alert2 = new Alert(Alert.AlertType.INFORMATION);
@@ -58,27 +55,20 @@ public class AdminMenuController {
                 alert2.setHeaderText(null);
                 alert2.setContentText(firstName.getText() + " has been deleted");
                 alert2.showAndWait();
-            }
-
-            else {
+            } else {
                 Alert alert3 = new Alert(Alert.AlertType.INFORMATION);
                 alert3.setTitle("Information Dialog");
                 alert3.setHeaderText(null);
                 alert3.setContentText("User doesn't exist");
                 alert3.showAndWait();
             }
+        } catch (Exception e) {
         }
-        catch (Exception e)
-
-        {
-=======
         try {
             eab.deleteAdmin(firstName.getText());
-        }
-        catch (Exception e) {
->>>>>>> master
+        } catch (Exception e) {
             e.printStackTrace();
         }
-    }
 
+    }
 }
