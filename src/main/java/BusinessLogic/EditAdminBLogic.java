@@ -12,14 +12,15 @@ public class EditAdminBLogic {
 
     private EditAdminDao ead;
 
-    public void deleteAdmin(String firstName) throws SQLException {
+    public boolean deleteAdmin(String firstName) throws SQLException {
         ead = new EditAdminDao();
         try {
-            ead.deleteAdmin(firstName);
+            return ead.deleteAdmin(firstName);
         }
         catch (SQLException e) {
             e.printStackTrace();
         }
+        return false;
     }
 
     public void validateAccount() throws SQLException {
