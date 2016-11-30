@@ -23,7 +23,7 @@ public class DropboxDatabase {
     public static DropboxDatabase getDropboxDB(){
         if(dropboxDatabase == null) {
             config = new DbxRequestConfig("AnotherCCDropBoxConnection", Locale.getDefault().toString());
-            DbxClient client = new DbxClient(config, accessToken);
+            client = new DbxClient(config, accessToken);
             dropboxDatabase = new DropboxDatabase();
             return dropboxDatabase;
         }
