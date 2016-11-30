@@ -42,4 +42,12 @@ public class Administrator extends Account {
         this.lastName = lastName;
     }
 
+    @Override
+    public String toString() {
+        return "Administrator{" +
+                "username='" + username + '\'' +
+                ", email='" + email + '\'' +
+                ", lastName='" + lastName + '\'' +
+                '}';
+    }
 }
