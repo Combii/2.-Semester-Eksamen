@@ -2,6 +2,7 @@ package aPresentation.Controller.AdminTask;
 
 import BusinessLogic.EditAdminBLogic;
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 
@@ -39,8 +40,7 @@ public class AdminMenuController {
         eab = new EditAdminBLogic();
         try {
 
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
@@ -49,11 +49,26 @@ public class AdminMenuController {
     private void handleDeleteButton() throws SQLException, IOException {
         eab = new EditAdminBLogic();
         try {
-            eab.deleteAdmin(firstName.getText());
+            if (eab.deleteAdmin(firstName.getText())) {
+                Alert alert2 = new Alert(Alert.AlertType.INFORMATION);
+                alert2.setTitle("Information Dialog");
+                alert2.setHeaderText(null);
+                alert2.setContentText(firstName.getText() + " has been deleted");
+                alert2.showAndWait();
+            } else {
+                Alert alert3 = new Alert(Alert.AlertType.INFORMATION);
+                alert3.setTitle("Information Dialog");
+                alert3.setHeaderText(null);
+                alert3.setContentText("User doesn't exist");
+                alert3.showAndWait();
+            }
+        } catch (Exception e) {
         }
-        catch (Exception e) {
+        try {
+            eab.deleteAdmin(firstName.getText());
+        } catch (Exception e) {
             e.printStackTrace();
         }
-    }
 
+    }
 }
