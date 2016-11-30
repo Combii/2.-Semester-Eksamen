@@ -4,9 +4,13 @@ package Dao;
 import com.dropbox.core.DbxException;
 import com.dropbox.core.DbxRequestConfig;
 import com.dropbox.core.v2.DbxClientV2;
+import com.dropbox.core.v2.files.FileMetadata;
 import com.dropbox.core.v2.files.ListFolderResult;
 import com.dropbox.core.v2.files.Metadata;
 import com.dropbox.core.v2.users.FullAccount;
+
+import java.io.IOException;
+import java.io.InputStream;
 
 /**
  * Created by David Stovlbaek
@@ -17,7 +21,7 @@ public class DropboxDatabase {
 
     private static final String ACCESS_TOKEN = "dripAUbSyiAAAAAAAAAACZtuHT06tu2vhZi1cjb1beSfaSEq7osLYkUBmKwcSDLY";
     private static DbxClientV2 client = null;
-        private static DropboxDatabase dropboxDatabase = null;
+    private static DropboxDatabase dropboxDatabase = null;
 
 
     //private constructor to avoid client applications to use constructor
@@ -60,6 +64,15 @@ public class DropboxDatabase {
             e.printStackTrace();
         }
         return null;
+    }
+
+    public void uploadFiles(InputStream file){
+        // Upload "test.txt" to Dropbox
+        try (InputStream in = file) {
+            FileMetadata metadata = client.files().uploadBuilder("/test.txt").uploadAndFinish(in);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
 }
