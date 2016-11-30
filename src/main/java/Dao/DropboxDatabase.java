@@ -1,81 +1,59 @@
 package Dao;
 
+import com.dropbox.core.*;
 
-import com.dropbox.core.DbxException;
-import com.dropbox.core.DbxRequestConfig;
-import com.dropbox.core.v2.DbxClientV2;
-import com.dropbox.core.v2.files.FileMetadata;
-import com.dropbox.core.v2.files.ListFolderResult;
-import com.dropbox.core.v2.files.Metadata;
-import com.dropbox.core.v2.users.FullAccount;
-
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.InputStream;
+import java.io.*;
+import java.util.Locale;
 
 /**
  * Created by David Stovlbaek
  * 30 November 2016.
- * https://www.dropbox.com/developers/documentation/java#tutorial
+ * Source: https://www.dropbox.com/developers-v1/core/start/java
  */
 public class DropboxDatabase {
 
-    private static final String ACCESS_TOKEN = "dripAUbSyiAAAAAAAAAACZtuHT06tu2vhZi1cjb1beSfaSEq7osLYkUBmKwcSDLY";
-    private static DbxClientV2 client = null;
-    private static DropboxDatabase dropboxDatabase = null;
+    private static DbxRequestConfig config;
+    private static DbxClient client;
+    private static final String accessToken = "dripAUbSyiAAAAAAAAAADfmBh4JsFuVUEq9dLDonN3HXNpLylcdeBNvyIbUW6OGi";
+    private static DropboxDatabase dropboxDatabase;
 
-
-    //private constructor to avoid client applications to use constructor
-    private DropboxDatabase() {
-        // Create Dropbox client
-        DbxRequestConfig config = new DbxRequestConfig("AnotherCC", "en_US");
-        client = new DbxClientV2(config, ACCESS_TOKEN);
-    }
+    //Prevents others from creating new instance of this class
+    private DropboxDatabase(){}
 
     public static DropboxDatabase getDropboxDB(){
-        if(dropboxDatabase == null){
+        if(dropboxDatabase == null) {
+            config = new DbxRequestConfig("AnotherCCDropBoxConnection", Locale.getDefault().toString());
+            DbxClient client = new DbxClient(config, accessToken);
             dropboxDatabase = new DropboxDatabase();
+            return dropboxDatabase;
         }
-        return dropboxDatabase;
+        else
+            return dropboxDatabase;
     }
 
-    public void checkConnectedDropboxDB() throws DbxException {
-        // Get current account info
-        FullAccount account = client.users().getCurrentAccount();
-        System.out.println(account.getName().getDisplayName());
-    }
 
-    public ListFolderResult getFile(String path) {
+    public void downloadFromDropbox(String localPathToSave, String dropboxPath) throws IOException, DbxException {
+        FileOutputStream outputStream = new FileOutputStream(localPathToSave);
         try {
-            ListFolderResult result = client.files().listFolder(path);
-            while (true) {
-                for (Metadata metadata : result.getEntries()) {
-                    System.out.println(metadata.getPathLower());
-                }
-
-                if (!result.getHasMore()) {
-                    break;
-                }
-
-                result = client.files().listFolderContinue(result.getCursor());
-            }
-            return result;
-        }
-        catch (Exception e){
-            e.printStackTrace();
-        }
-        return null;
-    }
-
-    public void uploadFiles(String pathOfFile, String pathOfDropBox){
-        // Upload "test.txt" to Dropbox
-        try (InputStream in = new FileInputStream(pathOfFile)) {
-            FileMetadata metadata = client.files().uploadBuilder(pathOfDropBox)
-                    .uploadAndFinish(in);
-        }
-        catch (Exception e){
-            e.printStackTrace();
+            DbxEntry.File downloadedFile = client.getFile(dropboxPath, null,
+                    outputStream);
+            System.out.println("Metadata: " + downloadedFile.toString());
+        } finally {
+            outputStream.close();
         }
     }
+
+    public void uploadToDropbox(String localPathToUpload, String dropboxPath) throws IOException, DbxException {
+        File inputFile = new File(localPathToUpload);
+        FileInputStream inputStream = new FileInputStream(inputFile);
+        try {
+            DbxEntry.File uploadedFile = client.uploadFile(dropboxPath,
+                    DbxWriteMode.add(), inputFile.length(), inputStream);
+            System.out.println("Uploaded: " + uploadedFile.toString());
+        } finally {
+            inputStream.close();
+        }
+    }
+
+
 }
