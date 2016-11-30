@@ -33,25 +33,25 @@ public class DropboxDatabase {
 
 
     public void downloadFromDropbox(String localPathToSave, String dropboxPath) throws IOException, DbxException {
-        FileOutputStream outputStream = new FileOutputStream(localPathToSave);
-        try {
+        try (FileOutputStream outputStream = new FileOutputStream(localPathToSave)) {
             DbxEntry.File downloadedFile = client.getFile(dropboxPath, null,
                     outputStream);
             System.out.println("Metadata: " + downloadedFile.toString());
-        } finally {
-            outputStream.close();
+        }
+        catch (Exception e) {
+            e.printStackTrace();
         }
     }
 
     public void uploadToDropbox(String localPathToUpload, String dropboxPath) throws IOException, DbxException {
         File inputFile = new File(localPathToUpload);
-        FileInputStream inputStream = new FileInputStream(inputFile);
-        try {
+        try (FileInputStream inputStream = new FileInputStream(inputFile)) {
             DbxEntry.File uploadedFile = client.uploadFile(dropboxPath,
                     DbxWriteMode.add(), inputFile.length(), inputStream);
             System.out.println("Uploaded: " + uploadedFile.toString());
-        } finally {
-            inputStream.close();
+        }
+        catch (Exception e){
+            e.printStackTrace();
         }
     }
 
