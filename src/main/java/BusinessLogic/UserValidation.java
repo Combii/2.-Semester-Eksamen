@@ -1,9 +1,6 @@
 package BusinessLogic;
 
-import BusinessLogic.Account.Account;
-import Dao.AAccountDAO;
 import Dao.AccountDao;
-import Dao.DAO;
 import Dao.Database;
 
 import java.sql.SQLException;
