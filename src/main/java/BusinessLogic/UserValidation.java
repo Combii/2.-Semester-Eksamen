@@ -1,6 +1,9 @@
 package BusinessLogic;
 
+import BusinessLogic.Account.Account;
+import Dao.AAccountDAO;
 import Dao.AccountDao;
+import Dao.DAO;
 import Dao.Database;
 
 import java.sql.SQLException;
@@ -45,19 +48,28 @@ public class UserValidation {
 
     }
 
-    public static boolean isValidUsername(String username) throws SQLException {
+    public static boolean isValidUsername(String username) {
 
+        //Must be between 4-20 characters and contain only letters, numbers
+        return username.matches("^[\\p{L}\\p{M}*+]{4,20}$");
+    }
+
+    public static boolean userExist(String username) throws SQLException{
         AccountDao dao = new AccountDao();
-
-        //Is username already in DB?
-        //Must be between 8-20 characters and contain only letters, numbers
-        return !dao.userExists(username) && username.matches("^[\\p{L}\\p{M}*+]{8,20}$");
+       //Is username already in DB?
+     return dao.userExists(username);
     }
 
     public static boolean isValidPassword(String password) {
 
         //Must be between 8 and 15 characters, contain at least four numbers and one upper case.
         return password.matches("^(?=.*[A-Z])(?=.*[0-9]{4,}).{8,15}$");
+
+    }
+
+    public static boolean isValidEmail(String email) {
+        //Got from http://emailregex.com/
+        return email.matches("(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*|\"(?:[\\x01-\\x0b\\x0c\\x0e-\\x1f\\x21\\x23-\\x5b\\x5d-\\x7f]|\\\\[\\x01-\\x09\\x0b\\x0c\\x0e-\\x7f])*\")@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\\[(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?|[a-z0-9-]*[a-z0-9]:(?:[\\x01-\\x0b\\x0c\\x0e-\\x1f\\x21-\\x5a\\x53-\\x7f]|\\\\[\\x01-\\x09\\x0b\\x0c\\x0e-\\x7f])+)])");
 
     }
 

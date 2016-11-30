@@ -49,6 +49,7 @@ public class AdminMenuController {
     @FXML
     private void handleDeleteButton() throws SQLException, IOException {
         eab = new EditAdminBLogic();
+<<<<<<< HEAD
 
         try {
             if (eab.deleteAdmin(firstName.getText())) {
@@ -70,6 +71,12 @@ public class AdminMenuController {
         catch (Exception e)
 
         {
+=======
+        try {
+            eab.deleteAdmin(firstName.getText());
+        }
+        catch (Exception e) {
+>>>>>>> master
             e.printStackTrace();
         }
     }

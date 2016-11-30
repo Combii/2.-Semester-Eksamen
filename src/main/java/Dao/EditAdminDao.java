@@ -35,7 +35,6 @@ public class EditAdminDao {
     }
 
     public boolean deleteAdmin(String firstName) throws SQLException {
-
         db = Database.getDatabase();
         String query = "SELECT * FROM Account";
         ResultSet resultSet;

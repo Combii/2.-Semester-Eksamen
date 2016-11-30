@@ -1,5 +1,6 @@
 package aPresentation.Controller.AdminTask;
 
+import BusinessLogic.CreateNewAccount;
 import BusinessLogic.UserValidation;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -39,15 +40,23 @@ public class CreateNewAccountController{
     public void clickedOnConfirmButton(ActionEvent actionEvent) throws SQLException {
 
     if(!UserValidation.isValidUsername(username.getText())){
-        textWarning.setText("Username must be between 8-20 characters and only letters");
+        textWarning.setText("Username must be between 4-20 characters and only letters");
     }
-    if(!password.getText().equals(confirmPassword.getText())){
+    else if(UserValidation.userExist(username.getText())){
+        textWarning.setText("Username is already saved in Database");
+    }
+    else if(!UserValidation.isValidEmail(email.getText())){
+            textWarning.setText("Email is not valid");
+    }
+    else if(!password.getText().equals(confirmPassword.getText())){
         textWarning.setText("Password does not match");
     }
-    if(!UserValidation.isValidPassword(password.getText())){
+    else if(!UserValidation.isValidPassword(password.getText())){
         textWarning.setText("Password must be between 8-15 characters, least four numbers and one upper case");
     }
-
+    else{
+        CreateNewAccount.createNewAccount(username.getText(), password.getText(), email.getText(), userType, firstName.getText(), lastName.getText());
+    }
     }
 
     public void keyPressedFirstName(KeyEvent keyEvent) {
