@@ -1,11 +1,7 @@
 package BusinessLogic;
 
-import BusinessLogic.Account.Account;
-import Dao.AAccountDAO;
 import Dao.AccountDao;
-import Dao.DAO;
 import Dao.Database;
-
 import java.sql.SQLException;
 
 /**
@@ -62,8 +58,8 @@ public class UserValidation {
 
     public static boolean isValidPassword(String password) {
 
-        //Must be between 8 and 15 characters, contain at least four numbers and one upper case.
-        return password.matches("^(?=.*[A-Z])(?=.*[0-9]{4,}).{8,15}$");
+        //Must be between 4 and 15 characters, contain at least 2 numbers and one upper case.
+        return password.matches("^(?=.*[\\p{L}\\p{M}*+])(?=.*[0-9]{2,}).{4,15}$");
 
     }
 

@@ -4,6 +4,7 @@ import BusinessLogic.CreateNewAccount;
 import BusinessLogic.UserValidation;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.TextField;
@@ -52,10 +53,25 @@ public class CreateNewAccountController{
         textWarning.setText("Password does not match");
     }
     else if(!UserValidation.isValidPassword(password.getText())){
-        textWarning.setText("Password must be between 8-15 characters, least four numbers and one upper case");
+        textWarning.setText("Password must be between 4-15 characters, least two numbers and one upper case");
     }
     else{
-        CreateNewAccount.createNewAccount(username.getText(), password.getText(), email.getText(), userType, firstName.getText(), lastName.getText());
+        try {
+            CreateNewAccount.createNewAccount(username.getText(), password.getText(), email.getText(), userType, firstName.getText(), lastName.getText());
+            Alert alert2 = new Alert(Alert.AlertType.INFORMATION);
+            alert2.setTitle("Account created");
+            alert2.setHeaderText(null);
+            alert2.setContentText("First name: " + firstName.getText() + "\n" +
+                    "Last name: " + lastName.getText() + "\n" +
+                    "Username: " + username.getText() + "\n" +
+                    "E-mail: " + email.getText());
+            alert2.showAndWait();
+
+
+        }
+        catch (Exception e){
+            e.printStackTrace();
+        }
     }
     }
 

@@ -34,8 +34,7 @@ public class EditAdminDao {
         }
     }
 
-    public void deleteAdmin(String firstName) throws SQLException {
-
+    public boolean deleteAdmin(String firstName) throws SQLException {
         db = Database.getDatabase();
         String query = "SELECT * FROM Account";
         ResultSet resultSet;
@@ -48,13 +47,14 @@ public class EditAdminDao {
                 if (username.equals(firstName)) {
                     String sql = "DELETE FROM Account WHERE username =" + "'" + firstName + "'";
                     db.queryUpdate(sql);
-                    System.out.println("User deleted");
+                    return true;
                 }
             }
         }
         catch (SQLException e) {
             e.printStackTrace();
         }
+        return false;
     }
 
 }
