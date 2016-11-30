@@ -1,6 +1,5 @@
 package BusinessLogic;
 
-
 import Dao.AccountDao;
 import Dao.Database;
 import java.sql.SQLException;
