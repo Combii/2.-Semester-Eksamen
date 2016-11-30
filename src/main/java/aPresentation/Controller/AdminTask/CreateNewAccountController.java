@@ -53,7 +53,7 @@ public class CreateNewAccountController{
         textWarning.setText("Password does not match");
     }
     else if(!UserValidation.isValidPassword(password.getText())){
-        textWarning.setText("Password must be between 4-15 characters, least four numbers and one upper case");
+        textWarning.setText("Password must be between 4-15 characters, least two numbers and one upper case");
     }
     else{
         try {
@@ -61,11 +61,13 @@ public class CreateNewAccountController{
             Alert alert2 = new Alert(Alert.AlertType.INFORMATION);
             alert2.setTitle("Account created");
             alert2.setHeaderText(null);
-            alert2.setContentText("First name: " + firstName + "\n" +
-                    "Last name: " + lastName + "\n" +
-                    "Username: " + username + "\n" +
-                    "E-mail: " + email);
+            alert2.setContentText("First name: " + firstName.getText() + "\n" +
+                    "Last name: " + lastName.getText() + "\n" +
+                    "Username: " + username.getText() + "\n" +
+                    "E-mail: " + email.getText());
             alert2.showAndWait();
+
+
         }
         catch (Exception e){
             e.printStackTrace();
