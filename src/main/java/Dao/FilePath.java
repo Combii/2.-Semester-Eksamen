@@ -1,15 +1,15 @@
-package BusinessLogic.File;
+package Dao;
 
 /**
  * Created by David Stovlbaek
  * 30 November 2016.
  */
-public class File {
+public class FilePath {
     private String localPath = "";
     private String dropBoxPath = "";
     private String fileType = "";
 
-    public File(String localPath, String dropBoxPath) {
+    public FilePath(String localPath, String dropBoxPath) {
         this.localPath = localPath;
         this.dropBoxPath = dropBoxPath;
     }
