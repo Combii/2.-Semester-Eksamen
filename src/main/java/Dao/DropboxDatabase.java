@@ -1,81 +1,68 @@
 package Dao;
 
-
-import com.dropbox.core.DbxException;
-import com.dropbox.core.DbxRequestConfig;
+import com.dropbox.core.*;
+import com.dropbox.core.v1.DbxClientV1;
 import com.dropbox.core.v2.DbxClientV2;
+import com.dropbox.core.v2.DbxRawClientV2;
+import com.dropbox.core.v2.files.DbxUserFilesRequests;
 import com.dropbox.core.v2.files.FileMetadata;
 import com.dropbox.core.v2.files.ListFolderResult;
 import com.dropbox.core.v2.files.Metadata;
-import com.dropbox.core.v2.users.FullAccount;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.InputStream;
+import java.io.*;
 
 /**
  * Created by David Stovlbaek
  * 30 November 2016.
- * https://www.dropbox.com/developers/documentation/java#tutorial
+ * Source: https://www.dropbox.com/developers/documentation/java#tutorial
  */
 public class DropboxDatabase {
 
-    private static final String ACCESS_TOKEN = "dripAUbSyiAAAAAAAAAACZtuHT06tu2vhZi1cjb1beSfaSEq7osLYkUBmKwcSDLY";
-    private static DbxClientV2 client = null;
-    private static DropboxDatabase dropboxDatabase = null;
+    private static final String ACCESS_TOKEN = "dripAUbSyiAAAAAAAAAADfmBh4JsFuVUEq9dLDonN3HXNpLylcdeBNvyIbUW6OGi";
+    private static DbxRequestConfig config;
+    private static DbxClientV2 client;
+    private static DropboxDatabase dropboxDatabase;
 
-
-    //private constructor to avoid client applications to use constructor
-    private DropboxDatabase() {
-        // Create Dropbox client
-        DbxRequestConfig config = new DbxRequestConfig("AnotherCC", "en_US");
-        client = new DbxClientV2(config, ACCESS_TOKEN);
-    }
+    //Prevents others from creating new instance of this class
+    private DropboxDatabase(){}
 
     public static DropboxDatabase getDropboxDB(){
-        if(dropboxDatabase == null){
+        if(dropboxDatabase == null) {
+            config = new DbxRequestConfig("dropbox/AnotherCC", "en_US");
+            client = new DbxClientV2(config, ACCESS_TOKEN);
             dropboxDatabase = new DropboxDatabase();
+            return dropboxDatabase;
         }
-        return dropboxDatabase;
+        else
+            return dropboxDatabase;
     }
 
-    public void checkConnectedDropboxDB() throws DbxException {
-        // Get current account info
-        FullAccount account = client.users().getCurrentAccount();
-        System.out.println(account.getName().getDisplayName());
+    public void downloadFromDropbox(String localPathToSave, String dropboxPath) throws IOException, DbxException {
+        OutputStream outputStream = new FileOutputStream(localPathToSave);
+        client.files().download(dropboxPath).download(outputStream);
     }
 
-    public ListFolderResult getFile(String path) {
-        try {
-            ListFolderResult result = client.files().listFolder(path);
-            while (true) {
-                for (Metadata metadata : result.getEntries()) {
-                    System.out.println(metadata.getPathLower());
-                }
-
-                if (!result.getHasMore()) {
-                    break;
-                }
-
-                result = client.files().listFolderContinue(result.getCursor());
-            }
-            return result;
-        }
-        catch (Exception e){
-            e.printStackTrace();
-        }
-        return null;
-    }
-
-    public void uploadFiles(String pathOfFile, String pathOfDropBox){
-        // Upload "test.txt" to Dropbox
-        try (InputStream in = new FileInputStream(pathOfFile)) {
-            FileMetadata metadata = client.files().uploadBuilder(pathOfDropBox)
+    public void uploadToDropbox(String localPathToUpload, String dropboxPath) throws IOException, DbxException {
+        try (InputStream in = new FileInputStream(localPathToUpload)) {
+            FileMetadata metadata = client.files().uploadBuilder(dropboxPath)
                     .uploadAndFinish(in);
         }
-        catch (Exception e){
-            e.printStackTrace();
-        }
     }
+
+    public ListFolderResult getPathsOfFolder(String folderPath) throws DbxException {
+        ListFolderResult result = client.files().listFolder(folderPath);
+        while (true) {
+            for (Metadata metadata : result.getEntries()) {
+                System.out.println(metadata.getPathLower());
+            }
+
+            if (!result.getHasMore()) {
+                break;
+            }
+            result = client.files().listFolderContinue(result.getCursor());
+        }
+        return result;
+    }
+
+
 }

@@ -10,8 +10,13 @@
         <module name="AnotherCC" />
       </profile>
     </annotationProcessing>
+<<<<<<< HEAD
     <bytecodeTargetLevel target="1.8">
       <module name="2.-Semester-Eksamen" target="1.8" />
+=======
+    <bytecodeTargetLevel>
+      <module name="AnotherCC" target="1.7" />
+>>>>>>> master
     </bytecodeTargetLevel>
   </component>
 </project>

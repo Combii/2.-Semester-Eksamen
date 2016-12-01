@@ -1,7 +1,5 @@
 package BusinessLogic.Account;
 
-import Dao.AAccountDAO;
-
 /**
  * Created by ${Boris} Grunwald} on 29/11/2016.
  */
