@@ -1,5 +1,9 @@
 package BusinessLogic.File;
 
+import Dao.DropboxDAO;
+import com.dropbox.core.DbxException;
+
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -22,7 +26,15 @@ public class FileStorage {
 
     }
 
-    public void downloadFilesToList(String dropboxPathFolder){
-
+    public void downloadFilesToList(String dropboxPathFolder) throws IOException, DbxException {
+        DropboxDAO dropboxDAO = new DropboxDAO();
+    if(list.isEmpty()){
+        list = dropboxDAO.downloadFilesFromDropboxToList(dropboxPathFolder);
+    }
+    else {
+        List<myFile> tempList = dropboxDAO.downloadFilesFromDropboxToList(dropboxPathFolder);
+        for(myFile i : tempList)
+            list.add(i);
+    }
     }
 }

@@ -34,9 +34,20 @@ public class DropboxDAO {
     }
 
     public void uploadToDropbox(String localPathToUpload, String dropboxPath) throws IOException, DbxException {
-        try (InputStream in = new FileInputStream(localPathToUpload)) {
+        try (InputStream in = new FileInputStream("src/main/Resources/Downloads" + localPathToUpload)) {
             FileMetadata metadata = client.files().uploadBuilder(dropboxPath)
                     .uploadAndFinish(in);
+        }
+    }
+
+    public void uploadListToDropbox(List<myFile> list) throws IOException, DbxException {
+        for(myFile i : list){
+            String localPath = i.getLocalPath();
+            String dropBoxPath = i.getDropBoxPath();
+
+            if(!localPath.equals("") && !dropBoxPath.equals("")){
+                uploadToDropbox(localPath, dropBoxPath);
+            }
         }
     }
 
