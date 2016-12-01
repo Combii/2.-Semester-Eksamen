@@ -38,9 +38,9 @@ public class DropboxDAOTest {
     public void uploadListTestSQL() throws IOException, DbxException {
         //list.addLocalFilesToList("/Users/Combii/Desktop/2. Semester Eksamen/AnotherCC/src/main/Resources/Downloads");
 
-        dao.getPathsOfFolder("/src/main/Resources/Downloads");
+        dao.delete("/Downloads");
 
-        List<FilePath> list2 = list.getList();
+        //List<FilePath> list2 = list.getList();
 
         //System.out.println(list2);
 

@@ -154,8 +154,14 @@ public class DropboxDAO implements DAO<List<FilePath>>{
     }
 
     @Override
-    public void delete(String dropBoxPath) throws SQLException {
+    public void delete(String dropBoxPath) {
+        try{
         ps = conn.prepareStatement("DELETE FROM FilePathDropboxDB WHERE path = '" + dropBoxPath + "');");
         ps.executeUpdate();
+        client.files().delete(dropBoxPath);
+        }
+        catch (Exception e){
+            e.printStackTrace();
+        }
     }
 }
