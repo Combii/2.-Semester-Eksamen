@@ -1,4 +1,4 @@
-package BusinessLogic.File;
+package Dao;
 
 /**
  * Created by David Stovlbaek

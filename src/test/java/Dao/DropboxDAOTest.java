@@ -1,11 +1,11 @@
 package Dao;
 
-import BusinessLogic.File.FilePath;
 import org.junit.Before;
 import org.junit.Test;
 
 import java.util.ArrayList;
 import java.util.List;
+
 
 /**
  * Created by David Stovlbaek
@@ -24,6 +24,6 @@ public class DropboxDAOTest {
 
     @Test
     public void downloadFilesFromDropboxToList() throws Exception {
-        fileStorage = dao.downloadFilesFromDropboxToList("/textFiles");
+        fileStorage = dao.get("/textFiles");
     }
 }
