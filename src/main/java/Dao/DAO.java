@@ -10,9 +10,8 @@ public interface DAO<T> {
 
     void save(T t) throws SQLException;
     T get(String name) throws SQLException;
-    int getId(String name) throws SQLException;
-    boolean exists(String name) throws SQLException;
     boolean exists(int id) throws SQLException;
-    void delete(int id) throws SQLException;
+    void delete(String id) throws SQLException;
+
 
 }
