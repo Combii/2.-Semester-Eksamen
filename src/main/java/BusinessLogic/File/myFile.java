@@ -4,12 +4,12 @@ package BusinessLogic.File;
  * Created by David Stovlbaek
  * 30 November 2016.
  */
-public class File {
+public class myFile {
     private String localPath = "";
     private String dropBoxPath = "";
     private String fileType = "";
 
-    public File(String localPath, String dropBoxPath) {
+    public myFile(String localPath, String dropBoxPath) {
         this.localPath = localPath;
         this.dropBoxPath = dropBoxPath;
     }
