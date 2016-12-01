@@ -39,4 +39,13 @@ public class Account {
     public void setUserType(int userType) {
         this.userType = userType;
     }
+
+    @Override
+    public String toString() {
+        return "Account{" +
+                "password='" + password + '\'' +
+                ", userType=" + userType +
+                ", name='" + name + '\'' +
+                '}';
+    }
 }

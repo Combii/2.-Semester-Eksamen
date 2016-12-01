@@ -32,11 +32,18 @@ public class AAccountDAOTest {
 
     @Test
     public void save() throws Exception {
-        dao.save(b);
+
     }
 
     @Test
     public void get() throws Exception {
+
+    }
+
+    @Test
+    public void getId() throws Exception {
+
+        System.out.println(dao.getId("Anna"));
 
     }
 
@@ -54,7 +61,6 @@ public class AAccountDAOTest {
     public void findAll() throws Exception {
 
     }
-
     @Test
     public void findAllByName() throws Exception {
 
@@ -62,6 +68,8 @@ public class AAccountDAOTest {
 
     @Test
     public void delete() throws Exception {
+
+        dao.delete(8);
 
     }
 }

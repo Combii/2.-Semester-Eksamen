@@ -48,6 +48,6 @@ public class Administrator extends Account {
                 "username='" + username + '\'' +
                 ", email='" + email + '\'' +
                 ", lastName='" + lastName + '\'' +
-                '}';
+                "} " + super.toString();
     }
 }

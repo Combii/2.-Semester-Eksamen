@@ -9,4 +9,9 @@ public class Customer extends Account {
     public Customer(String username, String password, int userType) {
         super(username, password, userType);
     }
+
+    @Override
+    public String toString() {
+        return super.toString();
+    }
 }
