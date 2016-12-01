@@ -120,7 +120,7 @@ public class DropboxDAO implements DAO<List<FilePath>>{
     }
 
     @Override
-    public void delete(String id) throws SQLException {
+    public void delete(int id) throws SQLException {
 
     }
 }

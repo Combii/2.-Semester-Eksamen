@@ -10,5 +10,6 @@ import java.sql.SQLException;
 public interface AccountInterface extends DAO<Account> {
 
     boolean isCustomer(String password) throws SQLException;
-
+    int getId(String username) throws SQLException;
+    boolean exists(String username) throws SQLException;
 }

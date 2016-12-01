@@ -99,14 +99,18 @@ public class AAccountDAO implements AccountInterface {
     }
 
     @Override
-    public boolean isCustomer(String password) throws SQLException {
+    public boolean isCustomer(String password) {
 
-        ps = conn.prepareStatement("SELECT EXISTS (SELECT * FROM Account WHERE password_hash = '"+password+"');");
-        rs = ps.executeQuery();
-        rs.next();
-        boolean isCustomer = rs.getBoolean(1);
-        closeStatementAndResultsetAndConnection();
-        return isCustomer;
+        try {
+            ps = conn.prepareStatement("SELECT password_hash,userType FROM Account WHERE password_hash = '"+password+"';");
+            rs = ps.executeQuery();
+            rs.next();
+            int userType = rs.getInt("userType");
+            closeStatementAndResultsetAndConnection();
+            return userType == 2;
+        } catch (SQLException e) {
+            return false;
+        }
     }
 
     @Override

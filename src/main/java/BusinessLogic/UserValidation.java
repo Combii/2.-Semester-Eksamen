@@ -1,10 +1,8 @@
 package BusinessLogic;
 
 import BusinessLogic.Account.Account;
-import Dao.AAccountDAO;
-import Dao.AccountDao;
-import Dao.DAO;
-import Dao.Database;
+import Dao.*;
+
 import java.sql.SQLException;
 
 /**
@@ -12,11 +10,11 @@ import java.sql.SQLException;
  */
 public class UserValidation {
 
-    //Returns 0 = Admin, 1 = Employee, 2 = Customer, -1 if user is not in DB or incorrect typed username and -2 Password typed is not equal to DB
+    //Returns 0 = Admin, 1 = Employee, -1 if user is not in DB or incorrect typed username and -2 Password typed is not equal to DB
 
     public static int isUser(String username, String password) throws SQLException, HashCode.InvalidHashException, HashCode.CannotPerformOperationException {
 
-        DAO<Account> dao = new AAccountDAO();
+        AccountInterface dao = new AAccountDAO();
         Account acc;
 
         try {
@@ -25,15 +23,19 @@ public class UserValidation {
             return -1;
         }
 
-        if(!HashCode.verifyPassword(password,acc.getPassword())) return -2;
+        int userType = acc.getUserType();
 
-        return acc.getUserType();
+        if(userType == 2 || !HashCode.verifyPassword(password,acc.getPassword())) return -2;
+
+        return userType;
 
     }
 
     public static boolean isCustomer(String password) throws HashCode.CannotPerformOperationException, SQLException {
 
-        return true;
+        AccountInterface dao = new AAccountDAO();
+
+        return dao.isCustomer(password);
 
     }
 

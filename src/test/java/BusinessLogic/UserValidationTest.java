@@ -27,7 +27,7 @@ public class UserValidationTest {
 
         d = new AAccountDAO();
 
-        d.save(new Customer("bob",HashCode.createHash("1234"),2));
+        d.save(new Customer("bob","1234",2));
         d.save(new Employee("bob1",HashCode.createHash("1235"),1,"bobby","john","bob@gmail.com"));
         d.save(new Admin("bbob1",HashCode.createHash("3235"),0,"bobby1","john1","bob1@gmail.com"));
 
@@ -36,21 +36,26 @@ public class UserValidationTest {
     @After
     public void tearDown() throws Exception {
 
-
+        d.delete(d.getId("bob"));
+        d.delete(d.getId("bob1"));
+        d.delete(d.getId("bbob1"));
 
     }
 
     @Test
     public void isUser() throws Exception {
 
+        assertEquals(1, UserValidation.isUser("bob1","1235"));
+        assertEquals(0,UserValidation.isUser("bbob1","3235"));
+        assertEquals(-2,UserValidation.isUser("bob","1234"));
 
     }
 
     @Test
     public void isCustomer() throws Exception {
 
-        System.out.println(HashCode.createHash("1234"));
-        assertEquals(true,d.isCustomer(HashCode.createHash("1234")));
+        assertEquals(true,UserValidation.isCustomer("1234"));
+        assertEquals(false,UserValidation.isCustomer("notavalidPassword"));
 
     }
 

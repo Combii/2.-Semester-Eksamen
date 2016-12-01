@@ -31,6 +31,10 @@ public class AAccountDAOTest {
     @Test
     public void save() throws Exception {
 
+        dao.save(a);
+        dao.save(b);
+        dao.save(c);
+
     }
 
     @Test
@@ -71,7 +75,7 @@ public class AAccountDAOTest {
     @Test
     public void delete() throws Exception {
 
-        dao.delete(8);
+        
 
     }
 }
