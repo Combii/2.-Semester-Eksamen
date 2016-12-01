@@ -12,18 +12,21 @@ import java.util.List;
  * 01 December 2016.
  */
 public class FileStorage {
-    private List<myFile> list = new ArrayList<>();
+    private List<FilePath> list = new ArrayList<>();
 
-    public void addToList(myFile file){
-
+    public void addToList(FilePath file){
+        list.add(file);
     }
 
-    public void addFileListToList(List<myFile> file){
-
+    public void addFileListToList(List<FilePath> file){
+        list.addAll(file);
     }
 
-    public void uploadListToDropbox(String dropboxPathFolder){
-
+    public void uploadListToDropbox(String dropboxPathFolder) throws IOException, DbxException {
+        if(!list.isEmpty()) {
+            DropboxDAO dropboxDAO = new DropboxDAO();
+            dropboxDAO.uploadListToDropbox(list);
+        }
     }
 
     public void downloadFilesToList(String dropboxPathFolder) throws IOException, DbxException {
@@ -32,9 +35,8 @@ public class FileStorage {
         list = dropboxDAO.downloadFilesFromDropboxToList(dropboxPathFolder);
     }
     else {
-        List<myFile> tempList = dropboxDAO.downloadFilesFromDropboxToList(dropboxPathFolder);
-        for(myFile i : tempList)
-            list.add(i);
+        List<FilePath> tempList = dropboxDAO.downloadFilesFromDropboxToList(dropboxPathFolder);
+        addFileListToList(tempList);
     }
     }
 }

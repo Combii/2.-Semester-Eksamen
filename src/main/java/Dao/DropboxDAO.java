@@ -1,6 +1,6 @@
 package Dao;
 
-import BusinessLogic.File.myFile;
+import BusinessLogic.File.FilePath;
 import com.dropbox.core.DbxException;
 import com.dropbox.core.v2.DbxClientV2;
 import com.dropbox.core.v2.files.FileMetadata;
@@ -21,7 +21,7 @@ public class DropboxDAO {
     private DropboxDatabase db = DropboxDatabase.getDropboxDB();
     private DbxClientV2 client = db.getClient();
 
-    public myFile downloadFromDropbox(String localPathToSave, String dropboxPath) throws IOException, DbxException {
+    public FilePath downloadFromDropbox(String localPathToSave, String dropboxPath) throws IOException, DbxException {
         File file = new File("src/main/Resources/Downloads" + localPathToSave);
 
         //https://stackoverflow.com/questions/2833853/create-whole-path-automatically-when-writing-to-a-new-file
@@ -30,7 +30,7 @@ public class DropboxDAO {
 
         OutputStream outputStream = new FileOutputStream(file);
         client.files().download(dropboxPath).download(outputStream);
-        return new myFile("src/main/Resources/Downloads" + localPathToSave, dropboxPath);
+        return new FilePath("src/main/Resources/Downloads" + localPathToSave, dropboxPath);
     }
 
     public void uploadToDropbox(String localPathToUpload, String dropboxPath) throws IOException, DbxException {
@@ -40,8 +40,8 @@ public class DropboxDAO {
         }
     }
 
-    public void uploadListToDropbox(List<myFile> list) throws IOException, DbxException {
-        for(myFile i : list){
+    public void uploadListToDropbox(List<FilePath> list) throws IOException, DbxException {
+        for(FilePath i : list){
             String localPath = i.getLocalPath();
             String dropBoxPath = i.getDropBoxPath();
 
@@ -51,8 +51,8 @@ public class DropboxDAO {
         }
     }
 
-    public List<myFile> downloadFilesFromDropboxToList(String dropBoxFolderPath) throws DbxException, IOException {
-        List<myFile> tempList = new ArrayList<>();
+    public List<FilePath> downloadFilesFromDropboxToList(String dropBoxFolderPath) throws DbxException, IOException {
+        List<FilePath> tempList = new ArrayList<>();
 
         ListFolderResult result = client.files().listFolder(dropBoxFolderPath);
         while (true) {

@@ -1,6 +1,6 @@
 package Dao;
 
-import BusinessLogic.File.myFile;
+import BusinessLogic.File.FilePath;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -14,7 +14,7 @@ import java.util.List;
 public class DropboxDAOTest {
 
     DropboxDAO dao;
-    List<myFile> fileStorage;
+    List<FilePath> fileStorage;
 
     @Before
     public void setUp() throws Exception {
