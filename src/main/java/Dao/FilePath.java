@@ -26,7 +26,7 @@ public class FilePath {
 
     public String getDropBoxPath() {
         if(dropBoxPath.equals("") && !localPath.equals("")){
-                Pattern p = Pattern.compile(".+(\\/.+\\/.+$)");
+                Pattern p = Pattern.compile(".+(/.+/.+$)");
                 Matcher m = p.matcher(localPath);
                 m.find();
                 dropBoxPath = m.group(1);

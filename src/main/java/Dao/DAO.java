@@ -1,7 +1,6 @@
 package Dao;
 
 import java.sql.SQLException;
-import java.util.List;
 
 /**
  * Created by ${Boris} Grunwald} on 29/11/2016.
