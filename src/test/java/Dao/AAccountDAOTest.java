@@ -2,6 +2,7 @@ package Dao;
 
 import BusinessLogic.Account.Account;
 import BusinessLogic.Account.Admin;
+import BusinessLogic.Account.Customer;
 import BusinessLogic.Account.Employee;
 import BusinessLogic.HashCode;
 import org.junit.Before;
@@ -38,9 +39,13 @@ public class AAccountDAOTest {
     }
 
     @Test
+    public void isCustomer() throws Exception {
+
+    }
+
+    @Test
     public void getId() throws Exception {
 
-        System.out.println(dao.getId("Anna"));
 
     }
 

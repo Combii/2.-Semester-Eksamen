@@ -42,7 +42,7 @@ public class Account {
 
     @Override
     public String toString() {
-        return "Account{" +
+        return "AccountInterface{" +
                 "password='" + password + '\'' +
                 ", userType=" + userType +
                 ", name='" + name + '\'' +

@@ -33,13 +33,7 @@ public class UserValidation {
 
     public static boolean isCustomer(String password) throws HashCode.CannotPerformOperationException, SQLException {
 
-        AccountDao accountDao = new AccountDao();
-
-        String hashPassword = HashCode.createHash(password);
-
-        int userType = accountDao.getUserTypeByPassword(hashPassword);
-
-        return userType == 2;
+        return true;
 
     }
 

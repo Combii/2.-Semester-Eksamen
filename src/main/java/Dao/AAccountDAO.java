@@ -11,7 +11,7 @@ import java.util.List;
 /**
  * Created by ${Boris} Grunwald} on 29/11/2016.
  */
-public class AAccountDAO implements DAO<Account> {
+public class AAccountDAO implements AccountInterface {
 
     private Connection conn;
     private PreparedStatement ps = null;
@@ -42,7 +42,7 @@ public class AAccountDAO implements DAO<Account> {
             ps = conn.prepareStatement("INSERT INTO Account (username, password_hash,userType) VALUES " + AccValuesAdmin + ";");
             ps.executeUpdate();
 
-            //Is needed to check latest ID inserted into Account. Could also do AUTO_INCREMENT in table UserInformation
+            //Is needed to check latest ID inserted into AccountInterface. Could also do AUTO_INCREMENT in table UserInformation
             PreparedStatement checkID = conn.prepareStatement("SELECT * FROM Account WHERE ID = (SELECT MAX(ID) FROM Account)");
             ResultSet maxID = checkID.executeQuery();
             maxID.next();
@@ -56,6 +56,7 @@ public class AAccountDAO implements DAO<Account> {
         closeStatementAndResultsetAndConnection();
 
     }
+
 
     @Override
     public Account get(String username) throws SQLException{
@@ -73,8 +74,16 @@ public class AAccountDAO implements DAO<Account> {
                 String name = rs.getString("name");
                 String lastName = rs.getString("lastName");
                 String email = rs.getString("Email");
-                if(userType == 0) return new Admin(Usname,password_hash,userType,name,lastName,email);
-                else return new Employee(Usname,password_hash,userType,name,lastName,email);
+                if(userType == 0) {
+                    Admin a = new Admin(Usname,password_hash,userType,name,lastName,email);
+                    closeStatementAndResultsetAndConnection();
+                    return a;
+                } else {
+                    Employee e = new Employee(Usname, password_hash, userType, name, lastName, email);
+                    closeStatementAndResultsetAndConnection();
+                    return e;
+                }
+
             }
 
             return new Customer(Usname,password_hash,userType);
@@ -90,6 +99,17 @@ public class AAccountDAO implements DAO<Account> {
     }
 
     @Override
+    public boolean isCustomer(String password) throws SQLException {
+
+        ps = conn.prepareStatement("SELECT EXISTS (SELECT * FROM Account WHERE password_hash = '"+password+"');");
+        rs = ps.executeQuery();
+        rs.next();
+        boolean isCustomer = rs.getBoolean(1);
+        closeStatementAndResultsetAndConnection();
+        return isCustomer;
+    }
+
+    @Override
     public boolean exists(String username) throws SQLException {
         PreparedStatement ps = conn.prepareStatement("SELECT EXISTS(SELECT * FROM Account WHERE username = '" + username + "');");
         ResultSet rs = ps.executeQuery();
@@ -102,16 +122,6 @@ public class AAccountDAO implements DAO<Account> {
     @Override
     public boolean exists(int id) throws SQLException {
         return false;
-    }
-
-    @Override
-    public List<Account> findAll() throws SQLException {
-        return null;
-    }
-
-    @Override
-    public List<Account> findAllByName() {
-        return null;
     }
 
 
