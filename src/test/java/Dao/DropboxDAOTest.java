@@ -36,11 +36,14 @@ public class DropboxDAOTest {
 
     @Test
     public void uploadListTestSQL() throws IOException, DbxException {
-        list.addLocalFilesToList("/Users/Combii/Desktop/2. Semester Eksamen/AnotherCC/src/main/Resources/Downloads");
+        //list.addLocalFilesToList("/Users/Combii/Desktop/2. Semester Eksamen/AnotherCC/src/main/Resources/Downloads");
+
+        dao.getPathsOfFolder("/src/main/Resources/Downloads");
+
         List<FilePath> list2 = list.getList();
 
-        System.out.println(list2);
+        //System.out.println(list2);
 
-        list.uploadListToDropbox("/Test");
+        //list.uploadListToDropbox("/Test");
     }
 }

@@ -94,12 +94,13 @@ public class DropboxDAO implements DAO<List<FilePath>>{
         return null;
     }
 
-    private ListFolderResult getPathsOfFolder(String folderPath) {
+    public List<FilePath> getPathsOfFolderDropbox(String folderPath) {
+        List<FilePath> rList = new ArrayList<>();
         try {
             ListFolderResult result = client.files().listFolder(folderPath);
             while (true) {
                 for (Metadata metadata : result.getEntries()) {
-                    System.out.println(metadata.getPathLower());
+                    rList.add(new FilePath("", metadata.getPathLower()));
                 }
 
                 if (!result.getHasMore()) {
@@ -107,7 +108,7 @@ public class DropboxDAO implements DAO<List<FilePath>>{
                 }
                 result = client.files().listFolderContinue(result.getCursor());
             }
-            return result;
+            return rList;
         }
         catch (Exception e){
             e.printStackTrace();
@@ -115,10 +116,30 @@ public class DropboxDAO implements DAO<List<FilePath>>{
         return null;
     }
 
+    public List<FilePath> addLocalFilesToList(String localPathFolder) {
+        //https://stackoverflow.com/questions/18444423/get-all-absolute-paths-of-files-under-a-given-folder
+        List<FilePath> list = new ArrayList<>();
+        listFilesForFolder(new File(localPathFolder), list);
+        return list;
+    }
+
+    private void listFilesForFolder(final File folder, List<FilePath> list) {
+        //https://stackoverflow.com/questions/1844688/read-all-files-in-a-folder
+        for (final File fileEntry : folder.listFiles()) {
+            if (fileEntry.isDirectory()) {
+                listFilesForFolder(fileEntry, list);
+            } else {
+                list.add(new FilePath(fileEntry.getAbsolutePath(),""));
+            }
+        }
+    }
+
+
+
+
     @Override
     public void save(List<FilePath> list) {
         uploadListToDropbox(list);
-
     }
 
     @Override
@@ -129,12 +150,12 @@ public class DropboxDAO implements DAO<List<FilePath>>{
 
     @Override
     public boolean exists(int id) {
-
         return false;
     }
 
     @Override
-    public void delete(String id) throws SQLException {
-
+    public void delete(String dropBoxPath) throws SQLException {
+        ps = conn.prepareStatement("DELETE FROM FilePathDropboxDB WHERE path = '" + dropBoxPath + "');");
+        ps.executeUpdate();
     }
 }

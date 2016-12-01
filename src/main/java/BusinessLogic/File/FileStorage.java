@@ -4,7 +4,6 @@ import Dao.DropboxDAO;
 import Dao.FilePath;
 import com.dropbox.core.DbxException;
 
-import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -15,6 +14,8 @@ import java.util.List;
  */
 public class FileStorage {
     private List<FilePath> list = new ArrayList<>();
+
+    DropboxDAO dropboxDAO = null;
 
     public List<FilePath> getList() {
         return list;
@@ -28,37 +29,31 @@ public class FileStorage {
         list.addAll(file);
     }
 
+    public void addLocalFilesToList(String localPathFolder){
+        createDropboxDAO();
+    }
+
     public void uploadListToDropbox(String dropboxPathFolder) throws IOException, DbxException {
         if(!list.isEmpty()) {
-            DropboxDAO dropboxDAO = new DropboxDAO();
+            createDropboxDAO();
             dropboxDAO.save(list);
         }
     }
 
     public void downloadFilesToList(String dropboxPathFolder) throws IOException, DbxException {
-        DropboxDAO dropboxDAO = new DropboxDAO();
-    if(list.isEmpty()){
-        list = dropboxDAO.get(dropboxPathFolder);
-    }
-    else {
-        List<FilePath> tempList = dropboxDAO.get(dropboxPathFolder);
-        addFileListToList(tempList);
-    }
-    }
-
-    public void addLocalFilesToList(String localPathFolder) {
-        //https://stackoverflow.com/questions/18444423/get-all-absolute-paths-of-files-under-a-given-folder
-            listFilesForFolder(new File(localPathFolder));
+        createDropboxDAO();
+        if(list.isEmpty()){
+            list = dropboxDAO.get(dropboxPathFolder);
+        }
+        else {
+            List<FilePath> tempList = dropboxDAO.get(dropboxPathFolder);
+            addFileListToList(tempList);
+        }
     }
 
-    private void listFilesForFolder(final File folder) {
-        //https://stackoverflow.com/questions/1844688/read-all-files-in-a-folder
-        for (final File fileEntry : folder.listFiles()) {
-            if (fileEntry.isDirectory()) {
-                listFilesForFolder(fileEntry);
-            } else {
-                list.add(new FilePath(fileEntry.getAbsolutePath(),""));
-            }
+    private void createDropboxDAO(){
+        if(dropboxDAO == null){
+            dropboxDAO = new DropboxDAO();
         }
     }
 }
