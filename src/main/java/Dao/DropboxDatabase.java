@@ -1,20 +1,26 @@
 package Dao;
 
 import com.dropbox.core.*;
+import com.dropbox.core.v1.DbxClientV1;
+import com.dropbox.core.v2.DbxClientV2;
+import com.dropbox.core.v2.DbxRawClientV2;
+import com.dropbox.core.v2.files.DbxUserFilesRequests;
+import com.dropbox.core.v2.files.FileMetadata;
+import com.dropbox.core.v2.files.ListFolderResult;
+import com.dropbox.core.v2.files.Metadata;
 
 import java.io.*;
-import java.util.Locale;
 
 /**
  * Created by David Stovlbaek
  * 30 November 2016.
- * Source: https://www.dropbox.com/developers-v1/core/start/java
+ * Source: https://www.dropbox.com/developers/documentation/java#tutorial
  */
 public class DropboxDatabase {
 
+    private static final String ACCESS_TOKEN = "dripAUbSyiAAAAAAAAAADfmBh4JsFuVUEq9dLDonN3HXNpLylcdeBNvyIbUW6OGi";
     private static DbxRequestConfig config;
-    private static DbxClient client;
-    private static final String accessToken = "dripAUbSyiAAAAAAAAAADfmBh4JsFuVUEq9dLDonN3HXNpLylcdeBNvyIbUW6OGi";
+    private static DbxClientV2 client;
     private static DropboxDatabase dropboxDatabase;
 
     //Prevents others from creating new instance of this class
@@ -22,8 +28,8 @@ public class DropboxDatabase {
 
     public static DropboxDatabase getDropboxDB(){
         if(dropboxDatabase == null) {
-            config = new DbxRequestConfig("AnotherCCDropBoxConnection", Locale.getDefault().toString());
-            client = new DbxClient(config, accessToken);
+            config = new DbxRequestConfig("dropbox/AnotherCC", "en_US");
+            client = new DbxClientV2(config, ACCESS_TOKEN);
             dropboxDatabase = new DropboxDatabase();
             return dropboxDatabase;
         }
@@ -31,28 +37,31 @@ public class DropboxDatabase {
             return dropboxDatabase;
     }
 
-
     public void downloadFromDropbox(String localPathToSave, String dropboxPath) throws IOException, DbxException {
-        try (FileOutputStream outputStream = new FileOutputStream(localPathToSave)) {
-            DbxEntry.File downloadedFile = client.getFile(dropboxPath, null,
-                    outputStream);
-            System.out.println("Metadata: " + downloadedFile.toString());
-        }
-        catch (Exception e) {
-            e.printStackTrace();
-        }
+        OutputStream outputStream = new FileOutputStream(localPathToSave);
+        client.files().download(dropboxPath).download(outputStream);
     }
 
     public void uploadToDropbox(String localPathToUpload, String dropboxPath) throws IOException, DbxException {
-        File inputFile = new File(localPathToUpload);
-        try (FileInputStream inputStream = new FileInputStream(inputFile)) {
-            DbxEntry.File uploadedFile = client.uploadFile(dropboxPath,
-                    DbxWriteMode.add(), inputFile.length(), inputStream);
-            System.out.println("Uploaded: " + uploadedFile.toString());
+        try (InputStream in = new FileInputStream(localPathToUpload)) {
+            FileMetadata metadata = client.files().uploadBuilder(dropboxPath)
+                    .uploadAndFinish(in);
         }
-        catch (Exception e){
-            e.printStackTrace();
+    }
+
+    public ListFolderResult getPathsOfFolder(String folderPath) throws DbxException {
+        ListFolderResult result = client.files().listFolder(folderPath);
+        while (true) {
+            for (Metadata metadata : result.getEntries()) {
+                System.out.println(metadata.getPathLower());
+            }
+
+            if (!result.getHasMore()) {
+                break;
+            }
+            result = client.files().listFolderContinue(result.getCursor());
         }
+        return result;
     }
 
 
