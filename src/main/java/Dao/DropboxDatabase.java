@@ -1,10 +1,7 @@
 package Dao;
 
 import com.dropbox.core.*;
-import com.dropbox.core.v1.DbxClientV1;
 import com.dropbox.core.v2.DbxClientV2;
-import com.dropbox.core.v2.DbxRawClientV2;
-import com.dropbox.core.v2.files.DbxUserFilesRequests;
 import com.dropbox.core.v2.files.FileMetadata;
 import com.dropbox.core.v2.files.ListFolderResult;
 import com.dropbox.core.v2.files.Metadata;
