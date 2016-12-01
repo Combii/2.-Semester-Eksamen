@@ -4,6 +4,7 @@ import Dao.DropboxDAO;
 import Dao.FilePath;
 import com.dropbox.core.DbxException;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -14,6 +15,10 @@ import java.util.List;
  */
 public class FileStorage {
     private List<FilePath> list = new ArrayList<>();
+
+    public List<FilePath> getList() {
+        return list;
+    }
 
     public void addToList(FilePath file){
         list.add(file);
@@ -39,5 +44,21 @@ public class FileStorage {
         List<FilePath> tempList = dropboxDAO.get(dropboxPathFolder);
         addFileListToList(tempList);
     }
+    }
+
+    public void addLocalFilesToList(String localPathFolder) {
+        //https://stackoverflow.com/questions/18444423/get-all-absolute-paths-of-files-under-a-given-folder
+            listFilesForFolder(new File(localPathFolder));
+    }
+
+    private void listFilesForFolder(final File folder) {
+        //https://stackoverflow.com/questions/1844688/read-all-files-in-a-folder
+        for (final File fileEntry : folder.listFiles()) {
+            if (fileEntry.isDirectory()) {
+                listFilesForFolder(fileEntry);
+            } else {
+                list.add(new FilePath(fileEntry.getAbsolutePath(),""));
+            }
+        }
     }
 }

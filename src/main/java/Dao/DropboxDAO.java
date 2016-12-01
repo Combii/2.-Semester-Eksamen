@@ -8,6 +8,9 @@ import com.dropbox.core.v2.files.Metadata;
 
 
 import java.io.*;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
@@ -21,6 +24,10 @@ public class DropboxDAO implements DAO<List<FilePath>>{
     private DropboxDatabase db = DropboxDatabase.getDropboxDB();
     private DbxClientV2 client = db.getClient();
 
+    private Connection conn;
+    private PreparedStatement ps = null;
+    private ResultSet rs = null;
+
     private FilePath downloadFromDropbox(String localPathToSave, String dropboxPath) throws IOException, DbxException {
         File file = new File("src/main/Resources/Downloads" + localPathToSave);
 
@@ -33,10 +40,15 @@ public class DropboxDAO implements DAO<List<FilePath>>{
         return new FilePath("src/main/Resources/Downloads" + localPathToSave, dropboxPath);
     }
 
-    private void uploadToDropbox(String localPathToUpload, String dropboxPath) throws IOException, DbxException {
-        try (InputStream in = new FileInputStream("src/main/Resources/Downloads" + localPathToUpload)) {
-            FileMetadata metadata = client.files().uploadBuilder(dropboxPath)
-                    .uploadAndFinish(in);
+    private void uploadToDropbox(String localPathToUpload, String dropboxPath) throws IOException, DbxException, SQLException {
+        conn = Database.getDatabase().getConnection();
+
+        ps = conn.prepareStatement("INSERT INTO FilePathDropboxDB VALUES (ID, '" + dropboxPath + "');");
+        ps.executeUpdate();
+
+        try (InputStream in = new FileInputStream(localPathToUpload)) {
+                    FileMetadata metadata = client.files().uploadBuilder(dropboxPath)
+                            .uploadAndFinish(in);
         }
     }
 
@@ -106,6 +118,7 @@ public class DropboxDAO implements DAO<List<FilePath>>{
     @Override
     public void save(List<FilePath> list) {
         uploadListToDropbox(list);
+
     }
 
     @Override
@@ -116,6 +129,7 @@ public class DropboxDAO implements DAO<List<FilePath>>{
 
     @Override
     public boolean exists(int id) {
+
         return false;
     }
 
