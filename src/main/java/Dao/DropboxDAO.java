@@ -21,8 +21,8 @@ public class DropboxDAO {
     private DropboxDatabase db = DropboxDatabase.getDropboxDB();
     private DbxClientV2 client = db.getClient();
 
-    public void downloadFromDropbox(String localPathToSave, String dropboxPath) throws IOException, DbxException {
-        File file = new File(localPathToSave);
+    public myFile downloadFromDropbox(String localPathToSave, String dropboxPath) throws IOException, DbxException {
+        File file = new File("src/main/Resources/Downloads" + localPathToSave);
 
         //https://stackoverflow.com/questions/2833853/create-whole-path-automatically-when-writing-to-a-new-file
         //Creates path if doesn't exist
@@ -30,6 +30,7 @@ public class DropboxDAO {
 
         OutputStream outputStream = new FileOutputStream(file);
         client.files().download(dropboxPath).download(outputStream);
+        return new myFile("src/main/Resources/Downloads" + localPathToSave, dropboxPath);
     }
 
     public void uploadToDropbox(String localPathToUpload, String dropboxPath) throws IOException, DbxException {
@@ -48,8 +49,7 @@ public class DropboxDAO {
                 String path = metadata.getPathLower();
 
                 //Downloads files to local folder Downloads in Resources
-                downloadFromDropbox("src/main/Resources/Downloads" + path, path);
-                tempList.add(new myFile("src/main/Resources/Downloads" + path, path));
+                tempList.add(downloadFromDropbox(path, path));
             }
 
             if (!result.getHasMore()) {
