@@ -2,9 +2,10 @@ package BusinessLogic;
 
 import BusinessLogic.Account.Account;
 import BusinessLogic.Account.Admin;
+import BusinessLogic.Account.Customer;
 import BusinessLogic.Account.Employee;
 import Dao.AAccountDAO;
-import Dao.DAO;
+import Dao.AccountDAOInterface;
 
 /**
  * Created by David Stovlbaek
@@ -31,9 +32,16 @@ public class CreateNewAccount {
         }
     }
 
+    public static void createNewCustomer(String name, String password, int userType) throws HashCode.CannotPerformOperationException {
+
+        account = new Customer(name,HashCode.createHash(password),userType);
+        saveAccountToDB();
+
+    }
+
     private static void saveAccountToDB() {
         try{
-        DAO<Account> dao = new AAccountDAO();
+        AccountDAOInterface dao = new AAccountDAO();
         dao.save(account);
         }
         catch (Exception e){

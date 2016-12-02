@@ -57,7 +57,7 @@ public class CreateNewAccountController{
         try {
             CreateNewAccount.createNewAccount(username.getText(), password.getText(), email.getText(), userType, firstName.getText(), lastName.getText());
             Alert alert2 = new Alert(Alert.AlertType.INFORMATION);
-            alert2.setTitle("Account created");
+            alert2.setTitle("AccountDAOInterface created");
             alert2.setHeaderText(null);
             alert2.setContentText("First name: " + firstName.getText() + "\n" +
                     "Last name: " + lastName.getText() + "\n" +

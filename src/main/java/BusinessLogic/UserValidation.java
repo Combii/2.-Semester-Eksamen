@@ -1,7 +1,8 @@
 package BusinessLogic;
 
-import Dao.AccountDao;
-import Dao.Database;
+import BusinessLogic.Account.Account;
+import Dao.*;
+
 import java.sql.SQLException;
 
 /**
@@ -9,38 +10,32 @@ import java.sql.SQLException;
  */
 public class UserValidation {
 
-    //Returns 0 = Admin, 1 = Employee, 2 = Customer, -1 if user is not in DB or incorrect typed username and -2 Password typed is not equal to DB
+    //Returns 0 = Admin, 1 = Employee, -1 if user is not in DB or incorrect typed username and -2 Password typed is not equal to DB
 
     public static int isUser(String username, String password) throws SQLException, HashCode.InvalidHashException, HashCode.CannotPerformOperationException {
-        AccountDao accountDao = new AccountDao();
 
-        String checkUsername = accountDao.getUsername(username);
-        if (checkUsername != null) {
-            if (!checkUsername.equals(username))
-                return -1;
-        } else
+        AccountDAOInterface dao = new AAccountDAO();
+        Account acc;
+
+        try {
+            acc = dao.get(username);
+        } catch (SQLException e) {
             return -1;
-
-        String hashPassword = accountDao.getHashPassword(username);
-
-        if (!HashCode.verifyPassword(password, hashPassword)) {
-            return -2;
         }
 
+        int userType = acc.getUserType();
 
-       return accountDao.getUserTypeByUsername(username);
+        if(userType == 2 || !HashCode.verifyPassword(password,acc.getPassword())) return -2;
+
+        return userType;
 
     }
 
     public static boolean isCustomer(String password) throws HashCode.CannotPerformOperationException, SQLException {
 
-        AccountDao accountDao = new AccountDao();
+        AccountDAOInterface dao = new AAccountDAO();
 
-        String hashPassword = HashCode.createHash(password);
-
-        int userType = accountDao.getUserTypeByPassword(hashPassword);
-
-        return userType == 2;
+        return dao.isCustomer(password);
 
     }
 
