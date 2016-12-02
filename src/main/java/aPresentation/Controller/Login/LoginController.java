@@ -76,7 +76,7 @@ public class LoginController {
                 password.clear();
             }
         }
-        catch (StringIndexOutOfBoundsException e){
+        catch (StringIndexOutOfBoundsException | NullPointerException e){
             textOverLoginButton.setText("Username or Password is incorrect");
             password.clear();
         }
