@@ -61,6 +61,7 @@ public class AAccountDAO implements AccountInterface {
     @Override
     public Account get(String username) throws SQLException{
 
+        try {
             ps = conn.prepareStatement("SELECT * FROM Account LEFT JOIN UserInformation ON Account.ID = UserInformation.ID WHERE username = '" + username + "';");
             rs = ps.executeQuery();
 
@@ -87,6 +88,9 @@ public class AAccountDAO implements AccountInterface {
             }
 
             return new Customer(Usname,password_hash,userType);
+        } catch (SQLException e) {
+            return null;
+        }
 
     }
 

@@ -5,31 +5,29 @@ import BusinessLogic.Account.Admin;
 import BusinessLogic.Account.Customer;
 import BusinessLogic.Account.Employee;
 import BusinessLogic.HashCode;
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+import static org.junit.Assert.assertEquals;
 
 /**
  * Created by ${Boris} Grunwald} on 29/11/2016.
  */
 public class AAccountDAOTest {
 
-    DAO<Account> dao;
+    AccountInterface dao;
     Account a;
     Account b;
     Account c;
 
+    //Also testes save method
     @Before
     public void setUp() throws Exception {
 
+        dao = new AAccountDAO();
         a = new Customer("Anders" , HashCode.createHash("1234"), 2);
         b = new Employee("Jikol1906", HashCode.createHash("2345"),1, "signe", "andersen", "signe@gmail.com");
         c = new Admin("username1234", HashCode.createHash("3456"), 0, "Preben", "Jensen", "Preben@gmail.com");
-        dao = new AAccountDAO();
-
-    }
-
-    @Test
-    public void save() throws Exception {
 
         dao.save(a);
         dao.save(b);
@@ -37,8 +35,27 @@ public class AAccountDAOTest {
 
     }
 
+    //Also testes delete method
+    @After
+    public void tearDown() throws Exception {
+
+        dao.delete(dao.getId("Anders"));
+        dao.delete(dao.getId("Jikol1906"));
+        dao.delete(dao.getId("username1234"));
+    }
+
+    @Test
+    public void save() throws Exception {
+
+    }
+
     @Test
     public void get() throws Exception {
+
+        assertEquals(true,dao.get("Anders").equals(a));
+        assertEquals(true,dao.get("Jikol1906").equals(b));
+        assertEquals(true,dao.get("username1234").equals(c));
+        assertEquals(null,dao.get("notaValidUsername123141342"));
 
     }
 

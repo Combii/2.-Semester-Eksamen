@@ -41,6 +41,26 @@ public class Account {
     }
 
     @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Account)) return false;
+
+        Account account = (Account) o;
+
+        if (userType != account.userType) return false;
+        if (password != null ? !password.equals(account.password) : account.password != null) return false;
+        return name != null ? name.equals(account.name) : account.name == null;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = password != null ? password.hashCode() : 0;
+        result = 31 * result + userType;
+        result = 31 * result + (name != null ? name.hashCode() : 0);
+        return result;
+    }
+
+    @Override
     public String toString() {
         return "AccountInterface{" +
                 "password='" + password + '\'' +

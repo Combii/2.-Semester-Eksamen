@@ -14,7 +14,7 @@ public class ActiveAccount {
     private ActiveAccount(){}
 
     public static void setLoggedInUsername(String username) {
-        ActiveAccount.username = username.substring(0, 1).toUpperCase() + username.substring(1);;
+        ActiveAccount.username = username.substring(0, 1).toUpperCase() + username.substring(1);
     }
 
 }

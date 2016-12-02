@@ -8,6 +8,9 @@ import com.dropbox.core.v2.files.Metadata;
 
 
 import java.io.*;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
@@ -21,6 +24,10 @@ public class DropboxDAO implements DAO<List<FilePath>>{
     private DropboxDatabase db = DropboxDatabase.getDropboxDB();
     private DbxClientV2 client = db.getClient();
 
+    private Connection conn;
+    private PreparedStatement ps = null;
+    private ResultSet rs = null;
+
     private FilePath downloadFromDropbox(String localPathToSave, String dropboxPath) throws IOException, DbxException {
         File file = new File("src/main/Resources/Downloads" + localPathToSave);
 
@@ -33,10 +40,15 @@ public class DropboxDAO implements DAO<List<FilePath>>{
         return new FilePath("src/main/Resources/Downloads" + localPathToSave, dropboxPath);
     }
 
-    private void uploadToDropbox(String localPathToUpload, String dropboxPath) throws IOException, DbxException {
-        try (InputStream in = new FileInputStream("src/main/Resources/Downloads" + localPathToUpload)) {
-            FileMetadata metadata = client.files().uploadBuilder(dropboxPath)
-                    .uploadAndFinish(in);
+    private void uploadToDropbox(String localPathToUpload, String dropboxPath) throws IOException, DbxException, SQLException {
+        conn = Database.getDatabase().getConnection();
+
+        ps = conn.prepareStatement("INSERT INTO FilePathDropboxDB VALUES (ID, '" + dropboxPath + "');");
+        ps.executeUpdate();
+
+        try (InputStream in = new FileInputStream(localPathToUpload)) {
+                    FileMetadata metadata = client.files().uploadBuilder(dropboxPath)
+                            .uploadAndFinish(in);
         }
     }
 
@@ -82,12 +94,13 @@ public class DropboxDAO implements DAO<List<FilePath>>{
         return null;
     }
 
-    private ListFolderResult getPathsOfFolder(String folderPath) {
+    public List<FilePath> getPathsOfFolderDropbox(String folderPath) {
+        List<FilePath> rList = new ArrayList<>();
         try {
             ListFolderResult result = client.files().listFolder(folderPath);
             while (true) {
                 for (Metadata metadata : result.getEntries()) {
-                    System.out.println(metadata.getPathLower());
+                    rList.add(new FilePath("", metadata.getPathLower()));
                 }
 
                 if (!result.getHasMore()) {
@@ -95,13 +108,34 @@ public class DropboxDAO implements DAO<List<FilePath>>{
                 }
                 result = client.files().listFolderContinue(result.getCursor());
             }
-            return result;
+            return rList;
         }
         catch (Exception e){
             e.printStackTrace();
         }
         return null;
     }
+
+    public List<FilePath> addLocalFilesToList(String localPathFolder) {
+        //https://stackoverflow.com/questions/18444423/get-all-absolute-paths-of-files-under-a-given-folder
+        List<FilePath> list = new ArrayList<>();
+        listFilesForFolder(new File(localPathFolder), list);
+        return list;
+    }
+
+    private void listFilesForFolder(final File folder, List<FilePath> list) {
+        //https://stackoverflow.com/questions/1844688/read-all-files-in-a-folder
+        for (final File fileEntry : folder.listFiles()) {
+            if (fileEntry.isDirectory()) {
+                listFilesForFolder(fileEntry, list);
+            } else {
+                list.add(new FilePath(fileEntry.getAbsolutePath(),""));
+            }
+        }
+    }
+
+
+
 
     @Override
     public void save(List<FilePath> list) {
@@ -120,7 +154,19 @@ public class DropboxDAO implements DAO<List<FilePath>>{
     }
 
     @Override
+<<<<<<< HEAD
     public void delete(int id) throws SQLException {
 
+=======
+    public void delete(String dropBoxPath) {
+        try{
+        ps = conn.prepareStatement("DELETE FROM FilePathDropboxDB WHERE path = '" + dropBoxPath + "');");
+        ps.executeUpdate();
+        client.files().delete(dropBoxPath);
+        }
+        catch (Exception e){
+            e.printStackTrace();
+        }
+>>>>>>> master
     }
 }
