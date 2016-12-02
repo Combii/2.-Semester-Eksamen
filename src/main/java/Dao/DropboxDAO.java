@@ -1,5 +1,6 @@
 package Dao;
 
+import com.dropbox.core.DbxDownloader;
 import com.dropbox.core.DbxException;
 import com.dropbox.core.v2.DbxClientV2;
 import com.dropbox.core.v2.files.FileMetadata;
@@ -94,6 +95,21 @@ public class DropboxDAO implements DAO<List<FilePath>>{
         return null;
     }
 
+    public void downloadThumbnailForFile(FilePath file){
+        try{
+            DbxDownloader dbxDownload = client.files().getThumbnail(file.getDropBoxPath());
+
+            File filePath = new File("src/main/Resources/Downloads/test2.jpeg");
+            filePath.getParentFile().mkdirs();
+
+            OutputStream out = new FileOutputStream(filePath);
+            dbxDownload.download(out);
+        }
+        catch (Exception e){
+            e.printStackTrace();
+        }
+    }
+
     public List<FilePath> getPathsOfFolderDropbox(String folderPath) {
         List<FilePath> rList = new ArrayList<>();
         try {
@@ -134,9 +150,6 @@ public class DropboxDAO implements DAO<List<FilePath>>{
         }
     }
 
-
-
-
     @Override
     public void save(List<FilePath> list) {
         uploadListToDropbox(list);
@@ -168,5 +181,9 @@ public class DropboxDAO implements DAO<List<FilePath>>{
             e.printStackTrace();
         }
 
+    }
+
+    public DbxClientV2 getClient() {
+        return client;
     }
 }

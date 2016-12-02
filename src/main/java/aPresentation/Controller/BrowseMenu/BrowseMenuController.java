@@ -1,6 +1,9 @@
 package aPresentation.Controller.BrowseMenu;
 
+import javafx.fxml.FXML;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.GridPane;
+
 
 /**
  * Created by David Stovlbaek
@@ -8,4 +11,9 @@ import javafx.scene.layout.AnchorPane;
  */
 public class BrowseMenuController {
     public AnchorPane splitPane;
+    public GridPane gridPane;
+
+    @FXML
+    public void initialize() {
+    }
 }
