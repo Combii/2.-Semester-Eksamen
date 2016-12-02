@@ -17,9 +17,10 @@
                 <Menu mnemonicParsing="false" text="Menu">
                   <items>
                     <MenuItem mnemonicParsing="false" onAction="#clickedBrowseMenu" text="Browse Menu" />
-                        <MenuItem mnemonicParsing="false" onAction="#clickedEditAccounts" text="Edit Accounts" />
-                        <MenuItem mnemonicParsing="false" onAction="#clickedCreateNewAccount" text="Create new Account" />
-                        <MenuItem mnemonicParsing="false" onAction="#clickedLogout" text="Logout" />
+                    <MenuItem mnemonicParsing="false" onAction="#clickedShowAccounts" text="Show Accounts" />
+                    <MenuItem mnemonicParsing="false" onAction="#clickedEditAccounts" text="Edit Accounts" />
+                    <MenuItem mnemonicParsing="false" onAction="#clickedCreateNewAccount" text="Create new Account" />
+                    <MenuItem mnemonicParsing="false" onAction="#clickedLogout" text="Logout" />
                   </items>
                 </Menu>
               </menus>

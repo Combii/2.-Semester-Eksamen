@@ -48,6 +48,9 @@ public class BorderPaneController {
     public void clickedCreateNewAccount(ActionEvent actionEvent) throws IOException {
         changeBorderPaneCenter("/Admin Task/Create new account.fxml");
     }
+    public void clickedShowAccounts(ActionEvent actionEvent) throws IOException {
+        changeBorderPaneCenter("/Admin Task/Show Accounts.fxml");
+    }
 
     public void clickedLogout(ActionEvent actionEvent) throws IOException {
         Stage stage = (Stage) borderPane.getScene().getWindow();

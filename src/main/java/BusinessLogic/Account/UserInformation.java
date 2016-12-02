@@ -12,7 +12,7 @@ public class UserInformation {
 
     public static StringBuilder getUser () throws SQLException{
         AccountDao a = new AccountDao();
-        List<String> list = a.getUser();
+        List<String> list = a.getUsers();
 
         StringBuilder sb = new StringBuilder();
         for(String s : list){
@@ -20,5 +20,11 @@ public class UserInformation {
             sb.append("\t");
         }
         return sb;
+    }
+
+    public static List getUsers () throws SQLException{
+        AccountDao a = new AccountDao();
+        List<String> list = a.getUsers();
+        return list;
     }
 }

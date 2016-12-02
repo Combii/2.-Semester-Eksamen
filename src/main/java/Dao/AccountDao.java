@@ -88,9 +88,9 @@ public class AccountDao {
         } catch (Exception e) { /* ignored */ }
     }
 
-    public List getUser() throws SQLException {
+    public List getUsers() throws SQLException {
         try {
-            PreparedStatement ps = conn.prepareStatement("SELECT ID, username FROM Account");
+            PreparedStatement ps = conn.prepareStatement("SELECT username FROM Account");
             ResultSet rs = ps.executeQuery();
             ResultSetMetaData md = rs.getMetaData();
             int columnCount = md.getColumnCount();
@@ -98,10 +98,10 @@ public class AccountDao {
 
             while (rs.next()) {
                 List<String> row = new ArrayList<String>(columnCount);
-                int i = 1;
-                while (i <= columnCount) {
-                    row.add(rs.getString(i++));
-                }
+                //int i = 1;
+                //while (i <= columnCount) {
+                    row.add(rs.getString(1));
+                //}
                 list.add(row);
             }
             closeStatementAndResultsetAndConnection();
@@ -111,4 +111,3 @@ public class AccountDao {
         }
     }
 }
-
