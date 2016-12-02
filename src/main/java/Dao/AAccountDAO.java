@@ -119,6 +119,7 @@ public class AAccountDAO implements AccountDAOInterface {
 
     @Override
     public boolean exists(String username) throws SQLException {
+
         try {
             PreparedStatement ps = conn.prepareStatement("SELECT EXISTS(SELECT * FROM Account WHERE username = '" + username + "');");
             ResultSet rs = ps.executeQuery();

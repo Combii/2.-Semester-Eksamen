@@ -84,6 +84,11 @@ public class AAccountDAOTest {
     @Test
     public void exists1() throws Exception {
 
+        assertEquals(true, dao.exists("Anders"));
+        assertEquals(true,dao.exists("Jikol1906"));
+        assertEquals(true,dao.exists("username1234"));
+        assertEquals(false,dao.exists("notavalidusername134234234234"));
+
     }
 
     @Test
@@ -95,13 +100,6 @@ public class AAccountDAOTest {
     }
     @Test
     public void findAllByName() throws Exception {
-
-    }
-
-    @Test
-    public void delete() throws Exception {
-
-        
 
     }
 }
