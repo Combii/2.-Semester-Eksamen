@@ -11,8 +11,8 @@
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
-      <module name="2.-Semester-Eksamen" target="1.8" />
-      <module name="AnotherCC" target="1.8" />
+      <module name="2.-Semester-Eksamen" target="1.7" />
+      <module name="AnotherCC" target="1.7" />
     </bytecodeTargetLevel>
   </component>
 </project>
