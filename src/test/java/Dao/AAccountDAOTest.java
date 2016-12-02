@@ -15,7 +15,7 @@ import static org.junit.Assert.assertEquals;
  */
 public class AAccountDAOTest {
 
-    AccountInterface dao;
+    AccountDAOInterface dao;
     Account a;
     Account b;
     Account c;
@@ -35,13 +35,13 @@ public class AAccountDAOTest {
 
     }
 
-    //Also testes delete method
+    //Also testes delete and getId method
     @After
     public void tearDown() throws Exception {
 
-        dao.delete(dao.getId("Anders"));
+       /* dao.delete(dao.getId("Anders"));
         dao.delete(dao.getId("Jikol1906"));
-        dao.delete(dao.getId("username1234"));
+        dao.delete(dao.getId("username1234"));*/
     }
 
     @Test
@@ -59,6 +59,7 @@ public class AAccountDAOTest {
 
     }
 
+    //Tested in UserValidationTest
     @Test
     public void isCustomer() throws Exception {
 
@@ -67,11 +68,16 @@ public class AAccountDAOTest {
     @Test
     public void getId() throws Exception {
 
-
     }
 
     @Test
     public void exists() throws Exception {
+
+        assertEquals(true,dao.exists("Anders"));
+        assertEquals(true,dao.exists("Jikol1906"));
+        assertEquals(true,dao.exists("username1234"));
+        assertEquals(false,dao.exists("notaValidusername1242342"));
+        assertEquals(false,dao.exists("w4e4te4%465465"));
 
     }
 

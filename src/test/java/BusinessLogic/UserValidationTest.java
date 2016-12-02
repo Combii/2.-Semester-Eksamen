@@ -1,25 +1,21 @@
 package BusinessLogic;
 
-import BusinessLogic.Account.Account;
 import BusinessLogic.Account.Admin;
 import BusinessLogic.Account.Customer;
 import BusinessLogic.Account.Employee;
 import Dao.AAccountDAO;
-import Dao.AccountInterface;
-import Dao.DAO;
+import Dao.AccountDAOInterface;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.assertEquals;
-
-import java.sql.SQLException;
 
 /**
  * Created by ${Boris} Grunwald} on 27/11/2016.
  */
 public class UserValidationTest {
 
-    AccountInterface d;
+    AccountDAOInterface d;
 
 
     @Before
@@ -28,6 +24,7 @@ public class UserValidationTest {
         d = new AAccountDAO();
 
         d.save(new Customer("bob","1234",2));
+        d.save(new Customer("Preben",HashCode.createHash("password1324"),2));
         d.save(new Employee("bob1",HashCode.createHash("1235"),1,"bobby","john","bob@gmail.com"));
         d.save(new Admin("bbob1",HashCode.createHash("3235"),0,"bobby1","john1","bob1@gmail.com"));
 

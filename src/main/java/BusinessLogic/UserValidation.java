@@ -14,7 +14,7 @@ public class UserValidation {
 
     public static int isUser(String username, String password) throws SQLException, HashCode.InvalidHashException, HashCode.CannotPerformOperationException {
 
-        AccountInterface dao = new AAccountDAO();
+        AccountDAOInterface dao = new AAccountDAO();
         Account acc;
 
         try {
@@ -33,7 +33,7 @@ public class UserValidation {
 
     public static boolean isCustomer(String password) throws HashCode.CannotPerformOperationException, SQLException {
 
-        AccountInterface dao = new AAccountDAO();
+        AccountDAOInterface dao = new AAccountDAO();
 
         return dao.isCustomer(password);
 

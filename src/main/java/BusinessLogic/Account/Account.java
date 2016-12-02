@@ -62,7 +62,7 @@ public class Account {
 
     @Override
     public String toString() {
-        return "AccountInterface{" +
+        return "AccountDAOInterface{" +
                 "password='" + password + '\'' +
                 ", userType=" + userType +
                 ", name='" + name + '\'' +

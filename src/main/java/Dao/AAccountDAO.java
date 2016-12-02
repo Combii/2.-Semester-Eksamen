@@ -6,12 +6,11 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.List;
 
 /**
  * Created by ${Boris} Grunwald} on 29/11/2016.
  */
-public class AAccountDAO implements AccountInterface {
+public class AAccountDAO implements AccountDAOInterface {
 
     private Connection conn;
     private PreparedStatement ps = null;
@@ -42,7 +41,7 @@ public class AAccountDAO implements AccountInterface {
             ps = conn.prepareStatement("INSERT INTO Account (username, password_hash,userType) VALUES " + AccValuesAdmin + ";");
             ps.executeUpdate();
 
-            //Is needed to check latest ID inserted into AccountInterface. Could also do AUTO_INCREMENT in table UserInformation
+            //Is needed to check latest ID inserted into AccountDAOInterface. Could also do AUTO_INCREMENT in table UserInformation
             PreparedStatement checkID = conn.prepareStatement("SELECT * FROM Account WHERE ID = (SELECT MAX(ID) FROM Account)");
             ResultSet maxID = checkID.executeQuery();
             maxID.next();
@@ -106,25 +105,30 @@ public class AAccountDAO implements AccountInterface {
     public boolean isCustomer(String password) {
 
         try {
-            ps = conn.prepareStatement("SELECT password_hash,userType FROM Account WHERE password_hash = '"+password+"';");
+            ps = conn.prepareStatement("SELECT userType FROM Account WHERE password_hash = '"+password+"';");
             rs = ps.executeQuery();
             rs.next();
             int userType = rs.getInt("userType");
             closeStatementAndResultsetAndConnection();
             return userType == 2;
         } catch (SQLException e) {
+            closeStatementAndResultsetAndConnection();
             return false;
         }
     }
 
     @Override
     public boolean exists(String username) throws SQLException {
-        PreparedStatement ps = conn.prepareStatement("SELECT EXISTS(SELECT * FROM Account WHERE username = '" + username + "');");
-        ResultSet rs = ps.executeQuery();
-        rs.next();
-        boolean rBoolean = rs.getBoolean(1);
-        closeStatementAndResultsetAndConnection();
-        return rBoolean;
+        try {
+            PreparedStatement ps = conn.prepareStatement("SELECT EXISTS(SELECT * FROM Account WHERE username = '" + username + "');");
+            ResultSet rs = ps.executeQuery();
+            rs.next();
+            boolean exists = rs.getBoolean(1);
+            closeStatementAndResultsetAndConnection();
+            return exists;
+        } catch (SQLException e) {
+            return false;
+        }
     }
 
     @Override

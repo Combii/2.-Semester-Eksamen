@@ -36,7 +36,7 @@ public class EditAdminDao {
 
     public boolean deleteAdmin(String firstName) throws SQLException {
         db = Database.getDatabase();
-        String query = "SELECT * FROM AccountInterface";
+        String query = "SELECT * FROM AccountDAOInterface";
         ResultSet resultSet;
 
         try {
@@ -45,7 +45,7 @@ public class EditAdminDao {
                 String username = resultSet.getString("username");
 
                 if (username.equals(firstName)) {
-                    String sql = "DELETE FROM AccountInterface WHERE username =" + "'" + firstName + "'";
+                    String sql = "DELETE FROM AccountDAOInterface WHERE username =" + "'" + firstName + "'";
                     db.queryUpdate(sql);
                     return true;
                 }
