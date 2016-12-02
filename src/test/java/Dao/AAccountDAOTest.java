@@ -2,13 +2,10 @@ package Dao;
 
 import BusinessLogic.Account.Account;
 import BusinessLogic.Account.Admin;
-import BusinessLogic.Account.Customer;
 import BusinessLogic.Account.Employee;
 import BusinessLogic.HashCode;
 import org.junit.Before;
 import org.junit.Test;
-
-import static org.junit.Assert.*;
 
 /**
  * Created by ${Boris} Grunwald} on 29/11/2016.
