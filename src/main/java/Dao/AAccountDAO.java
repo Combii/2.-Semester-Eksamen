@@ -2,10 +2,9 @@ package Dao;
 
 import BusinessLogic.Account.*;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.awt.List;
+import java.sql.*;
+import java.util.*;
 
 /**
  * Created by ${Boris} Grunwald} on 29/11/2016.
@@ -130,6 +129,31 @@ public class AAccountDAO implements AccountDAOInterface {
             return false;
         }
     }
+
+    @Override
+    public java.util.List findAll() throws SQLException {
+        try {
+            PreparedStatement ps = conn.prepareStatement("SELECT username FROM Account");
+            ResultSet rs = ps.executeQuery();
+            ResultSetMetaData md = rs.getMetaData();
+            int columnCount = md.getColumnCount();
+            java.util.List<java.util.List<String>> list = new ArrayList<java.util.List<String>>();
+
+            while (rs.next()) {
+                java.util.List<String> row = new ArrayList<String>(columnCount);
+                //int i = 1;
+                //while (i <= columnCount) {
+                row.add(rs.getString(1));
+                //}
+                list.add(row);
+            }
+            closeStatementAndResultsetAndConnection();
+            return (java.util.List) list;
+        } catch (Exception e) {
+            return null;
+        }
+    }
+
 
     @Override
     public boolean exists(int id) throws SQLException {

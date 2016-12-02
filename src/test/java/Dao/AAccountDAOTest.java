@@ -39,9 +39,9 @@ public class AAccountDAOTest {
     @After
     public void tearDown() throws Exception {
 
-       /* dao.delete(dao.getId("Anders"));
+       dao.delete(dao.getId("Anders"));
         dao.delete(dao.getId("Jikol1906"));
-        dao.delete(dao.getId("username1234"));*/
+        dao.delete(dao.getId("username1234"));
     }
 
     @Test
@@ -88,7 +88,14 @@ public class AAccountDAOTest {
 
     @Test
     public void findAll() throws Exception {
+        dao = new AAccountDAO();
+        a = new Customer("Anders" , HashCode.createHash("1234"), 2);
+        b = new Employee("Jikol1906", HashCode.createHash("2345"),1, "signe", "andersen", "signe@gmail.com");
+        c = new Admin("username1234", HashCode.createHash("3456"), 0, "Preben", "Jensen", "Preben@gmail.com");
 
+        dao.save(a);
+        dao.save(b);
+        dao.save(c);
     }
     @Test
     public void findAllByName() throws Exception {
