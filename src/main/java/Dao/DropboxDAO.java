@@ -165,11 +165,6 @@ public class DropboxDAO implements DAO<List<FilePath>>{
     }
 
     @Override
-    public boolean exists(int id) {
-        return false;
-    }
-
-    @Override
     public void delete(int id) throws SQLException {
 
     }
