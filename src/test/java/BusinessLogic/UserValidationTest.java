@@ -26,7 +26,7 @@ public class UserValidationTest {
         d.save(new Customer("bob","1234",2));
         d.save(new Customer("Preben",HashCode.createHash("password1324"),2));
         d.save(new Employee("bob1",HashCode.createHash("1235"),1,"bobby","john","bob@gmail.com"));
-        d.save(new Admin("bbob1",HashCode.createHash("3235"),0,"bobby1","john1","bob1@gmail.com"));
+        d.save(new Admin("bbob1",HashCode.createHash("1234"),0,"bobby1","john1","bob1@gmail.com"));
 
     }
 
@@ -45,6 +45,7 @@ public class UserValidationTest {
         assertEquals(1, UserValidation.isUser("bob1","1235"));
         assertEquals(0,UserValidation.isUser("bbob1","3235"));
         assertEquals(-2,UserValidation.isUser("bob","1234"));
+        assertEquals(-1,UserValidation.isUser("notavalidusername132342","notvalidpasswordsefse"));
 
     }
 
