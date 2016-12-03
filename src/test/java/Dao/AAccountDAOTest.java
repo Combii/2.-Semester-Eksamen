@@ -65,8 +65,12 @@ public class AAccountDAOTest {
 
     }
 
+    //Testing getId for users not in DB
     @Test
     public void getId() throws Exception {
+
+        assertEquals(-1,dao.getId("notavalidusername23423"));
+        assertEquals(-1,dao.getId("falseusernamesefefse"));
 
     }
 
@@ -83,11 +87,6 @@ public class AAccountDAOTest {
 
     @Test
     public void exists1() throws Exception {
-
-        assertEquals(true, dao.exists("Anders"));
-        assertEquals(true,dao.exists("Jikol1906"));
-        assertEquals(true,dao.exists("username1234"));
-        assertEquals(false,dao.exists("notavalidusername134234234234"));
 
     }
 
