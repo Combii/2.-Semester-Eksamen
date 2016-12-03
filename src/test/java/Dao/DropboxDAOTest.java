@@ -36,7 +36,7 @@ public class DropboxDAOTest {
     public void downloadFilesFromDropboxToList() throws Exception {
         //fileStorage = dao.get("/test");
         //System.out.println(fileStorage);
-        dao.getPathsOfFolderDropboxV2("/textfiles");
+        //dao.getPathsOfFolderDropboxV2("/textfiles");
     }
 
     @Test

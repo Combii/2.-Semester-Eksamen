@@ -18,18 +18,18 @@ import java.sql.SQLException;
 public class GenerateUserController {
     public TextField nameOfDirector;
     public Button button;
-    public Text generatePass;
+    private String generatedPassword;
     private final int userType = 2;
     public AnchorPane anchorPane;
 
     public void clickedOnButtonOk(ActionEvent actionEvent) throws SQLException {
         try {
-            generatePass.setText(CreateNewAccount.createNewCustomer(nameOfDirector.getText(),userType));
+            generatedPassword = CreateNewAccount.createNewCustomer(nameOfDirector.getText(),userType);
             Alert alert2 = new Alert(Alert.AlertType.INFORMATION);
             alert2.setTitle("AccountDAOInterface created");
             alert2.setHeaderText(null);
             alert2.setContentText("Name: " + nameOfDirector.getText() + "\n" +
-                    "Password" + generatePass.getText());
+                    "Password" + generatedPassword);
             alert2.showAndWait();
 
 
