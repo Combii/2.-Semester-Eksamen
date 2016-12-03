@@ -17,11 +17,10 @@ public class UserValidation {
         AccountDAOInterface dao = new AAccountDAO();
         Account acc;
 
-        try {
-            acc = dao.get(username);
-        } catch (SQLException e) {
-            return -1;
-        }
+
+        acc = dao.get(username);
+
+        if(acc == null) return -1;
 
         int userType = acc.getUserType();
 

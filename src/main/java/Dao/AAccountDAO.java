@@ -94,10 +94,16 @@ public class AAccountDAO implements AccountDAOInterface {
 
     @Override
     public int getId(String username) throws SQLException {
-        ps = conn.prepareStatement("SELECT ID FROM Account WHERE username = '"+username+"';");
-        rs = ps.executeQuery();
-        rs.next();
-        return rs.getInt("ID");
+        try {
+            ps = conn.prepareStatement("SELECT ID FROM Account WHERE username = '"+username+"';");
+            rs = ps.executeQuery();
+            rs.next();
+            int id = rs.getInt("ID");
+            closeStatementAndResultsetAndConnection();
+            return id;
+        } catch (SQLException e) {
+            return -1;
+        }
     }
 
     @Override
@@ -106,10 +112,15 @@ public class AAccountDAO implements AccountDAOInterface {
         try {
             ps = conn.prepareStatement("SELECT userType FROM Account WHERE password_hash = '"+password+"';");
             rs = ps.executeQuery();
-            rs.next();
-            int userType = rs.getInt("userType");
-            closeStatementAndResultsetAndConnection();
-            return userType == 2;
+            //Two users can have the same password so we need to check all passwords in resultset.
+            while(rs.next()) {
+                int userType = rs.getInt("userType");
+                if(userType == 2) {
+                    closeStatementAndResultsetAndConnection();
+                    return true;
+                }
+            }
+            return false;
         } catch (SQLException e) {
             closeStatementAndResultsetAndConnection();
             return false;
@@ -118,6 +129,7 @@ public class AAccountDAO implements AccountDAOInterface {
 
     @Override
     public boolean exists(String username) throws SQLException {
+
         try {
             PreparedStatement ps = conn.prepareStatement("SELECT EXISTS(SELECT * FROM Account WHERE username = '" + username + "');");
             ResultSet rs = ps.executeQuery();
@@ -155,10 +167,6 @@ public class AAccountDAO implements AccountDAOInterface {
     }
 
 
-    @Override
-    public boolean exists(int id) throws SQLException {
-        return false;
-    }
 
 
     @Override

@@ -40,6 +40,7 @@ public class AAccountDAOTest {
     public void tearDown() throws Exception {
 
        dao.delete(dao.getId("Anders"));
+        dao.delete(dao.getId("Anders"));
         dao.delete(dao.getId("Jikol1906"));
         dao.delete(dao.getId("username1234"));
     }
@@ -65,8 +66,12 @@ public class AAccountDAOTest {
 
     }
 
+    //Testing getId for users not in DB
     @Test
     public void getId() throws Exception {
+
+        assertEquals(-1,dao.getId("notavalidusername23423"));
+        assertEquals(-1,dao.getId("falseusernamesefefse"));
 
     }
 
@@ -97,15 +102,9 @@ public class AAccountDAOTest {
         dao.save(b);
         dao.save(c);
     }
+
     @Test
     public void findAllByName() throws Exception {
-
-    }
-
-    @Test
-    public void delete() throws Exception {
-
-        
 
     }
 }

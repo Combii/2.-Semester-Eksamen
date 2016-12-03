@@ -14,4 +14,5 @@ public interface AccountDAOInterface extends DAO<Account> {
     int getId(String username) throws SQLException;
     boolean exists(String username) throws SQLException;
     List findAll ()throws SQLException;
+
 }
