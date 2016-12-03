@@ -2,15 +2,12 @@ package Dao;
 
 import BusinessLogic.Account.*;
 import BusinessLogic.Account.List.MyLinkedList;
-import BusinessLogic.HashCode;
+
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.ListIterator;
 
 /**
  * Created by ${Boris} Grunwald} on 29/11/2016.
