@@ -15,6 +15,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import static org.apache.commons.io.FilenameUtils.removeExtension;
 
 /**
  * Created by David Stovlbaek
@@ -30,7 +31,8 @@ public class DropboxDAO implements DAO<List<FilePath>>{
     private ResultSet rs = null;
 
     private FilePath downloadFromDropbox(String localPathToSave, String dropboxPath) throws IOException, DbxException {
-        File file = new File("src/main/Resources/Downloads" + localPathToSave);
+        FilePath myFile = new FilePath(localPathToSave, dropboxPath);
+        File file = new File(myFile.getLocalPath());
 
         //https://stackoverflow.com/questions/2833853/create-whole-path-automatically-when-writing-to-a-new-file
         //Creates path if doesn't exist
@@ -38,7 +40,8 @@ public class DropboxDAO implements DAO<List<FilePath>>{
 
         OutputStream outputStream = new FileOutputStream(file);
         client.files().download(dropboxPath).download(outputStream);
-        return new FilePath("src/main/Resources/Downloads" + localPathToSave, dropboxPath);
+        downloadThumbnailForFile(myFile.getLocalPathThumbnail(), myFile.getDropBoxPath());
+        return myFile;
     }
 
     private void uploadToDropbox(String localPathToUpload, String dropboxPath) throws IOException, DbxException, SQLException {
@@ -95,11 +98,12 @@ public class DropboxDAO implements DAO<List<FilePath>>{
         return null;
     }
 
-    public void downloadThumbnailForFile(FilePath file){
+    private void downloadThumbnailForFile(String localPathToSave, String dropboxPath){
         try{
-            DbxDownloader dbxDownload = client.files().getThumbnail(file.getDropBoxPath());
+            DbxDownloader dbxDownload = client.files().getThumbnail(dropboxPath);
 
-            File filePath = new File("src/main/Resources/Downloads/test2.jpeg");
+            //Used https://commons.apache.org/proper/commons-io/
+            File filePath = new File(removeExtension(localPathToSave)+".jpg");
             filePath.getParentFile().mkdirs();
 
             OutputStream out = new FileOutputStream(filePath);
@@ -159,7 +163,6 @@ public class DropboxDAO implements DAO<List<FilePath>>{
     public List<FilePath> get(String folderPathDropbox) {
        return downloadFilesFromDropboxToList(folderPathDropbox);
     }
-
 
     @Override
     public boolean exists(int id) {

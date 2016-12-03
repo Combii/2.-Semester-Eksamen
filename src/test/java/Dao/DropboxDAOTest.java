@@ -34,7 +34,8 @@ public class DropboxDAOTest {
 
     @Test
     public void downloadFilesFromDropboxToList() throws Exception {
-        fileStorage = dao.get("/textFiles");
+        fileStorage = dao.get("/test");
+        System.out.println(fileStorage);
     }
 
     @Test
@@ -43,24 +44,8 @@ public class DropboxDAOTest {
 
         //dao.delete("/Downloads");
 
-        //System.out.println(dao.getPathsOfFolderDropbox("/test"));
+        //System.out.println(dao.getPathsOfFolderDropbox("/"));
 
-
-        DbxClientV2 clientV2 = dao.getClient();
-
-        DbxDownloader dbxDownload = clientV2.files().getThumbnail("/test/sup.jpeg");
-
-        File file = new File("src/main/Resources/Downloads/test2.jpeg");
-        file.getParentFile().mkdirs();
-
-        OutputStream out = new FileOutputStream(file);
-        dbxDownload.download(out);
-
-        //List<FilePath> list2 = list.getList();
-
-        //System.out.println(list2);
-
-        //list.uploadListToDropbox("/Test");
 
     }
 }
