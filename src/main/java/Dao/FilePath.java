@@ -27,6 +27,7 @@ public class FilePath {
         localPathThumbnail = convertStringThumbnail(this.localPath);
     }
 
+
     public String getLocalPath() {
             if(localPath.equals("") && !dropBoxPath.equals("")){
                 localPath = dropBoxPath;
@@ -67,10 +68,15 @@ public class FilePath {
                 "FileType: " + fileType;
     }
 
+    private static String getFileName(String path){
+        int lastIndex = path.lastIndexOf('/');
+        return path.substring(lastIndex+1, path.length());
+    }
 
     private static String convertStringThumbnail(String localPath){
         String rString = removeExtension(localPath) + ".jpg";
+        int startIndex = localPath.indexOf("Downloads/", 0);
         int lastIndex = rString.lastIndexOf('/');
-        return rString.substring(0, lastIndex) + "/Thumbnail" + rString.substring(lastIndex, rString.length());
+        return "/" + rString.substring(startIndex, lastIndex) + "/Thumbnail" + rString.substring(lastIndex, rString.length());
     }
 }
