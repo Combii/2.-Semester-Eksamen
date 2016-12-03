@@ -30,7 +30,7 @@ public class GenerateUserController {
             alert2.setTitle("AccountDAOInterface created");
             alert2.setHeaderText(null);
             alert2.setContentText("Name: " + nameOfDirector.getText() + "\n" +
-                    "Password" + generatedPassword);
+                    "Password: " + generatedPassword);
             alert2.showAndWait();
 
 
