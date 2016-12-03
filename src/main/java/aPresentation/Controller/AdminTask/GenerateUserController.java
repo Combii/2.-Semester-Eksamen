@@ -25,6 +25,7 @@ public class GenerateUserController {
     public void clickedOnButtonOk(ActionEvent actionEvent) throws SQLException {
         try {
             generatedPassword = CreateNewAccount.createNewCustomer(nameOfDirector.getText(),userType);
+
             Alert alert2 = new Alert(Alert.AlertType.INFORMATION);
             alert2.setTitle("AccountDAOInterface created");
             alert2.setHeaderText(null);
