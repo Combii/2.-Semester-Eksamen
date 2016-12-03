@@ -1,5 +1,6 @@
 package Dao;
 
+import com.dropbox.core.DbxDownloader;
 import com.dropbox.core.DbxException;
 import com.dropbox.core.v2.DbxClientV2;
 import com.dropbox.core.v2.files.FileMetadata;
@@ -14,6 +15,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import static org.apache.commons.io.FilenameUtils.removeExtension;
 
 /**
  * Created by David Stovlbaek
@@ -29,7 +31,8 @@ public class DropboxDAO implements DAO<List<FilePath>>{
     private ResultSet rs = null;
 
     private FilePath downloadFromDropbox(String localPathToSave, String dropboxPath) throws IOException, DbxException {
-        File file = new File("src/main/Resources/Downloads" + localPathToSave);
+        FilePath myFile = new FilePath(localPathToSave, dropboxPath);
+        File file = new File(myFile.getLocalPath());
 
         //https://stackoverflow.com/questions/2833853/create-whole-path-automatically-when-writing-to-a-new-file
         //Creates path if doesn't exist
@@ -37,7 +40,8 @@ public class DropboxDAO implements DAO<List<FilePath>>{
 
         OutputStream outputStream = new FileOutputStream(file);
         client.files().download(dropboxPath).download(outputStream);
-        return new FilePath("src/main/Resources/Downloads" + localPathToSave, dropboxPath);
+        downloadThumbnailForFile(myFile.getLocalPathThumbnail(), myFile.getDropBoxPath());
+        return myFile;
     }
 
     private void uploadToDropbox(String localPathToUpload, String dropboxPath) throws IOException, DbxException, SQLException {
@@ -94,7 +98,24 @@ public class DropboxDAO implements DAO<List<FilePath>>{
         return null;
     }
 
-    public List<FilePath> getPathsOfFolderDropbox(String folderPath) {
+    private void downloadThumbnailForFile(String localPathToSave, String dropboxPath){
+        try{
+            DbxDownloader dbxDownload = client.files().getThumbnail(dropboxPath);
+
+            //Used https://commons.apache.org/proper/commons-io/
+            File filePath = new File(removeExtension(localPathToSave)+".jpg");
+            filePath.getParentFile().mkdirs();
+
+            OutputStream out = new FileOutputStream(filePath);
+            dbxDownload.download(out);
+        }
+        catch (Exception e){
+            e.printStackTrace();
+        }
+    }
+
+    /*
+    private List<FilePath> getPathsOfFolderDropbox(String folderPath) {
         List<FilePath> rList = new ArrayList<>();
         try {
             ListFolderResult result = client.files().listFolder(folderPath);
@@ -115,6 +136,16 @@ public class DropboxDAO implements DAO<List<FilePath>>{
         }
         return null;
     }
+    */
+
+    public void getPathsOfFolderDropbox(String path) throws DbxException {
+        ListFolderResult list = client.files().listFolder(path);
+
+        for(Metadata i : list.getEntries()){
+            System.out.println(i.getPathLower());
+        }
+
+    }
 
     public List<FilePath> addLocalFilesToList(String localPathFolder) {
         //https://stackoverflow.com/questions/18444423/get-all-absolute-paths-of-files-under-a-given-folder
@@ -133,9 +164,6 @@ public class DropboxDAO implements DAO<List<FilePath>>{
             }
         }
     }
-
-
-
 
     @Override
     public void save(List<FilePath> list) {
@@ -162,5 +190,9 @@ public class DropboxDAO implements DAO<List<FilePath>>{
             e.printStackTrace();
         }
 
+    }
+
+    public DbxClientV2 getClient() {
+        return client;
     }
 }
