@@ -85,20 +85,9 @@ public class AAccountDAOTest {
 
     }
 
-    @Test
-    public void exists1() throws Exception {
-
-    }
 
     @Test
-    public void findAll() throws Exception {
-
-
-
-
-    }
-    @Test
-    public void findAllByName() throws Exception {
-
+    public void delete() throws Exception {
+        dao.delete(234234234);
     }
 }

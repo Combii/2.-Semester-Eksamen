@@ -54,6 +54,7 @@ public class UserValidationTest {
 
         assertEquals(true,UserValidation.isCustomer("1234"));
         assertEquals(false,UserValidation.isCustomer("notavalidPassword"));
+        assertEquals(true,UserValidation.isCustomer("password1324"));
 
     }
 
