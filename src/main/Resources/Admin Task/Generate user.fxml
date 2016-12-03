@@ -1,31 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.control.Menu?>
-<?import javafx.scene.control.MenuBar?>
-<?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="218.0" prefWidth="475.0" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane fx:id="anchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="218.0" prefWidth="475.0" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="aPresentation.Controller.AdminTask.GenerateUserController">
    <children>
-      <TextField layoutX="80.0" layoutY="96.0" prefHeight="25.0" prefWidth="302.0" promptText="First name of Director" />
-      <Button layoutX="331.0" layoutY="168.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="102.0" text="Ok" />
-      <MenuBar layoutY="2.0" prefHeight="25.0" prefWidth="474.0">
-         <menus>
-            <Menu mnemonicParsing="false" text="Menu">
-               <items>
-                  <MenuItem mnemonicParsing="false" text="Browse menu" />
-                  <MenuItem mnemonicParsing="false" text="Edit Accounts" />
-                  <MenuItem mnemonicParsing="false" text="Create new admin" />
-                  <MenuItem mnemonicParsing="false" text="Logout" />
-               </items>
-            </Menu>
-         </menus>
-      </MenuBar>
+      <TextField fx:id="nameOfDirector" layoutX="80.0" layoutY="96.0" prefHeight="25.0" prefWidth="302.0" promptText="First name of Director" />
+      <Button fx:id="button" layoutX="331.0" layoutY="168.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="102.0" text="Ok" />
       <Text layoutX="80.0" layoutY="72.0" strokeType="OUTSIDE" strokeWidth="0.0" text="New Account">
          <font>
             <Font size="24.0" />
@@ -36,9 +20,6 @@
             <Font size="14.0" />
          </font>
       </Text>
-      <Text layoutX="155.0" layoutY="151.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Generated Password" />
-      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#f2f2f2" height="31.0" layoutX="70.0" stroke="#0000001d" strokeType="INSIDE" width="145.0" />
-      <Text layoutX="79.0" layoutY="21.0" strokeType="OUTSIDE" strokeWidth="0.0" text="&quot;Username&quot;" />
-      <Text layoutX="151.0" layoutY="173.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Username not needed" />
+      <Text fx:id="generatePass" layoutX="151.0" layoutY="151.0" strokeType="OUTSIDE" strokeWidth="0.0" />
    </children>
 </AnchorPane>

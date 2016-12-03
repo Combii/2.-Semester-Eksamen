@@ -17,7 +17,7 @@
          </font>
       </Text>
       <Text layoutX="71.0" layoutY="116.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Search by Username or E-mail" />
-      <TableView layoutX="279.0" prefHeight="287.0" prefWidth="307.0">
+      <TableView fx:id="table" layoutX="279.0" prefHeight="287.0" prefWidth="307.0">
          <columns>
             <TableColumn prefWidth="306.0" text="Name" />
          </columns>

@@ -34,6 +34,7 @@ public class ShowAccountsController {
     @FXML
     private TextField name;
 
+    @FXML
     private TableView<UserInformation> table;
 
     @FXML
@@ -43,7 +44,7 @@ public class ShowAccountsController {
     public AnchorPane anchorPane;
 
 
-    public ShowAccountsController()throws SQLException {
+   /* public ShowAccountsController()throws SQLException {
         ObservableList<UserInformation> masterData = FXCollections.observableArrayList(UserInformation.getUsers());
         TableColumn nameCol = new TableColumn("Name");
         nameCol.setCellValueFactory(new PropertyValueFactory<UserInformation,String>("name"));
@@ -51,7 +52,7 @@ public class ShowAccountsController {
         table.setItems(masterData);
         table.getColumns().addAll(nameCol);
     }
-
+*/
 
 
     public void onMousePressedAnchorPane(MouseEvent mouseEvent) {
