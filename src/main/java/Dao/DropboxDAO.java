@@ -114,7 +114,8 @@ public class DropboxDAO implements DAO<List<FilePath>>{
         }
     }
 
-    public List<FilePath> getPathsOfFolderDropbox(String folderPath) {
+    /*
+    private List<FilePath> getPathsOfFolderDropbox(String folderPath) {
         List<FilePath> rList = new ArrayList<>();
         try {
             ListFolderResult result = client.files().listFolder(folderPath);
@@ -134,6 +135,16 @@ public class DropboxDAO implements DAO<List<FilePath>>{
             e.printStackTrace();
         }
         return null;
+    }
+    */
+
+    public void getPathsOfFolderDropbox(String path) throws DbxException {
+        ListFolderResult list = client.files().listFolder(path);
+
+        for(Metadata i : list.getEntries()){
+            System.out.println(i.getPathLower());
+        }
+
     }
 
     public List<FilePath> addLocalFilesToList(String localPathFolder) {
