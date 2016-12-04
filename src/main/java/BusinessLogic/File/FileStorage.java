@@ -21,6 +21,10 @@ public class FileStorage {
         return list;
     }
 
+    public void setList(List<FilePath> list) {
+        this.list = list;
+    }
+
     public void addToList(FilePath file){
         list.add(file);
     }

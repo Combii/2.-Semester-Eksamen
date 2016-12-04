@@ -1,6 +1,7 @@
 package aPresentation.Controller.BrowseMenu;
 
 import BusinessLogic.File.FileStorage;
+import BusinessLogic.Thread.DropboxDownload;
 import Dao.FilePath;
 import com.dropbox.core.DbxException;
 import javafx.fxml.FXML;
@@ -13,6 +14,7 @@ import javafx.scene.layout.GridPane;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.List;
 
 
 /**
@@ -24,10 +26,11 @@ public class BrowseMenuController {
     public GridPane gridPane;
 
     @FXML
-    public void initialize() throws IOException, DbxException, InterruptedException {
+    public void initialize() throws Exception {
 
         FileStorage list = new FileStorage();
-        list.downloadFilesToList("/test");
+
+        list.setList(ListStatic.getList());
 
         int rowCounter = 0, columnCounter = 0;
 

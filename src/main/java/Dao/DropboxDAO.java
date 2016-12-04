@@ -22,7 +22,7 @@ import static org.apache.commons.io.FilenameUtils.removeExtension;
  * 01 December 2016.
  * Source: https://www.dropbox.com/developers/documentation/java#tutorial
  */
-public class DropboxDAO implements DAO<List<FilePath>>{
+public class DropboxDAO implements DAO<List<FilePath>> {
     private DropboxDatabase db = DropboxDatabase.getDropboxDB();
     private DbxClientV2 client = db.getClient();
 
@@ -89,31 +89,6 @@ public class DropboxDAO implements DAO<List<FilePath>>{
             e.printStackTrace();
         }
 
-
-
-        /*
-        try {
-            List<FilePath> tempList = new ArrayList<>();
-
-            ListFolderResult result = client.files().listFolder(dropBoxFolderPath);
-            while (true) {
-                for (Metadata metadata : result.getEntries()) {
-                    String path = metadata.getPathLower();
-
-                    //Downloads files to local folder Downloads in Resources
-                    tempList.add(downloadFromDropbox(path, path));
-                }
-
-                if (!result.getHasMore()) {
-                    break;
-                }
-                result = client.files().listFolderContinue(result.getCursor());
-            }
-            return tempList;
-        }
-        catch (Exception e){
-            e.printStackTrace();
-        }*/
         return null;
     }
 
@@ -132,30 +107,6 @@ public class DropboxDAO implements DAO<List<FilePath>>{
             e.printStackTrace();
         }
     }
-
-    /*
-    private List<FilePath> getPathsOfFolderDropbox(String folderPath) {
-        List<FilePath> rList = new ArrayList<>();
-        try {
-            ListFolderResult result = client.files().listFolder(folderPath);
-            while (true) {
-                for (Metadata metadata : result.getEntries()) {
-                    rList.add(new FilePath("", metadata.getPathLower()));
-                }
-
-                if (!result.getHasMore()) {
-                    break;
-                }
-                result = client.files().listFolderContinue(result.getCursor());
-            }
-            return rList;
-        }
-        catch (Exception e){
-            e.printStackTrace();
-        }
-        return null;
-    }
-    */
 
     public List<String> getPathsOfFolderDropbox(String path) throws DbxException {
         ListFolderResult list = client.files().listFolder(path);
