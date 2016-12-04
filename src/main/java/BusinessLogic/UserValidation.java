@@ -1,6 +1,7 @@
 package BusinessLogic;
 
 import BusinessLogic.Account.Account;
+import BusinessLogic.Account.List.MyLinkedList;
 import Dao.*;
 
 import java.sql.SQLException;
@@ -30,11 +31,17 @@ public class UserValidation {
 
     }
 
-    public static boolean isCustomer(String password) throws HashCode.CannotPerformOperationException, SQLException {
+    public static boolean isCustomer(String password) throws SQLException, HashCode.InvalidHashException, HashCode.CannotPerformOperationException {
 
         AccountDAOInterface dao = new AAccountDAO();
 
-        return dao.isCustomer(password);
+        MyLinkedList<String> pass_hashes = dao.getCustomerPasswordHashes();
+
+        for (String pass_hash : pass_hashes) {
+            if(HashCode.verifyPassword(password,pass_hash)) return true;
+        }
+
+        return false;
 
     }
 

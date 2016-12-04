@@ -7,7 +7,7 @@ import java.util.Random;
  */
 public class GeneratePassword {
 
-    public static String generatePassword() {
+    static String generatePassword() {
 
         String symbols = "aAbBcCdDeEfFgGhHiIjJkKlLmMnNoOpPqQrRsStTuUvVwWxXyYzZ0123456789";
         String password = "";

@@ -1,6 +1,8 @@
 package Dao;
 
 import BusinessLogic.Account.*;
+import BusinessLogic.Account.List.MyLinkedList;
+
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -108,23 +110,21 @@ public class AAccountDAO implements AccountDAOInterface {
     }
 
     @Override
-    public boolean isCustomer(String password) {
+    public MyLinkedList<String> getCustomerPasswordHashes() {
+
+        MyLinkedList<String> pass_hashes = new MyLinkedList<>();
 
         try {
-            ps = conn.prepareStatement("SELECT userType FROM Account WHERE password_hash = '"+password+"';");
+            ps = conn.prepareStatement("SELECT password_hash FROM Account WHERE userType = 2;");
             rs = ps.executeQuery();
-            //Two users can have the same password so we need to check all passwords in resultset.
             while(rs.next()) {
-                int userType = rs.getInt("userType");
-                if(userType == 2) {
-                    closeStatementAndResultsetAndConnection();
-                    return true;
-                }
+                pass_hashes.add(rs.getString("password_hash"));
             }
-            return false;
+            closeStatementAndResultsetAndConnection();
+            return pass_hashes;
         } catch (SQLException e) {
             closeStatementAndResultsetAndConnection();
-            return false;
+            return null;
         }
     }
 
