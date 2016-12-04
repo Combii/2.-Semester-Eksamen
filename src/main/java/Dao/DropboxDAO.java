@@ -33,14 +33,16 @@ public class DropboxDAO implements DAO<List<FilePath>>{
     private FilePath downloadFromDropbox(String localPathToSave, String dropboxPath) throws IOException, DbxException {
         FilePath myFile = new FilePath(localPathToSave, dropboxPath);
         File file = new File(myFile.getLocalPath());
+        
+        if(!file.exists()) {
+            //https://stackoverflow.com/questions/2833853/create-whole-path-automatically-when-writing-to-a-new-file
+            //Creates path if doesn't exist
+            file.getParentFile().mkdirs();
 
-        //https://stackoverflow.com/questions/2833853/create-whole-path-automatically-when-writing-to-a-new-file
-        //Creates path if doesn't exist
-        file.getParentFile().mkdirs();
-
-        OutputStream outputStream = new FileOutputStream(file);
-        client.files().download(dropboxPath).download(outputStream);
-        downloadThumbnailForFile("src/main/Resources/" + myFile.getLocalPathThumbnail(), myFile.getDropBoxPath());
+            OutputStream outputStream = new FileOutputStream(file);
+            client.files().download(dropboxPath).download(outputStream);
+            downloadThumbnailForFile("src/main/Resources/" + myFile.getLocalPathThumbnail(), myFile.getDropBoxPath());
+        }
         return myFile;
     }
 
@@ -213,4 +215,5 @@ public class DropboxDAO implements DAO<List<FilePath>>{
     public DbxClientV2 getClient() {
         return client;
     }
+
 }
