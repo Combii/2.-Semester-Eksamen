@@ -73,6 +73,23 @@ public class DropboxDAO implements DAO<List<FilePath>>{
     }
 
     private List<FilePath> downloadFilesFromDropboxToList(String dropBoxFolderPath) {
+        List<FilePath> tempList = new ArrayList<>();
+
+        try {
+            List<String> str = getPathsOfFolderDropbox(dropBoxFolderPath);
+
+            for (String i : str) {
+                tempList.add(downloadFromDropbox(i, i));
+            }
+            return tempList;
+        }
+        catch (Exception e){
+            e.printStackTrace();
+        }
+
+
+
+        /*
         try {
             List<FilePath> tempList = new ArrayList<>();
 
@@ -94,7 +111,7 @@ public class DropboxDAO implements DAO<List<FilePath>>{
         }
         catch (Exception e){
             e.printStackTrace();
-        }
+        }*/
         return null;
     }
 
@@ -103,7 +120,7 @@ public class DropboxDAO implements DAO<List<FilePath>>{
             DbxDownloader dbxDownload = client.files().getThumbnail(dropboxPath);
 
             //Used https://commons.apache.org/proper/commons-io/
-            File filePath = new File(removeExtension(localPathToSave)+".jpg");
+            File filePath = new File(localPathToSave);
             filePath.getParentFile().mkdirs();
 
             OutputStream out = new FileOutputStream(filePath);
