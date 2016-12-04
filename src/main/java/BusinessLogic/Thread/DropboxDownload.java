@@ -1,16 +1,13 @@
 package BusinessLogic.Thread;
 
+import BusinessLogic.File.FileStorage;
 import Dao.DropboxDAO;
-import Dao.FilePath;
-
-import java.util.List;
-import java.util.concurrent.Callable;
 
 /**
  * Created by David Stovlbaek
  * 04 December 2016.
  */
-public class DropboxDownload implements Callable {
+public class DropboxDownload implements Runnable {
 
     private String getString = "";
 
@@ -20,8 +17,8 @@ public class DropboxDownload implements Callable {
 
 
     @Override
-    public List<FilePath> call() throws Exception {
+    public void run() {
         DropboxDAO dao = new DropboxDAO();
-        return dao.get(getString);
+        ListStatic.setList(new FileStorage(dao.get(getString)));
     }
 }
