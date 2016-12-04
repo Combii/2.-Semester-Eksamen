@@ -1,9 +1,8 @@
 package aPresentation.Controller.BrowseMenu;
 
 import BusinessLogic.File.FileStorage;
-import BusinessLogic.Thread.DropboxDownload;
+import BusinessLogic.Thread.ListStatic;
 import Dao.FilePath;
-import com.dropbox.core.DbxException;
 import javafx.fxml.FXML;
 
 import javafx.scene.control.Button;
@@ -11,10 +10,6 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
-
-import java.io.IOException;
-import java.io.InputStream;
-import java.util.List;
 
 
 /**
@@ -28,17 +23,13 @@ public class BrowseMenuController {
     @FXML
     public void initialize() throws Exception {
 
-        FileStorage list = new FileStorage();
-
-        list.setList(ListStatic.getList());
+        FileStorage list = new FileStorage(ListStatic.getList().getList());
 
         int rowCounter = 0, columnCounter = 0;
 
         for(FilePath i : list.getList()) {
-            //System.out.println("/"+i.getLocalPathThumbnail());
-            Button button1 = new Button();
 
-            //InputStream in = new(i.getLocalPath());
+            Button button1 = new Button();
             Image thumbnail = new Image(i.getLocalPathThumbnail());
             button1.setGraphic(new ImageView(thumbnail));
             gridPane.add(button1, columnCounter, rowCounter);
@@ -50,14 +41,6 @@ public class BrowseMenuController {
             }
 
         }
-        /*
-        Button button1 = new Button();
-
-        Image cardA = new Image("/Downloads/test2.jpeg");
-        button1.setGraphic(new ImageView(cardA));
-
-        gridPane.add(button1, 0, 0);
-        */
     }
 
 }

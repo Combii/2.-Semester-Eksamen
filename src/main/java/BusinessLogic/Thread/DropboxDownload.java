@@ -12,9 +12,16 @@ import java.util.concurrent.Callable;
  */
 public class DropboxDownload implements Callable {
 
+    private String getString = "";
+
+    public DropboxDownload(String getString) {
+        this.getString = getString;
+    }
+
+
     @Override
     public List<FilePath> call() throws Exception {
         DropboxDAO dao = new DropboxDAO();
-        return dao.get("/test");
+        return dao.get(getString);
     }
 }

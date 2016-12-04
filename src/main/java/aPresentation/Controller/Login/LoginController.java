@@ -1,10 +1,11 @@
 package aPresentation.Controller.Login;
 
+import BusinessLogic.File.FileStorage;
 import BusinessLogic.Thread.DropboxDownload;
 import aPresentation.ActiveAccountInformation.ActiveAccount;
 import BusinessLogic.HashCode;
 import BusinessLogic.UserValidation;
-import aPresentation.Controller.BrowseMenu.ListStatic;
+import BusinessLogic.Thread.ListStatic;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -42,9 +43,8 @@ public class LoginController {
 
     @FXML
     public void initialize() throws Exception {
-        DropboxDownload dropboxDownload = new DropboxDownload();
-        ListStatic.setList(dropboxDownload.call());
-
+        DropboxDownload dropboxDownload = new DropboxDownload("");
+        ListStatic.setList(new FileStorage(dropboxDownload.call()));
 
         try {
             UserValidation.startConnectionToDB();

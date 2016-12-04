@@ -15,7 +15,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-import static org.apache.commons.io.FilenameUtils.removeExtension;
 
 /**
  * Created by David Stovlbaek
@@ -33,13 +32,15 @@ public class DropboxDAO implements DAO<List<FilePath>> {
     private FilePath downloadFromDropbox(String localPathToSave, String dropboxPath) throws IOException, DbxException {
         FilePath myFile = new FilePath(localPathToSave, dropboxPath);
         File file = new File(myFile.getLocalPath());
-        
+
         if(!file.exists()) {
             //https://stackoverflow.com/questions/2833853/create-whole-path-automatically-when-writing-to-a-new-file
             //Creates path if doesn't exist
             file.getParentFile().mkdirs();
 
             OutputStream outputStream = new FileOutputStream(file);
+            Metadata data = client.files().getMetadata(dropboxPath);
+
             client.files().download(dropboxPath).download(outputStream);
             downloadThumbnailForFile("src/main/Resources/" + myFile.getLocalPathThumbnail(), myFile.getDropBoxPath());
         }
@@ -74,22 +75,22 @@ public class DropboxDAO implements DAO<List<FilePath>> {
         }
     }
 
-    private List<FilePath> downloadFilesFromDropboxToList(String dropBoxFolderPath) {
+    private List<FilePath> downloadFilesFromDropboxToList(String dropBoxFolderPath) throws DbxException {
         List<FilePath> tempList = new ArrayList<>();
 
         try {
-            List<String> str = getPathsOfFolderDropbox(dropBoxFolderPath);
-
-            for (String i : str) {
-                tempList.add(downloadFromDropbox(i, i));
-            }
-            return tempList;
+            ListFolderResult result = client.files().listFolder(dropBoxFolderPath);
+                for (Metadata metadata : result.getEntries()) {
+                    if (!metadata.toString().contains("\".tag\":\"folder\""))
+                        tempList.add(downloadFromDropbox(metadata.getPathLower(),metadata.getPathLower()));
+                    else
+                        tempList.addAll(downloadFilesFromDropboxToList(metadata.getPathLower()));
+                }
         }
         catch (Exception e){
             e.printStackTrace();
         }
-
-        return null;
+        return tempList;
     }
 
     private void downloadThumbnailForFile(String localPathToSave, String dropboxPath){
@@ -106,16 +107,6 @@ public class DropboxDAO implements DAO<List<FilePath>> {
         catch (Exception e){
             e.printStackTrace();
         }
-    }
-
-    public List<String> getPathsOfFolderDropbox(String path) throws DbxException {
-        ListFolderResult list = client.files().listFolder(path);
-        List<String> rList = new ArrayList<>();
-
-        for(Metadata i : list.getEntries()){
-            rList.add(i.getPathLower());
-        }
-        return rList;
     }
 
     public List<FilePath> addLocalFilesToList(String localPathFolder) {
@@ -143,7 +134,12 @@ public class DropboxDAO implements DAO<List<FilePath>> {
 
     @Override
     public List<FilePath> get(String folderPathDropbox) {
-       return downloadFilesFromDropboxToList(folderPathDropbox);
+        try {
+            return downloadFilesFromDropboxToList(folderPathDropbox);
+        } catch (DbxException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 
     @Override

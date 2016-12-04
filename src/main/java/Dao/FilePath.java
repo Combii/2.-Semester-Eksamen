@@ -16,12 +16,7 @@ public class FilePath {
     private String fileType = "";
 
     public FilePath(String localPath, String dropBoxPath) {
-        if(localPath.length() >= 29 && localPath.substring(0,29).equals("src/main/Resources/Downloads/")) {
-            this.localPath = localPath;
-        }
-        else {
-            this.localPath = "src/main/Resources/Downloads" + localPath;
-        }
+        this.localPath = "src/main/Resources/Downloads" + localPath;
         this.dropBoxPath = dropBoxPath;
         //Used https://commons.apache.org/proper/commons-io/
         localPathThumbnail = convertStringThumbnail(this.localPath);

@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diagram>
+  <ID>JAVA</ID>
+  <OriginalElement />
+  <nodes>
+    <node x="-8.0" y="-215.0">aPresentation.Controller.Login.LoginController</node>
+    <node x="-281.0" y="37.0">Dao.FilePath</node>
+    <node x="-463.0" y="-92.0">BusinessLogic.Thread.ListStatic</node>
+    <node x="1.0" y="38.0">Dao.DropboxDAO</node>
+    <node x="261.0" y="37.0">Dao.DropboxDatabase</node>
+    <node x="-18.0" y="-96.0">BusinessLogic.Thread.DropboxDownload</node>
+    <node x="-289.0" y="-92.0">BusinessLogic.File.FileStorage</node>
+    <node x="-323.0" y="-212.0">aPresentation.Controller.BrowseMenu.BrowseMenuController</node>
+  </nodes>
+  <notes />
+  <edges>
+    <edge source="BusinessLogic.File.FileStorage" target="Dao.FilePath">
+      <point x="0.0" y="0.0" />
+      <point x="0.0" y="0.0" />
+    </edge>
+    <edge source="aPresentation.Controller.Login.LoginController" target="BusinessLogic.Thread.DropboxDownload">
+      <point x="0.0" y="0.0" />
+      <point x="0.0" y="0.0" />
+    </edge>
+    <edge source="Dao.DropboxDAO" target="Dao.DropboxDatabase">
+      <point x="0.0" y="0.0" />
+      <point x="0.0" y="0.0" />
+    </edge>
+    <edge source="BusinessLogic.Thread.ListStatic" target="Dao.FilePath">
+      <point x="0.0" y="0.0" />
+      <point x="0.0" y="0.0" />
+    </edge>
+    <edge source="BusinessLogic.Thread.DropboxDownload" target="Dao.DropboxDAO">
+      <point x="0.0" y="0.0" />
+      <point x="0.0" y="0.0" />
+    </edge>
+    <edge source="BusinessLogic.File.FileStorage" target="Dao.DropboxDAO">
+      <point x="0.0" y="0.0" />
+      <point x="0.0" y="0.0" />
+    </edge>
+    <edge source="Dao.DropboxDAO" target="Dao.FilePath">
+      <point x="0.0" y="0.0" />
+      <point x="0.0" y="0.0" />
+    </edge>
+    <edge source="aPresentation.Controller.BrowseMenu.BrowseMenuController" target="BusinessLogic.File.FileStorage">
+      <point x="0.0" y="0.0" />
+      <point x="0.0" y="0.0" />
+    </edge>
+  </edges>
+  <settings layout="Hierarchic Group" zoom="1.0" x="0.0" y="-60.0" />
+  <SelectedNodes />
+  <Categories />
+  <SCOPE>All</SCOPE>
+  <VISIBILITY>private</VISIBILITY>
+</Diagram>
+
