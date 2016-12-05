@@ -39,7 +39,7 @@ public class CustomerLoginController {
     private CheckBox customerLoginCheckbox;
 
     @FXML
-    void clickedOnLoginButton(ActionEvent event) throws SQLException, HashCode.CannotPerformOperationException, IOException {
+    void clickedOnLoginButton(ActionEvent event) throws SQLException, HashCode.CannotPerformOperationException, IOException, HashCode.InvalidHashException {
 
         try {
             if(UserValidation.isCustomer(passwordField.getText())) {
@@ -62,7 +62,7 @@ public class CustomerLoginController {
     }
 
     @FXML
-    void keyPressedPassword(KeyEvent event) throws SQLException, HashCode.CannotPerformOperationException, IOException {
+    void keyPressedPassword(KeyEvent event) throws SQLException, HashCode.CannotPerformOperationException, IOException, HashCode.InvalidHashException {
         if(event.getCode().equals(KeyCode.ENTER)) {
             clickedOnLoginButton(new ActionEvent());
         }

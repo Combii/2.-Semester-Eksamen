@@ -1,6 +1,7 @@
 package Dao;
 
 import BusinessLogic.Account.Account;
+import BusinessLogic.Account.List.MyLinkedList;
 
 import java.sql.SQLException;
 import java.util.List;
@@ -10,7 +11,7 @@ import java.util.List;
  */
 public interface AccountDAOInterface extends DAO<Account> {
 
-    boolean isCustomer(String password) throws SQLException;
+    MyLinkedList<String> getCustomerPasswordHashes() throws SQLException;
     int getId(String username) throws SQLException;
     boolean exists(String username) throws SQLException;
     List findAll ()throws SQLException;

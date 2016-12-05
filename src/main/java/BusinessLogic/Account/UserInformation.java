@@ -1,5 +1,6 @@
 package BusinessLogic.Account;
 
+import BusinessLogic.GeneratePassword;
 import Dao.AccountDao;
 
 import java.sql.SQLException;
