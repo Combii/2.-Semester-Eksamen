@@ -43,8 +43,7 @@ public class ShowAccountsController {
 
     public AnchorPane anchorPane;
 
-
-   /* public ShowAccountsController()throws SQLException {
+    public void initialize() throws SQLException {
         ObservableList<UserInformation> masterData = FXCollections.observableArrayList(UserInformation.getUsers());
         TableColumn nameCol = new TableColumn("Name");
         nameCol.setCellValueFactory(new PropertyValueFactory<UserInformation,String>("name"));
@@ -52,9 +51,18 @@ public class ShowAccountsController {
         table.setItems(masterData);
         table.getColumns().addAll(nameCol);
     }
+
+    /*
+    public ShowAccountsController()throws SQLException {
+        ObservableList<UserInformation> masterData = FXCollections.observableArrayList(UserInformation.getUsers());
+        TableColumn nameCol = new TableColumn("Name");
+        nameCol.setCellValueFactory(new PropertyValueFactory<UserInformation,String>("name"));
+
+        table.setItems(masterData);
+        table.getColumns().addAll(nameCol);
+    }
+
 */
-
-
     public void onMousePressedAnchorPane(MouseEvent mouseEvent) {
         anchorPane.requestFocus();
     }
