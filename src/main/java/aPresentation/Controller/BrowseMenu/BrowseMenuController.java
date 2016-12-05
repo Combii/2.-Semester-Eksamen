@@ -43,4 +43,8 @@ public class BrowseMenuController {
         }
     }
 
+    public static void main(String[] args) {
+        Image thumbnail = new Image("/Downloads/test/Thumbnail/suppp.jpg");
+    }
+
 }

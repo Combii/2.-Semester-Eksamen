@@ -22,7 +22,8 @@ public class Main extends Application{
 
 
     public static void main(String[] args) {
-        new Thread(new DropboxDownload("")).start();
+       Thread thread = new Thread(new DropboxDownload(""));
+       thread.start();
       launch(args);
     }
 }
