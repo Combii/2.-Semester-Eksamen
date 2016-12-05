@@ -43,6 +43,7 @@ public class DropboxDAO implements DAO<List<FilePath>> {
 
             client.files().download(dropboxPath).download(outputStream);
             downloadThumbnailForFile("src/main/Resources/" + myFile.getLocalPathThumbnail(), myFile.getDropBoxPath());
+            outputStream.close();
         }
         return myFile;
     }
@@ -103,6 +104,7 @@ public class DropboxDAO implements DAO<List<FilePath>> {
 
             OutputStream out = new FileOutputStream(filePath);
             dbxDownload.download(out);
+            out.close();
         }
         catch (Exception e){
             e.printStackTrace();
