@@ -81,7 +81,7 @@ public class AccountDao {
         } catch (Exception e) { /* ignored */ }
     }
 
-    public List getUser() throws SQLException {
+    public List<List<String>> getUser() throws SQLException {
         try {
             PreparedStatement ps = conn.prepareStatement("SELECT ID, username FROM Account");
             ResultSet rs = ps.executeQuery();
