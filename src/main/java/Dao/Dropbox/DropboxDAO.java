@@ -8,6 +8,7 @@ import com.dropbox.core.DbxException;
 import com.dropbox.core.v2.DbxClientV2;
 import com.dropbox.core.v2.files.ListFolderResult;
 import com.dropbox.core.v2.files.Metadata;
+import net.coobird.thumbnailator.Thumbnails;
 
 
 import java.io.*;
@@ -149,11 +150,25 @@ public class DropboxDAO implements DAO<List<FilePath>> {
             OutputStream outputStream = new FileOutputStream(file);
 
             client.files().download(dropboxPath).download(outputStream);
-            downloadThumbnailForFile(myFile.getLocalPathThumbnail(), myFile.getDropBoxPath());
+            convertToThumbnail(myFile.getLocalPathThumbnail(),myFile.getLocalPath());
+            //downloadThumbnailForFile(myFile.getLocalPathThumbnail(), myFile.getDropBoxPath());
             outputStream.close();
         }
         return myFile;
     }
+
+    private void convertToThumbnail(String localPathToSave, String originalImagePath) throws IOException {
+        //https://github.com/coobird/thumbnailator/wiki/Examples
+        File file = new File(localPathToSave);
+        file.getParentFile().mkdirs();
+
+        OutputStream os = new FileOutputStream(file);
+        Thumbnails.of(originalImagePath)
+                .size(200, 200)
+                .outputFormat("png")
+                .toOutputStream(os);
+    }
+
 
     private void downloadThumbnailForFile(String localPathToSave, String dropboxPath){
         try{
@@ -171,6 +186,7 @@ public class DropboxDAO implements DAO<List<FilePath>> {
             e.printStackTrace();
         }
     }
+
 
     private List<FilePath> downloadFromDropboxSQL(String folder) throws SQLException, IOException, DbxException {
         List<FilePath> tempList = new ArrayList<>();
