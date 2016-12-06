@@ -1,5 +1,7 @@
 package aPresentation.Controller.BrowseMenu;
 
+import BusinessLogic.File.FileStorage;
+import Dao.FilePath;
 import javafx.fxml.FXML;
 
 import javafx.scene.control.Button;
@@ -8,7 +10,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 
-import java.io.FileNotFoundException;
+import java.io.File;
 
 
 /**
@@ -20,13 +22,40 @@ public class BrowseMenuController {
     public GridPane gridPane;
 
     @FXML
-    public void initialize() throws FileNotFoundException {
-
-        Button button1 = new Button();
-
-        Image cardA = new Image("/Downloads/test2.jpeg");
-        button1.setGraphic(new ImageView(cardA));
-
-        gridPane.add(button1, 0, 0);
+    public void initialize() throws Exception {
+        setGridPane("pics");
     }
+
+
+    private void setGridPane(String dropboxFolderPath){
+        try {
+            FileStorage list = new FileStorage();
+            list.downloadFilesToList(dropboxFolderPath);
+
+            int rowCounter = 0, columnCounter = 0;
+
+            for (FilePath i : list.getList()) {
+
+                Button button1 = new Button();
+
+                File file = new File(i.getLocalPathThumbnail());
+                String localUrl = file.toURI().toURL().toString();
+
+                Image thumbnail = new Image(localUrl, false);
+
+                button1.setGraphic(new ImageView(thumbnail));
+                gridPane.add(button1, columnCounter, rowCounter);
+
+                columnCounter++;
+                if (columnCounter > 3) {
+                    columnCounter = 0;
+                    rowCounter++;
+                }
+            }
+        }
+        catch (Exception e){
+            e.printStackTrace();
+        }
+    }
+
 }

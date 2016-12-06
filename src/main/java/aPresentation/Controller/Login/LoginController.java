@@ -39,12 +39,12 @@ public class LoginController {
 
 
     @FXML
-    public void initialize() throws SQLException {
+    public void initialize() throws Exception {
         try {
             UserValidation.startConnectionToDB();
         }
         catch (SQLNonTransientConnectionException e){
-            textOverLoginButton.setText("Could not connect to Online Database");
+            textOverLoginButton.setText("Could not connect to Online SQLDatabase");
         }
     }
 

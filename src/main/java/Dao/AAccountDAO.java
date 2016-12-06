@@ -19,7 +19,7 @@ public class AAccountDAO implements AccountDAOInterface {
 
     public AAccountDAO() throws SQLException {
 
-        conn = Database.getDatabase().getConnection();
+        conn = SQLDatabase.getDatabase().getConnection();
 
     }
 

@@ -9,11 +9,11 @@ import java.sql.SQLException;
  */
 public class EditAdminDao {
 
-    private Database db;
+    private SQLDatabase db;
 
     public void validateAccount() throws SQLException {
 
-        db = Database.getDatabase();
+        db = SQLDatabase.getDatabase();
 
         String query = "SELECT * FROM customers";
         ResultSet resultSet;
@@ -35,7 +35,7 @@ public class EditAdminDao {
     }
 
     public boolean deleteAdmin(String firstName) throws SQLException {
-        db = Database.getDatabase();
+        db = SQLDatabase.getDatabase();
         String query = "SELECT * FROM AccountDAOInterface";
         ResultSet resultSet;
 

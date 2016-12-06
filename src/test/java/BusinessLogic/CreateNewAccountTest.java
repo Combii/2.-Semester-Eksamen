@@ -27,7 +27,7 @@ public class CreateNewAccountTest {
     @After
     public void tearDown() throws Exception {
 
-        dao.delete(dao.getId("bobby1234"));
+        dao.delete(dao.getId("bobby1234") );
         dao.delete(dao.getId("Preben1234"));
         dao.delete(dao.getId("Anders1234"));
         dao.delete(dao.getId("Johnny323"));
