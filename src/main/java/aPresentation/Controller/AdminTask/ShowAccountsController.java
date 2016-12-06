@@ -29,7 +29,6 @@ import java.sql.SQLException;
 public class ShowAccountsController {
 
     private ComboBox dropDown;
-//    private UserInformation userinfo;
 
     @FXML
     private TextField name;
@@ -53,17 +52,7 @@ public class ShowAccountsController {
         table.getColumns().addAll(nameCol);
     }
 
-    /*
-    public ShowAccountsController()throws SQLException {
-        ObservableList<UserInformation> masterData = FXCollections.observableArrayList(UserInformation.getUsers());
-        TableColumn nameCol = new TableColumn("Name");
-        nameCol.setCellValueFactory(new PropertyValueFactory<UserInformation,String>("name"));
 
-        table.setItems(masterData);
-        table.getColumns().addAll(nameCol);
-    }
-
-*/
     public void onMousePressedAnchorPane(MouseEvent mouseEvent) {
         anchorPane.requestFocus();
     }

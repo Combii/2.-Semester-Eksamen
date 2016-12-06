@@ -11,7 +11,7 @@ import java.util.List;
  */
 public class UserInformation {
 
-    public static StringBuilder getUser () throws SQLException{
+  /*  public static StringBuilder getUser () throws SQLException{
         AccountDao a = new AccountDao();
         List<String> list = a.getUsers();
 
@@ -22,10 +22,15 @@ public class UserInformation {
         }
         return sb;
     }
+    */
 
     public static List getUsers () throws SQLException{
         AccountDao a = new AccountDao();
         List<String> list = a.getUsers();
         return list;
+    }
+
+    public static void main(String[] args) throws SQLException {
+        System.out.println(getUsers());
     }
 }
