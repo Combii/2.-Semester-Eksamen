@@ -16,7 +16,7 @@
          <children>
             <Button mnemonicParsing="false" onAction="#play" prefHeight="25.0" prefWidth="92.0" text="Play/Pause" />
             <Label prefHeight="17.0" prefWidth="51.0" text="Time:" />
-            <Slider fx:id="timeSlider" max="100000.0" prefHeight="27.0" prefWidth="364.0" />
+            <Slider fx:id="timeSlider" max="100.0" prefHeight="27.0" prefWidth="364.0" />
             <Label prefHeight="17.0" prefWidth="35.0" text="Vol:" />
             <Slider fx:id="volumeSlider" prefHeight="28.0" prefWidth="136.0" />
          </children>
