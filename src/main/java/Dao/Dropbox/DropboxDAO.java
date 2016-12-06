@@ -13,6 +13,7 @@ import com.dropbox.core.v2.files.Metadata;
 import java.io.*;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
@@ -64,18 +65,47 @@ public class DropboxDAO implements DAO<List<FilePath>> {
     }
 
     private void uploadToDropbox(FilePath filePath) throws IOException, DbxException, SQLException {
-        conn = SQLDatabase.getDatabase().getConnection();
+        try {
+            try (InputStream in = new FileInputStream(filePath.getLocalPath())) {
+                client.files().uploadBuilder(filePath.getDropBoxPath())
+                        .uploadAndFinish(in);
+            }
 
-        ps = conn.prepareStatement("INSERT INTO Folder VALUES (ID, '" + filePath.getFolder() + "');");
-        ps.executeUpdate();
+            conn = SQLDatabase.getDatabase().getConnection();
+            int id = getIDOfFolder(filePath.getFolder());
 
-        ps = conn.prepareStatement("INSERT INTO FilePath VALUES (ID, '" + dropboxPath + "');");
-        ps.executeUpdate();
+            if (id != -1) {
+                ps = conn.prepareStatement("INSERT INTO Filepath VALUES (" + id + ", " + filePath.getDropBoxPath() + ";");
+                ps.executeUpdate();
+            } else {
+                ps = conn.prepareStatement("INSERT INTO Folder VALUES (ID, '" + filePath.getFolder() + "');");
+                ps.executeUpdate();
 
-        try (InputStream in = new FileInputStream(localPathToUpload)) {
-            client.files().uploadBuilder(dropboxPath)
-                    .uploadAndFinish(in);
+                id = getIDOfFolder(filePath.getFolder());
+
+                ps = conn.prepareStatement("INSERT INTO Filepath VALUES (" + id + ", " + filePath.getDropBoxPath() + ";");
+                ps.executeUpdate();
+            }
         }
+        catch (Exception e){
+            e.printStackTrace();
+        }
+
+    }
+
+    private int getIDOfFolder(String folderName){
+        try {
+            ps = conn.prepareStatement("SELECT ID FROM Folder WHERE folderName = "+ folderName +"");
+            ResultSet rs = ps.executeQuery();
+            rs.next();
+            int id = rs.getInt(1);
+            rs.close();
+            return id;
+        }
+        catch (Exception e){
+            e.printStackTrace();
+        }
+        return -1;
     }
 
     @Override
@@ -156,6 +186,9 @@ public class DropboxDAO implements DAO<List<FilePath>> {
         }
 
     }
+
+
+    
 
 
 }
