@@ -1,6 +1,6 @@
 package BusinessLogic.File;
 
-import Dao.DropboxDAO;
+import Dao.Dropbox.DropboxDAO;
 import Dao.FilePath;
 import com.dropbox.core.DbxException;
 
@@ -17,8 +17,19 @@ public class FileStorage {
 
     DropboxDAO dropboxDAO = null;
 
+    public FileStorage() {
+    }
+
+    public FileStorage(List<FilePath> list) {
+        this.list = list;
+    }
+
     public List<FilePath> getList() {
         return list;
+    }
+
+    public void setList(List<FilePath> list) {
+        this.list = list;
     }
 
     public void addToList(FilePath file){

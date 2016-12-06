@@ -1,5 +1,6 @@
 package Dao;
 
+import java.io.File;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -13,18 +14,18 @@ public class FilePath {
     private String localPath = "";
     private String localPathThumbnail = "";
     private String dropBoxPath = "";
+    private String resourcePath = "";
     private String fileType = "";
 
     public FilePath(String localPath, String dropBoxPath) {
-        if(localPath.length() >= 29 && localPath.substring(0,29).equals("src/main/Resources/Downloads/")) {
-            this.localPath = localPath;
-        }
-        else {
-            this.localPath = "src/main/Resources/Downloads" + localPath;
-        }
+        //------- Resource Path ---------
+        resourcePath = new File("src/main/Resources").getAbsolutePath();
+        //-------------------------------
+        this.localPath = resourcePath + "/Downloads" + localPath;
         this.dropBoxPath = dropBoxPath;
         //Used https://commons.apache.org/proper/commons-io/
         localPathThumbnail = convertStringThumbnail(this.localPath);
+        fileType = getFileType(dropBoxPath);
     }
 
     public String getLocalPath() {
@@ -48,15 +49,16 @@ public class FilePath {
         return localPathThumbnail;
     }
 
-    public void setLocalPath(String localPath) {
-        if(localPath.substring(0,29).equals("src/main/Resources/Downloads/"))
-            this.localPath = localPath;
-        else
-            this.localPath = "src/main/Resources/Downloads/" + localPath;
+    private String getFileType(String path){
+        int lastIndex = path.lastIndexOf('.');
+        return path.substring(lastIndex+1, path.length());
     }
 
-    public void setDropBoxPath(String dropBoxPath) {
-        this.dropBoxPath = dropBoxPath;
+    private String convertStringThumbnail(String localPath){
+        String rString = removeExtension(localPath) + ".jpg";
+        int startIndex = localPath.indexOf("Downloads/", 0);
+        int lastIndex = rString.lastIndexOf('/');
+        return resourcePath + "/" + rString.substring(startIndex, lastIndex) + "/Thumbnail" + rString.substring(lastIndex, rString.length());
     }
 
     @Override
@@ -65,12 +67,5 @@ public class FilePath {
                 "LocalPathThumbnail: " + localPathThumbnail + '\n' +
                 "DropBoxPath: " + dropBoxPath + '\n' +
                 "FileType: " + fileType;
-    }
-
-
-    private static String convertStringThumbnail(String localPath){
-        String rString = removeExtension(localPath) + ".jpg";
-        int lastIndex = rString.lastIndexOf('/');
-        return rString.substring(0, lastIndex) + "/Thumbnail" + rString.substring(lastIndex, rString.length());
     }
 }

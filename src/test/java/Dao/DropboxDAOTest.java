@@ -1,16 +1,13 @@
 package Dao;
 
 import BusinessLogic.File.FileStorage;
-import com.dropbox.core.DbxDownloader;
+import Dao.Dropbox.DropboxDAO;
 import com.dropbox.core.DbxException;
-import com.dropbox.core.v2.DbxClientV2;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.io.File;
-import java.io.FileOutputStream;
+
 import java.io.IOException;
-import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -48,5 +45,22 @@ public class DropboxDAOTest {
         //System.out.println(dao.getPathsOfFolderDropbox("/"));
 
 
+        FileStorage list = new FileStorage();
+        list.downloadFilesToList("/test");
+
+        int rowCounter = 0, columnCounter = 0;
+
+        for (FilePath i : list.getList()) {
+            //System.out.println("/"+i.getLocalPathThumbnail());
+
+            //Both snippets should work (don't forget to prepend a slash if using getClass().getResourceAsStream)
+            System.out.println("Local: " + i.getLocalPath());
+            System.out.println("DropBox: " + i.getDropBoxPath());
+            System.out.println("Thumbnail: " + i.getLocalPathThumbnail());
+
+            System.out.println(DropboxDAOTest.class.getResourceAsStream(i.getLocalPath()));
+        }
     }
+
+
 }
