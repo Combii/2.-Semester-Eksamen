@@ -25,7 +25,6 @@ public class BrowseMenuController {
     public void initialize() throws Exception {
 
         FileStorage list = new FileStorage();
-
         list.downloadFilesToList("/test");
 
         int rowCounter = 0, columnCounter = 0;
