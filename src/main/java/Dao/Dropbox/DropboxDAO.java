@@ -66,7 +66,7 @@ public class DropboxDAO implements DAO<List<FilePath>> {
 
     private void uploadToDropbox(FilePath filePath) throws IOException, DbxException, SQLException {
         try {
-            try (InputStream in = new FileInputStream(filePath.getLocalPath())) {
+            try (InputStream in = new FileInputStream(filePath.getLocalUploadPath())) {
                 client.files().uploadBuilder(filePath.getDropBoxPath())
                         .uploadAndFinish(in);
             }
@@ -75,7 +75,7 @@ public class DropboxDAO implements DAO<List<FilePath>> {
             int id = getIDOfFolder(filePath.getFolder());
 
             if (id != -1) {
-                ps = conn.prepareStatement("INSERT INTO Filepath VALUES (" + id + ", " + filePath.getDropBoxPath() + ";");
+                ps = conn.prepareStatement("INSERT INTO FilePath VALUES ('" + id + "', '" + filePath.getDropBoxPath() + "');");
                 ps.executeUpdate();
             } else {
                 ps = conn.prepareStatement("INSERT INTO Folder VALUES (ID, '" + filePath.getFolder() + "');");
@@ -83,7 +83,8 @@ public class DropboxDAO implements DAO<List<FilePath>> {
 
                 id = getIDOfFolder(filePath.getFolder());
 
-                ps = conn.prepareStatement("INSERT INTO Filepath VALUES (" + id + ", " + filePath.getDropBoxPath() + ";");
+
+                ps = conn.prepareStatement("INSERT INTO FilePath VALUES ('" + id + "', '" + filePath.getDropBoxPath() + "');");
                 ps.executeUpdate();
             }
         }
@@ -94,8 +95,9 @@ public class DropboxDAO implements DAO<List<FilePath>> {
     }
 
     private int getIDOfFolder(String folderName){
+        //folderName = folderName.replaceAll("/", "");
         try {
-            ps = conn.prepareStatement("SELECT ID FROM Folder WHERE folderName = "+ folderName +"");
+            ps = conn.prepareStatement("SELECT ID FROM Folder WHERE folderName = '"+ folderName +"'");
             ResultSet rs = ps.executeQuery();
             rs.next();
             int id = rs.getInt(1);
@@ -103,9 +105,8 @@ public class DropboxDAO implements DAO<List<FilePath>> {
             return id;
         }
         catch (Exception e){
-            e.printStackTrace();
+            return -1;
         }
-        return -1;
     }
 
     @Override

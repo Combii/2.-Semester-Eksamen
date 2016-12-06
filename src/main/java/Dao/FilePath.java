@@ -17,24 +17,28 @@ public class FilePath {
     private String dropBoxPath = "";
     private String resourcePath = "";
     private String fileType = "";
+    private String localUploadPath = "";
 
     public FilePath(String dropBoxPath) {
-        //------- Resource Path ---------
-        resourcePath = new File("src/main/Resources").getAbsolutePath();
-        //-------------------------------
-        this.localPath = resourcePath + "/Downloads" + dropBoxPath;
-        this.dropBoxPath = dropBoxPath;
-        //Used https://commons.apache.org/proper/commons-io/
-        localPathThumbnail = convertStringThumbnail(this.localPath);
-        fileType = getFileType(dropBoxPath);
-        folder = getFolder(dropBoxPath);
+        this(dropBoxPath, dropBoxPath);
     }
 
     public FilePath(String localPath, String dropBoxPath) {
+        localUploadPath = localPath;
+
         //------- Resource Path ---------
         resourcePath = new File("src/main/Resources").getAbsolutePath();
+
+        if(dropBoxPath.equals("")){
+            File file = new File(localPath);
+            dropBoxPath = "/" + getFolder(localPath) + "/" + file.getName();
+        }
+        if(localPath.contains("src/main/Resources"))
+            this.localPath = localPath;
+        else
+            this.localPath = resourcePath + "/Downloads" + localPath;
+
         //-------------------------------
-        this.localPath = resourcePath + "/Downloads" + localPath;
         this.dropBoxPath = dropBoxPath;
         //Used https://commons.apache.org/proper/commons-io/
         localPathThumbnail = convertStringThumbnail(this.localPath);
@@ -67,6 +71,10 @@ public class FilePath {
         return folder;
     }
 
+    public String getLocalUploadPath() {
+        return localUploadPath;
+    }
+
     private String getFileType(String path){
         int lastIndex = path.lastIndexOf('.');
         return path.substring(lastIndex+1, path.length());
@@ -83,7 +91,7 @@ public class FilePath {
         int lastIndex = path.lastIndexOf("/");
         path = path.substring(0, lastIndex);
         int lastIndex2 = path.lastIndexOf("/");
-        return path.substring(lastIndex2, lastIndex);
+        return path.substring(lastIndex2+1, lastIndex);
     }
 
     @Override

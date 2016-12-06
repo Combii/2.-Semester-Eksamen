@@ -4,6 +4,7 @@ import Dao.Dropbox.DropboxDAO;
 import Dao.FilePath;
 import com.dropbox.core.DbxException;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -29,7 +30,7 @@ public class FileStorage {
         list = dropboxDAO.get(dropboxPathFolder);
     }
 
-    public void uploadListToDropbox(String dropboxPathFolder) throws IOException, DbxException {
+    public void uploadListToDropbox() throws IOException, DbxException {
         if(!list.isEmpty()) {
             createDropboxDAO();
             dropboxDAO.save(list);
@@ -40,17 +41,25 @@ public class FileStorage {
         list.add(file);
     }
 
-    public void addFileListToList(List<FilePath> file){
-        list.addAll(file);
-    }
-
-    public void addLocalFilesToList(String localPathFolder){
+    public void addLocalFilesToList(String localPathFolder) throws IOException {
         createDropboxDAO();
+
+        File file = new File(localPathFolder);
+        for (final File fileEntry : file.listFiles()) {
+            if (!fileEntry.isDirectory()) {
+                list.add(new FilePath(fileEntry.getAbsolutePath(), "")); //Håndter FilePath til dropbox med denne path
+            }
+        }
     }
 
     private void createDropboxDAO(){
         if(dropboxDAO == null){
             dropboxDAO = new DropboxDAO();
         }
+    }
+
+    @Override
+    public String toString() {
+        return list.toString();
     }
 }
