@@ -36,9 +36,6 @@ public class FileStorage {
         }
     }
 
-
-
-
     public void addToList(FilePath file){
         list.add(file);
     }

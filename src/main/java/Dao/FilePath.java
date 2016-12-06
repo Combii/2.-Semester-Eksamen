@@ -11,6 +11,7 @@ import static org.apache.commons.io.FilenameUtils.removeExtension;
  * 30 November 2016.
  */
 public class FilePath {
+    private String folder = "";
     private String localPath = "";
     private String localPathThumbnail = "";
     private String dropBoxPath = "";
@@ -26,6 +27,7 @@ public class FilePath {
         //Used https://commons.apache.org/proper/commons-io/
         localPathThumbnail = convertStringThumbnail(this.localPath);
         fileType = getFileType(dropBoxPath);
+        folder = getFolder(dropBoxPath);
     }
 
     public String getLocalPath() {
@@ -49,6 +51,10 @@ public class FilePath {
         return localPathThumbnail;
     }
 
+    public String getFolder() {
+        return folder;
+    }
+
     private String getFileType(String path){
         int lastIndex = path.lastIndexOf('.');
         return path.substring(lastIndex+1, path.length());
@@ -59,6 +65,13 @@ public class FilePath {
         int startIndex = localPath.indexOf("Downloads/", 0);
         int lastIndex = rString.lastIndexOf('/');
         return resourcePath + "/" + rString.substring(startIndex, lastIndex) + "/Thumbnail" + rString.substring(lastIndex, rString.length());
+    }
+
+    private String getFolder(String path){
+        int lastIndex = path.lastIndexOf("/");
+        path = path.substring(0, lastIndex);
+        int lastIndex2 = path.lastIndexOf("/");
+        return path.substring(lastIndex2, lastIndex);
     }
 
     @Override

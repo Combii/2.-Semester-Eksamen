@@ -52,31 +52,29 @@ public class DropboxDAO implements DAO<List<FilePath>> {
         uploadListToDropbox(list);
     }
 
-    private void uploadToDropbox(String localPathToUpload, String dropboxPath) throws IOException, DbxException, SQLException {
+    private void uploadListToDropbox(List<FilePath> list) {
+        try {
+            for (FilePath i : list) {
+                uploadToDropbox(i);
+            }
+        }
+        catch (Exception e){
+            e.printStackTrace();
+        }
+    }
+
+    private void uploadToDropbox(FilePath filePath) throws IOException, DbxException, SQLException {
         conn = SQLDatabase.getDatabase().getConnection();
 
-        ps = conn.prepareStatement("INSERT INTO FilePathDropboxDB VALUES (ID, '" + dropboxPath + "');");
+        ps = conn.prepareStatement("INSERT INTO Folder VALUES (ID, '" + filePath.getFolder() + "');");
+        ps.executeUpdate();
+
+        ps = conn.prepareStatement("INSERT INTO FilePath VALUES (ID, '" + dropboxPath + "');");
         ps.executeUpdate();
 
         try (InputStream in = new FileInputStream(localPathToUpload)) {
             client.files().uploadBuilder(dropboxPath)
                     .uploadAndFinish(in);
-        }
-    }
-
-    private void uploadListToDropbox(List<FilePath> list) {
-        try {
-            for (FilePath i : list) {
-                String localPath = i.getLocalPath();
-                String dropBoxPath = i.getDropBoxPath();
-
-                if (!localPath.equals("") && !dropBoxPath.equals("")) {
-                    uploadToDropbox(localPath, dropBoxPath);
-                }
-            }
-        }
-        catch (Exception e){
-            e.printStackTrace();
         }
     }
 
