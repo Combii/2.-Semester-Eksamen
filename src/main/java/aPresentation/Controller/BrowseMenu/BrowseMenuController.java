@@ -23,7 +23,7 @@ public class BrowseMenuController {
 
     @FXML
     public void initialize() throws Exception {
-        setGridPane("/test");
+        setGridPane("pics");
     }
 
 

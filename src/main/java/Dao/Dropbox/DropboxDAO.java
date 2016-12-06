@@ -112,8 +112,8 @@ public class DropboxDAO implements DAO<List<FilePath>> {
     @Override
     public List<FilePath> get(String folderPathDropbox) {
         try {
-            return downloadFilesFromDropboxToList(folderPathDropbox);
-        } catch (DbxException e) {
+            return downloadFromDropboxSQL(folderPathDropbox);
+        } catch (Exception e) {
             e.printStackTrace();
         }
         return null;
@@ -172,22 +172,6 @@ public class DropboxDAO implements DAO<List<FilePath>> {
         }
     }
 
-    @Override
-    public void delete(int id) throws SQLException {
-    }
-
-    public void delete(String dropBoxPath) {
-        try{
-        ps = conn.prepareStatement("DELETE FROM FilePathDropboxDB WHERE path = '" + dropBoxPath + "');");
-        ps.executeUpdate();
-        client.files().delete(dropBoxPath);
-        }
-        catch (Exception e){
-            e.printStackTrace();
-        }
-
-    }
-
     private List<FilePath> downloadFromDropboxSQL(String folder) throws SQLException, IOException, DbxException {
         List<FilePath> tempList = new ArrayList<>();
         conn = SQLDatabase.getDatabase().getConnection();
@@ -207,6 +191,23 @@ public class DropboxDAO implements DAO<List<FilePath>> {
         }
         return tempList;
     }
+
+    @Override
+    public void delete(int id) throws SQLException {
+    }
+
+    public void delete(String dropBoxPath) {
+        try{
+        ps = conn.prepareStatement("DELETE FROM FilePathDropboxDB WHERE path = '" + dropBoxPath + "');");
+        ps.executeUpdate();
+        client.files().delete(dropBoxPath);
+        }
+        catch (Exception e){
+            e.printStackTrace();
+        }
+
+    }
+
 
 }
 
