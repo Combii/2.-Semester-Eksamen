@@ -14,7 +14,7 @@ public class AccountDao {
     private ResultSet rs = null;
 
     public AccountDao() throws SQLException {
-        Database d = Database.getDatabase();
+        SQLDatabase d = SQLDatabase.getDatabase();
         conn = d.getConnection();
     }
 

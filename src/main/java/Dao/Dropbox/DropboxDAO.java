@@ -1,7 +1,7 @@
 package Dao.Dropbox;
 
 import Dao.DAO;
-import Dao.Database;
+import Dao.SQLDatabase;
 import Dao.FilePath;
 import com.dropbox.core.DbxDownloader;
 import com.dropbox.core.DbxException;
@@ -53,7 +53,7 @@ public class DropboxDAO implements DAO<List<FilePath>> {
     }
 
     private void uploadToDropbox(String localPathToUpload, String dropboxPath) throws IOException, DbxException, SQLException {
-        conn = Database.getDatabase().getConnection();
+        conn = SQLDatabase.getDatabase().getConnection();
 
         ps = conn.prepareStatement("INSERT INTO FilePathDropboxDB VALUES (ID, '" + dropboxPath + "');");
         ps.executeUpdate();

@@ -42,7 +42,7 @@ public class CreateNewAccountController{
         textWarning.setText("Username must be between 4-20 characters and only letters");
     }
     else if(UserValidation.userExist(username.getText())){
-        textWarning.setText("Username is already saved in Database");
+        textWarning.setText("Username is already saved in SQLDatabase");
     }
     else if(!UserValidation.isValidEmail(email.getText())){
             textWarning.setText("Email is not valid");

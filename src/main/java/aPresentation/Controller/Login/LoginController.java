@@ -44,7 +44,7 @@ public class LoginController {
             UserValidation.startConnectionToDB();
         }
         catch (SQLNonTransientConnectionException e){
-            textOverLoginButton.setText("Could not connect to Online Database");
+            textOverLoginButton.setText("Could not connect to Online SQLDatabase");
         }
     }
 
