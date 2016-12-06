@@ -34,8 +34,7 @@ public class BrowseMenuController {
 
             Button button1 = new Button();
 
-            File resourcesDirectoryPath = new File("src/main/Resources");
-            File file = new File(resourcesDirectoryPath + i.getLocalPathThumbnail());
+            File file = new File(i.getLocalPathThumbnail());
             String localUrl = file.toURI().toURL().toString();
 
             Image thumbnail = new Image(localUrl, false);
