@@ -17,9 +17,6 @@ public class FileStorage {
 
     DropboxDAO dropboxDAO = null;
 
-    public FileStorage() {
-    }
-
     public List<FilePath> getList() {
         return list;
     }
