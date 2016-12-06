@@ -43,13 +43,15 @@ public class ShowAccountsController {
     public AnchorPane anchorPane;
 
     public void initialize() throws SQLException {
+
+
         table.setEditable(true);
         ObservableList<UserInformation> masterData = FXCollections.observableArrayList(UserInformation.getUsers());
-        TableColumn nameCol = new TableColumn("Name");
-        nameCol.setCellValueFactory(new PropertyValueFactory<UserInformation,String>("name"));
+        //TableColumn nameCol = new TableColumn("Name");
+        //nameCol.setCellValueFactory(new PropertyValueFactory<UserInformation,String>("name"));
 
         table.setItems(masterData);
-        table.getColumns().addAll(nameCol);
+        //table.getColumns().addAll(nameCol);
     }
 
 
