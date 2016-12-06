@@ -8,6 +8,7 @@ import com.dropbox.core.DbxException;
 import com.dropbox.core.v2.DbxClientV2;
 import com.dropbox.core.v2.files.ListFolderResult;
 import com.dropbox.core.v2.files.Metadata;
+import net.coobird.thumbnailator.Thumbnails;
 
 
 import java.io.*;
@@ -29,24 +30,6 @@ public class DropboxDAO implements DAO<List<FilePath>> {
 
     private Connection conn;
     private PreparedStatement ps = null;
-
-    public List<FilePath> addLocalFilesToList(String localPathFolder) {
-        //https://stackoverflow.com/questions/18444423/get-all-absolute-paths-of-files-under-a-given-folder
-        List<FilePath> list = new ArrayList<>();
-        listFilesForFolder(new File(localPathFolder), list);
-        return list;
-    }
-
-    private void listFilesForFolder(final File folder, List<FilePath> list) {
-        //https://stackoverflow.com/questions/1844688/read-all-files-in-a-folder
-        for (final File fileEntry : folder.listFiles()) {
-            if (fileEntry.isDirectory()) {
-                listFilesForFolder(fileEntry, list);
-            } else {
-                list.add(new FilePath(fileEntry.getAbsolutePath(),""));
-            }
-        }
-    }
 
     @Override
     public void save(List<FilePath> list) {
@@ -112,26 +95,27 @@ public class DropboxDAO implements DAO<List<FilePath>> {
     @Override
     public List<FilePath> get(String folderPathDropbox) {
         try {
-            return downloadFilesFromDropboxToList(folderPathDropbox);
-        } catch (DbxException e) {
+            return downloadFromDropboxSQL(folderPathDropbox);
+        } catch (Exception e) {
             e.printStackTrace();
         }
         return null;
     }
 
-    private List<FilePath> downloadFilesFromDropboxToList(String dropBoxFolderPath) throws DbxException {
+    private List<FilePath> downloadFromDropboxSQL(String folder) throws SQLException, IOException, DbxException {
         List<FilePath> tempList = new ArrayList<>();
+        conn = SQLDatabase.getDatabase().getConnection();
 
         try {
-            ListFolderResult result = client.files().listFolder(dropBoxFolderPath);
-            for (Metadata metadata : result.getEntries()) {
-                if (!metadata.toString().contains("\".tag\":\"folder\""))
-                    tempList.add(downloadFromDropbox(metadata.getPathLower(),metadata.getPathLower()));
-                else
-                    throw new IsFolderException(metadata.getPathLower());
+            ps = conn.prepareStatement("SELECT path FROM FilePath INNER JOIN Folder ON Folder.ID=FilePath.ID WHERE Folder.folderName = '"+ folder +"'");
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+                String path = rs.getString(1);
+                tempList.add(downloadFromDropbox(path, path));
             }
         }
-        catch (Exception e){
+        catch (SQLException e){
             e.printStackTrace();
         }
         return tempList;
@@ -149,10 +133,43 @@ public class DropboxDAO implements DAO<List<FilePath>> {
             OutputStream outputStream = new FileOutputStream(file);
 
             client.files().download(dropboxPath).download(outputStream);
-            downloadThumbnailForFile(myFile.getLocalPathThumbnail(), myFile.getDropBoxPath());
+            convertToThumbnail(myFile.getLocalPathThumbnail(),myFile.getLocalPath());
+            //downloadThumbnailForFile(myFile.getLocalPathThumbnail(), myFile.getDropBoxPath());
             outputStream.close();
         }
         return myFile;
+    }
+
+    private void convertToThumbnail(String localPathToSave, String originalImagePath) throws IOException {
+        //https://github.com/coobird/thumbnailator/wiki/Examples
+        File file = new File(localPathToSave);
+        file.getParentFile().mkdirs();
+
+        OutputStream os = new FileOutputStream(file);
+        Thumbnails.of(originalImagePath)
+                .size(200, 200)
+                .outputFormat("png")
+                .toOutputStream(os);
+    }
+
+
+
+    private List<FilePath> downloadFilesFromDropboxToList(String dropBoxFolderPath) throws DbxException {
+        List<FilePath> tempList = new ArrayList<>();
+
+        try {
+            ListFolderResult result = client.files().listFolder(dropBoxFolderPath);
+            for (Metadata metadata : result.getEntries()) {
+                if (!metadata.toString().contains("\".tag\":\"folder\""))
+                    tempList.add(downloadFromDropbox(metadata.getPathLower(),metadata.getPathLower()));
+                else
+                    throw new IsFolderException(metadata.getPathLower());
+            }
+        }
+        catch (Exception e){
+            e.printStackTrace();
+        }
+        return tempList;
     }
 
     private void downloadThumbnailForFile(String localPathToSave, String dropboxPath){
@@ -188,25 +205,6 @@ public class DropboxDAO implements DAO<List<FilePath>> {
 
     }
 
-    private List<FilePath> downloadFromDropboxSQL(String folder) throws SQLException, IOException, DbxException {
-        List<FilePath> tempList = new ArrayList<>();
-        conn = SQLDatabase.getDatabase().getConnection();
-
-        try {
-            ps = conn.prepareStatement("SELECT path FROM FilePath INNER JOIN Folder ON Folder.ID=FilePath.ID WHERE Folder.folderName = '"+ folder +"'");
-            ResultSet rs = ps.executeQuery();
-
-            int i = 1;
-            while (rs.next()) {
-                String path = rs.getString(i);
-                tempList.add(downloadFromDropbox(path, path));
-            }
-        }
-        catch (SQLException e){
-            e.printStackTrace();
-        }
-        return tempList;
-    }
 
 }
 
