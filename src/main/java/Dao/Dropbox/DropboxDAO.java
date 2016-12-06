@@ -188,8 +188,27 @@ public class DropboxDAO implements DAO<List<FilePath>> {
     }
 
 
-    
+    private List<FilePath> downloadFromDropboxSQL(String folder) throws SQLException, IOException, DbxException {
+        List<FilePath> tempList = new ArrayList<>();
 
+        try {
+            ps = conn.prepareStatement(
+                    "SELECT path FROM FilePath INNER JOIN Folder\n" +
+                    "ON Folder.ID=FilePath.ID\n" +
+                    "WHERE Folder.folderName = '"+ folder +"'");
+            ResultSet rs = ps.executeQuery();
+
+            int i = 1;
+            while (rs.next()) {
+                tempList.add(downloadFromDropbox(rs.getString(i),rs.getString(i)));
+                i++;
+            }
+        }
+        catch (SQLException e){
+            e.printStackTrace();
+        }
+        return tempList;
+    }
 
 }
 

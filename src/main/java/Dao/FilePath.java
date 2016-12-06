@@ -18,6 +18,18 @@ public class FilePath {
     private String resourcePath = "";
     private String fileType = "";
 
+    public FilePath(String dropBoxPath) {
+        //------- Resource Path ---------
+        resourcePath = new File("src/main/Resources").getAbsolutePath();
+        //-------------------------------
+        this.localPath = resourcePath + "/Downloads" + dropBoxPath;
+        this.dropBoxPath = dropBoxPath;
+        //Used https://commons.apache.org/proper/commons-io/
+        localPathThumbnail = convertStringThumbnail(this.localPath);
+        fileType = getFileType(dropBoxPath);
+        folder = getFolder(dropBoxPath);
+    }
+
     public FilePath(String localPath, String dropBoxPath) {
         //------- Resource Path ---------
         resourcePath = new File("src/main/Resources").getAbsolutePath();
