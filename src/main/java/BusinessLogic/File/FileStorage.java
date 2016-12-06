@@ -1,6 +1,6 @@
 package BusinessLogic.File;
 
-import Dao.DropboxDAO;
+import Dao.Dropbox.DropboxDAO;
 import Dao.FilePath;
 import com.dropbox.core.DbxException;
 

@@ -26,7 +26,7 @@ public class BrowseMenuController {
 
         FileStorage list = new FileStorage();
 
-        list.downloadFilesToList("");
+        list.downloadFilesToList("/test");
 
         int rowCounter = 0, columnCounter = 0;
 
@@ -34,10 +34,11 @@ public class BrowseMenuController {
 
             Button button1 = new Button();
 
-            String path = "/Users/Combii/Desktop/2. Semester Eksamen/AnotherCC/src/main/Resources/";
 
+            String path = "/Users/Combii/Desktop/2. Semester Eksamen/AnotherCC/src/main/Resources/";
             File file = new File(path + i.getLocalPathThumbnail());
             String localUrl = file.toURI().toURL().toString();
+
             Image thumbnail = new Image(localUrl, false);
 
 

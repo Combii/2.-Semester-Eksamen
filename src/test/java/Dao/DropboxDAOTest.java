@@ -1,11 +1,8 @@
 package Dao;
 
 import BusinessLogic.File.FileStorage;
-import aPresentation.Controller.BrowseMenu.BrowseMenuController;
+import Dao.Dropbox.DropboxDAO;
 import com.dropbox.core.DbxException;
-import com.dropbox.core.v2.DbxClientV2;
-import com.dropbox.core.v2.files.ListFolderResult;
-import com.dropbox.core.v2.files.Metadata;
 import org.junit.Before;
 import org.junit.Test;
 

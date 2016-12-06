@@ -39,9 +39,9 @@ public class AAccountDAOTest {
     @After
     public void tearDown() throws Exception {
 
-        dao.delete(dao.getId("Anders") + "");
-        dao.delete(dao.getId("Jikol1906") + "");
-        dao.delete(dao.getId("username1234") + "");
+        dao.delete(dao.getId("Anders"));
+        dao.delete(dao.getId("Jikol1906"));
+        dao.delete(dao.getId("username1234"));
     }
 
     @Test
@@ -88,6 +88,6 @@ public class AAccountDAOTest {
 
     @Test
     public void delete() throws Exception {
-        dao.delete(234234234 + "");
+        dao.delete(234234234);
     }
 }
