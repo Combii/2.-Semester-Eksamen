@@ -31,24 +31,6 @@ public class DropboxDAO implements DAO<List<FilePath>> {
     private Connection conn;
     private PreparedStatement ps = null;
 
-    public List<FilePath> addLocalFilesToList(String localPathFolder) {
-        //https://stackoverflow.com/questions/18444423/get-all-absolute-paths-of-files-under-a-given-folder
-        List<FilePath> list = new ArrayList<>();
-        listFilesForFolder(new File(localPathFolder), list);
-        return list;
-    }
-
-    private void listFilesForFolder(final File folder, List<FilePath> list) {
-        //https://stackoverflow.com/questions/1844688/read-all-files-in-a-folder
-        for (final File fileEntry : folder.listFiles()) {
-            if (fileEntry.isDirectory()) {
-                listFilesForFolder(fileEntry, list);
-            } else {
-                list.add(new FilePath(fileEntry.getAbsolutePath(),""));
-            }
-        }
-    }
-
     @Override
     public void save(List<FilePath> list) {
         uploadListToDropbox(list);
