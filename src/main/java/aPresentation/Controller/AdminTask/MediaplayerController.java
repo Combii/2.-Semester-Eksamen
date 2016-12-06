@@ -79,21 +79,8 @@ public class MediaplayerController implements Initializable {
     }
     public void play(javafx.event.ActionEvent actionEvent) {
         Status status = mp.getStatus();
-
-        if (status == Status.UNKNOWN  || status == Status.HALTED)
+        if ( status == Status.PAUSED || status == Status.READY || status == Status.STOPPED)
         {
-            // don't do anything in these states
-            return;
-        }
-        if ( status == Status.PAUSED
-                || status == Status.READY
-                || status == Status.STOPPED)
-        {
-            // rewind the movie if we're sitting at the end
-            if (atEndOfMedia) {
-                mp.seek(mp.getStartTime());
-                atEndOfMedia = false;
-            }
             mp.play();
         } else {
             mp.pause();
