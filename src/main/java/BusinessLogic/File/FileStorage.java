@@ -20,10 +20,6 @@ public class FileStorage {
     public FileStorage() {
     }
 
-    public FileStorage(List<FilePath> list) {
-        this.list = list;
-    }
-
     public List<FilePath> getList() {
         return list;
     }
