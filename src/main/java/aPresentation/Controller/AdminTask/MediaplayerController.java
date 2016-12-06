@@ -4,12 +4,19 @@ import javafx.beans.InvalidationListener;
 import javafx.beans.Observable;
 import javafx.beans.binding.Bindings;
 import javafx.beans.property.DoubleProperty;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Slider;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.media.MediaView;
+import javafx.scene.media.MediaPlayer.Status;
+import javafx.util.Duration;
+
 
 import java.awt.event.ActionEvent;
 import java.io.File;
@@ -25,6 +32,11 @@ public class MediaplayerController implements Initializable {
     private Media me;
     @FXML
     Slider volumeSlider;
+    @FXML
+    Slider timeSlider;
+
+    private boolean atEndOfMedia = false;
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         String path = new File("C:\\Users\\Lenovo\\IdeaProjects\\2.-Semester-Eksamen\\src\\main\\java\\Media\\JavaFx Tutorial For Beginners 31 - Creating Media Player in JavaFX.mp4").getAbsolutePath();
@@ -43,38 +55,49 @@ public class MediaplayerController implements Initializable {
                 mp.setVolume(volumeSlider.getValue() / 100);
             }
         });
+        mp.currentTimeProperty().addListener(new ChangeListener<Duration>() {
+            @Override
+            public void changed(ObservableValue<? extends Duration> observable, Duration oldValue, Duration newValue) {
+                timeSlider.setValue(newValue.toSeconds());
+            }
+        });
+        timeSlider.setOnMouseClicked(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+                mp.seek(Duration.seconds(timeSlider.getValue()));
+            }
+        });
 
+        mp.setOnReady(new Runnable() {
+            @Override
+            public void run() {
+                timeSlider.setMin(0.0);
+                timeSlider.setValue(0.0);
+                timeSlider.setMax(mp.getTotalDuration().toSeconds());
+            }
+        });
     }
-
     public void play(javafx.event.ActionEvent actionEvent) {
-        mp.play();
-        mp.setRate(1);
+        Status status = mp.getStatus();
+
+        if (status == Status.UNKNOWN  || status == Status.HALTED)
+        {
+            // don't do anything in these states
+            return;
+        }
+        if ( status == Status.PAUSED
+                || status == Status.READY
+                || status == Status.STOPPED)
+        {
+            // rewind the movie if we're sitting at the end
+            if (atEndOfMedia) {
+                mp.seek(mp.getStartTime());
+                atEndOfMedia = false;
+            }
+            mp.play();
+        } else {
+            mp.pause();
+        }
     }
 
-    public void pause(javafx.event.ActionEvent actionEvent) {
-        mp.pause();
-    }
-
-    public void fast(javafx.event.ActionEvent actionEvent) {
-        mp.setRate(2);
-    }
-
-    public void slow(javafx.event.ActionEvent actionEvent) {
-        mp.setRate(.5);
-    }
-
-    public void reload(javafx.event.ActionEvent actionEvent) {
-        mp.seek(mp.getStartTime());
-        mp.play();
-    }
-
-    public void start(javafx.event.ActionEvent actionEvent) {
-        mp.seek(mp.getStartTime());
-        mp.stop();
-    }
-
-    public void last(javafx.event.ActionEvent actionEvent) {
-        mp.seek(mp.getTotalDuration());
-        mp.stop();
-    }
 }
