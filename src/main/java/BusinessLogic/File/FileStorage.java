@@ -14,8 +14,7 @@ import java.util.List;
  */
 public class FileStorage {
     private List<FilePath> list = new ArrayList<>();
-
-    DropboxDAO dropboxDAO = null;
+    private DropboxDAO dropboxDAO = null;
 
     public List<FilePath> getList() {
         return list;
@@ -24,6 +23,21 @@ public class FileStorage {
     public void setList(List<FilePath> list) {
         this.list = list;
     }
+
+    public void downloadFilesToList(String dropboxPathFolder) throws IOException, DbxException {
+        createDropboxDAO();
+        list = dropboxDAO.get(dropboxPathFolder);
+    }
+
+    public void uploadListToDropbox(String dropboxPathFolder) throws IOException, DbxException {
+        if(!list.isEmpty()) {
+            createDropboxDAO();
+            dropboxDAO.save(list);
+        }
+    }
+
+
+
 
     public void addToList(FilePath file){
         list.add(file);
@@ -35,24 +49,6 @@ public class FileStorage {
 
     public void addLocalFilesToList(String localPathFolder){
         createDropboxDAO();
-    }
-
-    public void uploadListToDropbox(String dropboxPathFolder) throws IOException, DbxException {
-        if(!list.isEmpty()) {
-            createDropboxDAO();
-            dropboxDAO.save(list);
-        }
-    }
-
-    public void downloadFilesToList(String dropboxPathFolder) throws IOException, DbxException {
-        createDropboxDAO();
-        if(list.isEmpty()){
-            list = dropboxDAO.get(dropboxPathFolder);
-        }
-        else {
-            List<FilePath> tempList = dropboxDAO.get(dropboxPathFolder);
-            addFileListToList(tempList);
-        }
     }
 
     private void createDropboxDAO(){
