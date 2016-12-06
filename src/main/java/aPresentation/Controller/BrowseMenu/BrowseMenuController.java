@@ -1,7 +1,6 @@
 package aPresentation.Controller.BrowseMenu;
 
 import BusinessLogic.File.FileStorage;
-import BusinessLogic.Thread.ListStatic;
 import Dao.FilePath;
 import javafx.fxml.FXML;
 
@@ -10,6 +9,8 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
+
+import java.io.File;
 
 
 /**
@@ -23,14 +24,23 @@ public class BrowseMenuController {
     @FXML
     public void initialize() throws Exception {
 
-        FileStorage list = new FileStorage(ListStatic.getList().getList());
+        FileStorage list = new FileStorage();
+
+        list.downloadFilesToList("");
 
         int rowCounter = 0, columnCounter = 0;
 
         for(FilePath i : list.getList()) {
 
             Button button1 = new Button();
-            Image thumbnail = new Image(i.getLocalPathThumbnail());
+
+            String path = "/Users/Combii/Desktop/2. Semester Eksamen/AnotherCC/src/main/Resources/";
+
+            File file = new File(path + i.getLocalPathThumbnail());
+            String localUrl = file.toURI().toURL().toString();
+            Image thumbnail = new Image(localUrl, false);
+
+
             button1.setGraphic(new ImageView(thumbnail));
             gridPane.add(button1, columnCounter, rowCounter);
 
@@ -41,10 +51,6 @@ public class BrowseMenuController {
             }
 
         }
-    }
-
-    public static void main(String[] args) {
-        Image thumbnail = new Image("/Downloads/test/Thumbnail/suppp.jpg");
     }
 
 }

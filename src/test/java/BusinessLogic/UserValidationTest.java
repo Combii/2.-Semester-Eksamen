@@ -33,9 +33,9 @@ public class UserValidationTest {
     @After
     public void tearDown() throws Exception {
 
-        d.delete(d.getId("bob"));
-        d.delete(d.getId("bob1"));
-        d.delete(d.getId("bbob1"));
+        d.delete(d.getId("bob") + "");
+        d.delete(d.getId("bob1") + "");
+        d.delete(d.getId("bbob1") + "");
 
     }
 
