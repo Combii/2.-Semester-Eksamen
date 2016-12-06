@@ -120,19 +120,20 @@ public class DropboxDAO implements DAO<List<FilePath>> {
         return null;
     }
 
-    private List<FilePath> downloadFilesFromDropboxToList(String dropBoxFolderPath) throws DbxException {
+    private List<FilePath> downloadFromDropboxSQL(String folder) throws SQLException, IOException, DbxException {
         List<FilePath> tempList = new ArrayList<>();
+        conn = SQLDatabase.getDatabase().getConnection();
 
         try {
-            ListFolderResult result = client.files().listFolder(dropBoxFolderPath);
-            for (Metadata metadata : result.getEntries()) {
-                if (!metadata.toString().contains("\".tag\":\"folder\""))
-                    tempList.add(downloadFromDropbox(metadata.getPathLower(),metadata.getPathLower()));
-                else
-                    throw new IsFolderException(metadata.getPathLower());
+            ps = conn.prepareStatement("SELECT path FROM FilePath INNER JOIN Folder ON Folder.ID=FilePath.ID WHERE Folder.folderName = '"+ folder +"'");
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+                String path = rs.getString(1);
+                tempList.add(downloadFromDropbox(path, path));
             }
         }
-        catch (Exception e){
+        catch (SQLException e){
             e.printStackTrace();
         }
         return tempList;
@@ -170,6 +171,25 @@ public class DropboxDAO implements DAO<List<FilePath>> {
     }
 
 
+
+    private List<FilePath> downloadFilesFromDropboxToList(String dropBoxFolderPath) throws DbxException {
+        List<FilePath> tempList = new ArrayList<>();
+
+        try {
+            ListFolderResult result = client.files().listFolder(dropBoxFolderPath);
+            for (Metadata metadata : result.getEntries()) {
+                if (!metadata.toString().contains("\".tag\":\"folder\""))
+                    tempList.add(downloadFromDropbox(metadata.getPathLower(),metadata.getPathLower()));
+                else
+                    throw new IsFolderException(metadata.getPathLower());
+            }
+        }
+        catch (Exception e){
+            e.printStackTrace();
+        }
+        return tempList;
+    }
+
     private void downloadThumbnailForFile(String localPathToSave, String dropboxPath){
         try{
             DbxDownloader dbxDownload = client.files().getThumbnail(dropboxPath);
@@ -185,27 +205,6 @@ public class DropboxDAO implements DAO<List<FilePath>> {
         catch (Exception e){
             e.printStackTrace();
         }
-    }
-
-
-    private List<FilePath> downloadFromDropboxSQL(String folder) throws SQLException, IOException, DbxException {
-        List<FilePath> tempList = new ArrayList<>();
-        conn = SQLDatabase.getDatabase().getConnection();
-
-        try {
-            ps = conn.prepareStatement("SELECT path FROM FilePath INNER JOIN Folder ON Folder.ID=FilePath.ID WHERE Folder.folderName = '"+ folder +"'");
-            ResultSet rs = ps.executeQuery();
-
-            int i = 1;
-            while (rs.next()) {
-                String path = rs.getString(i);
-                tempList.add(downloadFromDropbox(path, path));
-            }
-        }
-        catch (SQLException e){
-            e.printStackTrace();
-        }
-        return tempList;
     }
 
     @Override
