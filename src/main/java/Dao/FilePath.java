@@ -11,21 +11,39 @@ import static org.apache.commons.io.FilenameUtils.removeExtension;
  * 30 November 2016.
  */
 public class FilePath {
+    private String folder = "";
     private String localPath = "";
     private String localPathThumbnail = "";
     private String dropBoxPath = "";
     private String resourcePath = "";
     private String fileType = "";
+    private String localUploadPath = "";
+
+    public FilePath(String dropBoxPath) {
+        this(dropBoxPath, dropBoxPath);
+    }
 
     public FilePath(String localPath, String dropBoxPath) {
+        localUploadPath = localPath;
+
         //------- Resource Path ---------
         resourcePath = new File("src/main/Resources").getAbsolutePath();
+
+        if(dropBoxPath.equals("")){
+            File file = new File(localPath);
+            dropBoxPath = "/" + getFolder(localPath) + "/" + file.getName();
+        }
+        if(localPath.contains("src/main/Resources"))
+            this.localPath = localPath;
+        else
+            this.localPath = resourcePath + "/Downloads" + localPath;
+
         //-------------------------------
-        this.localPath = resourcePath + "/Downloads" + localPath;
         this.dropBoxPath = dropBoxPath;
         //Used https://commons.apache.org/proper/commons-io/
         localPathThumbnail = convertStringThumbnail(this.localPath);
         fileType = getFileType(dropBoxPath);
+        folder = getFolder(dropBoxPath);
     }
 
     public String getLocalPath() {
@@ -49,6 +67,14 @@ public class FilePath {
         return localPathThumbnail;
     }
 
+    public String getFolder() {
+        return folder;
+    }
+
+    public String getLocalUploadPath() {
+        return localUploadPath;
+    }
+
     private String getFileType(String path){
         int lastIndex = path.lastIndexOf('.');
         return path.substring(lastIndex+1, path.length());
@@ -59,6 +85,13 @@ public class FilePath {
         int startIndex = localPath.indexOf("Downloads/", 0);
         int lastIndex = rString.lastIndexOf('/');
         return resourcePath + "/" + rString.substring(startIndex, lastIndex) + "/Thumbnail" + rString.substring(lastIndex, rString.length());
+    }
+
+    private String getFolder(String path){
+        int lastIndex = path.lastIndexOf("/");
+        path = path.substring(0, lastIndex);
+        int lastIndex2 = path.lastIndexOf("/");
+        return path.substring(lastIndex2+1, lastIndex);
     }
 
     @Override

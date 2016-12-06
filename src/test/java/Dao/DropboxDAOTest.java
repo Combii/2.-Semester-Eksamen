@@ -63,4 +63,16 @@ public class DropboxDAOTest {
     }
 
 
+    @Test
+    public void uploadFiles() throws Exception {
+        //list.addLocalFilesToList("/Users/Combii/Desktop/pics");
+
+        //list.uploadListToDropbox();
+
+        //list.downloadFilesToList("/pics");
+
+        //fileStorage = dao.downloadFromDropboxSQL("pics");
+
+        System.out.println(fileStorage);
+    }
 }

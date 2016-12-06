@@ -4,6 +4,7 @@ import Dao.Dropbox.DropboxDAO;
 import Dao.FilePath;
 import com.dropbox.core.DbxException;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -14,11 +15,7 @@ import java.util.List;
  */
 public class FileStorage {
     private List<FilePath> list = new ArrayList<>();
-
-    DropboxDAO dropboxDAO = null;
-
-    public FileStorage() {
-    }
+    private DropboxDAO dropboxDAO = null;
 
     public List<FilePath> getList() {
         return list;
@@ -28,33 +25,30 @@ public class FileStorage {
         this.list = list;
     }
 
-    public void addToList(FilePath file){
-        list.add(file);
-    }
-
-    public void addFileListToList(List<FilePath> file){
-        list.addAll(file);
-    }
-
-    public void addLocalFilesToList(String localPathFolder){
+    public void downloadFilesToList(String dropboxPathFolder) throws IOException, DbxException {
         createDropboxDAO();
+        list = dropboxDAO.get(dropboxPathFolder);
     }
 
-    public void uploadListToDropbox(String dropboxPathFolder) throws IOException, DbxException {
+    public void uploadListToDropbox() throws IOException, DbxException {
         if(!list.isEmpty()) {
             createDropboxDAO();
             dropboxDAO.save(list);
         }
     }
 
-    public void downloadFilesToList(String dropboxPathFolder) throws IOException, DbxException {
+    public void addToList(FilePath file){
+        list.add(file);
+    }
+
+    public void addLocalFilesToList(String localPathFolder) throws IOException {
         createDropboxDAO();
-        if(list.isEmpty()){
-            list = dropboxDAO.get(dropboxPathFolder);
-        }
-        else {
-            List<FilePath> tempList = dropboxDAO.get(dropboxPathFolder);
-            addFileListToList(tempList);
+
+        File file = new File(localPathFolder);
+        for (final File fileEntry : file.listFiles()) {
+            if (!fileEntry.isDirectory()) {
+                list.add(new FilePath(fileEntry.getAbsolutePath(), "")); //Håndter FilePath til dropbox med denne path
+            }
         }
     }
 
@@ -62,5 +56,10 @@ public class FileStorage {
         if(dropboxDAO == null){
             dropboxDAO = new DropboxDAO();
         }
+    }
+
+    @Override
+    public String toString() {
+        return list.toString();
     }
 }

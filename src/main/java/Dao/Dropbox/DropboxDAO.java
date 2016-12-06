@@ -13,6 +13,7 @@ import com.dropbox.core.v2.files.Metadata;
 import java.io.*;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
@@ -52,31 +53,59 @@ public class DropboxDAO implements DAO<List<FilePath>> {
         uploadListToDropbox(list);
     }
 
-    private void uploadToDropbox(String localPathToUpload, String dropboxPath) throws IOException, DbxException, SQLException {
-        conn = SQLDatabase.getDatabase().getConnection();
-
-        ps = conn.prepareStatement("INSERT INTO FilePathDropboxDB VALUES (ID, '" + dropboxPath + "');");
-        ps.executeUpdate();
-
-        try (InputStream in = new FileInputStream(localPathToUpload)) {
-            client.files().uploadBuilder(dropboxPath)
-                    .uploadAndFinish(in);
-        }
-    }
-
     private void uploadListToDropbox(List<FilePath> list) {
         try {
             for (FilePath i : list) {
-                String localPath = i.getLocalPath();
-                String dropBoxPath = i.getDropBoxPath();
-
-                if (!localPath.equals("") && !dropBoxPath.equals("")) {
-                    uploadToDropbox(localPath, dropBoxPath);
-                }
+                uploadToDropbox(i);
             }
         }
         catch (Exception e){
             e.printStackTrace();
+        }
+    }
+
+    private void uploadToDropbox(FilePath filePath) throws IOException, DbxException, SQLException {
+        try {
+            try (InputStream in = new FileInputStream(filePath.getLocalUploadPath())) {
+                client.files().uploadBuilder(filePath.getDropBoxPath())
+                        .uploadAndFinish(in);
+            }
+
+            conn = SQLDatabase.getDatabase().getConnection();
+            int id = getIDOfFolder(filePath.getFolder());
+
+            if (id != -1) {
+                ps = conn.prepareStatement("INSERT INTO FilePath VALUES ('" + id + "', '" + filePath.getDropBoxPath() + "');");
+                ps.executeUpdate();
+            } else {
+                ps = conn.prepareStatement("INSERT INTO Folder VALUES (ID, '" + filePath.getFolder() + "');");
+                ps.executeUpdate();
+
+                id = getIDOfFolder(filePath.getFolder());
+
+
+                ps = conn.prepareStatement("INSERT INTO FilePath VALUES ('" + id + "', '" + filePath.getDropBoxPath() + "');");
+                ps.executeUpdate();
+            }
+        }
+        catch (Exception e){
+            e.printStackTrace();
+        }
+
+    }
+
+    private int getIDOfFolder(String folderName){
+        //folderName = folderName.replaceAll("/", "");
+        try {
+            ps = conn.prepareStatement("SELECT ID FROM Folder WHERE folderName = '"+ folderName +"'");
+            ResultSet rs = ps.executeQuery();
+            rs.next();
+            int id = rs.getInt(1);
+            rs.close();
+            return id;
+        }
+        catch (Exception e){
+            return -1;
         }
     }
 
@@ -159,6 +188,25 @@ public class DropboxDAO implements DAO<List<FilePath>> {
 
     }
 
+    private List<FilePath> downloadFromDropboxSQL(String folder) throws SQLException, IOException, DbxException {
+        List<FilePath> tempList = new ArrayList<>();
+        conn = SQLDatabase.getDatabase().getConnection();
+
+        try {
+            ps = conn.prepareStatement("SELECT path FROM FilePath INNER JOIN Folder ON Folder.ID=FilePath.ID WHERE Folder.folderName = '"+ folder +"'");
+            ResultSet rs = ps.executeQuery();
+
+            int i = 1;
+            while (rs.next()) {
+                String path = rs.getString(i);
+                tempList.add(downloadFromDropbox(path, path));
+            }
+        }
+        catch (SQLException e){
+            e.printStackTrace();
+        }
+        return tempList;
+    }
 
 }
 
