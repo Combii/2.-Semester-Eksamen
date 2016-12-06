@@ -13,6 +13,6 @@ public class IsFolderException extends Exception{
 
     @Override
     public String toString() {
-        return "Have to be file. Path is folder: " + path;
+        return "Path is folder with no files: " + path;
     }
 }

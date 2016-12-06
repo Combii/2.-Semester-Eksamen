@@ -23,30 +23,38 @@ public class BrowseMenuController {
 
     @FXML
     public void initialize() throws Exception {
+        setGridPane("/test");
+    }
 
-        FileStorage list = new FileStorage();
-        list.downloadFilesToList("/test");
 
-        int rowCounter = 0, columnCounter = 0;
+    private void setGridPane(String dropboxFolderPath){
+        try {
+            FileStorage list = new FileStorage();
+            list.downloadFilesToList(dropboxFolderPath);
 
-        for(FilePath i : list.getList()) {
+            int rowCounter = 0, columnCounter = 0;
 
-            Button button1 = new Button();
+            for (FilePath i : list.getList()) {
 
-            File file = new File(i.getLocalPathThumbnail());
-            String localUrl = file.toURI().toURL().toString();
+                Button button1 = new Button();
 
-            Image thumbnail = new Image(localUrl, false);
+                File file = new File(i.getLocalPathThumbnail());
+                String localUrl = file.toURI().toURL().toString();
 
-            button1.setGraphic(new ImageView(thumbnail));
-            gridPane.add(button1, columnCounter, rowCounter);
+                Image thumbnail = new Image(localUrl, false);
 
-            columnCounter++;
-            if (columnCounter > 3) {
-                columnCounter = 0;
-                rowCounter++;
+                button1.setGraphic(new ImageView(thumbnail));
+                gridPane.add(button1, columnCounter, rowCounter);
+
+                columnCounter++;
+                if (columnCounter > 3) {
+                    columnCounter = 0;
+                    rowCounter++;
+                }
             }
-
+        }
+        catch (Exception e){
+            e.printStackTrace();
         }
     }
 
