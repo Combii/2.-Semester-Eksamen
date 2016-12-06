@@ -34,13 +34,12 @@ public class BrowseMenuController {
 
             Button button1 = new Button();
 
-
-            String path = "/Users/Combii/Desktop/2. Semester Eksamen/AnotherCC/src/main/Resources/";
-            File file = new File(path + i.getLocalPathThumbnail());
+            File resourcesDirectoryPath = new File("src/main/Resources");
+            File file = new File(resourcesDirectoryPath + i.getLocalPathThumbnail());
             String localUrl = file.toURI().toURL().toString();
 
+            System.out.println(file.getAbsolutePath());
             Image thumbnail = new Image(localUrl, false);
-
 
             button1.setGraphic(new ImageView(thumbnail));
             gridPane.add(button1, columnCounter, rowCounter);
