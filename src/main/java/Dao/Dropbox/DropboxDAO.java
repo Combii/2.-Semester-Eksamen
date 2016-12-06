@@ -188,8 +188,7 @@ public class DropboxDAO implements DAO<List<FilePath>> {
 
     }
 
-
-    public List<FilePath> downloadFromDropboxSQL(String folder) throws SQLException, IOException, DbxException {
+    private List<FilePath> downloadFromDropboxSQL(String folder) throws SQLException, IOException, DbxException {
         List<FilePath> tempList = new ArrayList<>();
         conn = SQLDatabase.getDatabase().getConnection();
 

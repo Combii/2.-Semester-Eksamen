@@ -71,7 +71,7 @@ public class DropboxDAOTest {
 
         //list.downloadFilesToList("/pics");
 
-        fileStorage = dao.downloadFromDropboxSQL("pics");
+        //fileStorage = dao.downloadFromDropboxSQL("pics");
 
         System.out.println(fileStorage);
     }
