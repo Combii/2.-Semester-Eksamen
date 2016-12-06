@@ -120,7 +120,7 @@ public class DropboxDAO implements DAO<List<FilePath>> {
             OutputStream outputStream = new FileOutputStream(file);
 
             client.files().download(dropboxPath).download(outputStream);
-            downloadThumbnailForFile("src/main/Resources/" + myFile.getLocalPathThumbnail(), myFile.getDropBoxPath());
+            downloadThumbnailForFile(myFile.getLocalPathThumbnail(), myFile.getDropBoxPath());
             outputStream.close();
         }
         return myFile;
