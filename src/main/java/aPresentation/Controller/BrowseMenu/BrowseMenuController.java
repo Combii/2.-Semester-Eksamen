@@ -2,6 +2,7 @@ package aPresentation.Controller.BrowseMenu;
 
 import BusinessLogic.File.FileStorage;
 import Dao.FilePath;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 
 import javafx.scene.control.Button;
@@ -10,7 +11,9 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 
+import java.awt.*;
 import java.io.File;
+import java.io.IOException;
 
 
 /**
@@ -36,9 +39,24 @@ public class BrowseMenuController {
 
 
 
-            for (FilePath i : list.getList()) {
+            for (final FilePath i : list.getList()) {
 
                 Button button = new Button();
+
+                //Handle when button is clicked on
+                button.setOnAction(new javafx.event.EventHandler<ActionEvent>() {
+                    @Override
+                    public void handle(ActionEvent event) {
+                        try {
+                            //https://stackoverflow.com/questions/5824916/how-do-i-open-an-image-in-the-default-image-viewer-using-java-on-windows
+                            File file = new File(i.getLocalPath());
+                            Desktop.getDesktop().open(file);
+                        }
+                        catch (IOException e){
+                            e.printStackTrace();
+                        }
+                    }
+                });
 
                 File file = new File(i.getLocalPathThumbnail());
                 String localUrl = file.toURI().toURL().toString();
@@ -61,6 +79,4 @@ public class BrowseMenuController {
             e.printStackTrace();
         }
     }
-
-
 }
