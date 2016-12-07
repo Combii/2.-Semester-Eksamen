@@ -1,8 +1,5 @@
 package BusinessLogic.Account;
 
-import javafx.beans.property.SimpleStringProperty;
-import javafx.beans.property.StringProperty;
-
 /**
  * Created by ${Boris} Grunwald} on 29/11/2016.
  */
