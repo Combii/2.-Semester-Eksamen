@@ -14,6 +14,7 @@ public interface AccountDAOInterface extends DAO<Account> {
     MyLinkedList<String> getCustomerPasswordHashes() throws SQLException;
     int getId(String username) throws SQLException;
     boolean exists(String username) throws SQLException;
-    public List getUsers() throws SQLException;
+    List getUsers() throws SQLException;
+
 
 }

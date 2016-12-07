@@ -39,6 +39,7 @@ public class AAccountDAOTest {
     @After
     public void tearDown() throws Exception {
 
+       dao.delete(dao.getId("Anders"));
         dao.delete(dao.getId("Anders"));
         dao.delete(dao.getId("Jikol1906"));
         dao.delete(dao.getId("username1234"));
@@ -84,7 +85,6 @@ public class AAccountDAOTest {
         assertEquals(false,dao.exists("w4e4te4%465465"));
 
     }
-
 
     @Test
     public void delete() throws Exception {
