@@ -25,8 +25,4 @@ public class UserInformation {
         }
         return sb;
     }
-
-    public static void main(String[] args) throws SQLException {
-        System.out.println(getUser().toString());
-    }
 }
