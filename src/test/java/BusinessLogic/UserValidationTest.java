@@ -3,7 +3,7 @@ package BusinessLogic;
 import BusinessLogic.Account.Admin;
 import BusinessLogic.Account.Customer;
 import BusinessLogic.Account.Employee;
-import Dao.AAccountDAO;
+import Dao.AccountDAO;
 import Dao.AccountDAOInterface;
 import org.junit.After;
 import org.junit.Before;
@@ -21,7 +21,7 @@ public class UserValidationTest {
     @Before
     public void setUp() throws Exception {
 
-        d = new AAccountDAO();
+        d = new AccountDAO();
 
         d.save(new Customer("bob","1234",2));
         d.save(new Customer("Preben",HashCode.createHash("password1324"),2));

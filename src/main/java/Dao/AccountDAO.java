@@ -13,13 +13,13 @@ import java.util.List;
 /**
  * Created by ${Boris} Grunwald} on 29/11/2016.
  */
-public class AAccountDAO implements AccountDAOInterface {
+public class AccountDAO implements AccountDAOInterface {
 
     private Connection conn;
     private PreparedStatement ps = null;
     private ResultSet rs = null;
 
-    public AAccountDAO() throws SQLException {
+    public AccountDAO() throws SQLException {
 
         conn = SQLDatabase.getDatabase().getConnection();
 
@@ -180,7 +180,9 @@ public class AAccountDAO implements AccountDAOInterface {
     }
 
     @Override
-    public List getUsers() throws SQLException {
+    public List getUsers() {
+        return getAccountList();
+        /*
         try {
             PreparedStatement ps = conn.prepareStatement("SELECT ID, username FROM Account");
             ResultSet rs = ps.executeQuery();
@@ -201,6 +203,34 @@ public class AAccountDAO implements AccountDAOInterface {
         } catch (Exception e) {
             return null;
         }
+        */
+    }
+
+    private List<Account> getAccountList() {
+        try {
+            List<Account> rList = new ArrayList<>();
+
+            PreparedStatement ps = conn.prepareStatement(
+                    "SELECT Account.username, UserInformation.name, UserInformation.lastName, UserInformation.Email FROM Account INNER JOIN UserInformation ON Account.ID=UserInformation.ID WHERE userType = 0;");
+            ResultSet rs = ps.executeQuery();
+
+            String username, name, lastName, email;
+
+            while (rs.next()){
+                username = rs.getString(1);
+                name = rs.getString(2);
+                lastName = rs.getString(3);
+                email = rs.getString(4);
+
+                rList.add(new Administrator(username, null, 0, name, lastName, email));
+
+            }
+            return rList;
+        }
+        catch (SQLException e){
+            e.printStackTrace();
+        }
+        return null;
     }
 
 

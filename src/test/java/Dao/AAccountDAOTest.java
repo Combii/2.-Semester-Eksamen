@@ -24,7 +24,7 @@ public class AAccountDAOTest {
     @Before
     public void setUp() throws Exception {
 
-        dao = new AAccountDAO();
+        dao = new AccountDAO();
         a = new Customer("Anders" , HashCode.createHash("1234"), 2);
         b = new Employee("Jikol1906", HashCode.createHash("2345"),1, "signe", "andersen", "signe@gmail.com");
         c = new Admin("username1234", HashCode.createHash("3456"), 0, "Preben", "Jensen", "Preben@gmail.com");

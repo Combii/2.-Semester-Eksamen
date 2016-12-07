@@ -1,6 +1,6 @@
 package BusinessLogic;
 
-import Dao.AAccountDAO;
+import Dao.AccountDAO;
 import Dao.AccountDAOInterface;
 import org.junit.After;
 import org.junit.Before;
@@ -19,7 +19,7 @@ public class CreateNewAccountTest {
     @Before
     public void setUp() throws Exception {
 
-        dao = new AAccountDAO();
+        dao = new AccountDAO();
 
     }
 
