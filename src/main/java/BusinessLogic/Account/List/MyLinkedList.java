@@ -24,7 +24,7 @@ public class MyLinkedList<E> implements Iterable<E> {
 
         if (front == null) {
 
-            front = new MyListNode<E>(data);
+            front = new MyListNode<>(data);
 
         } else {
 
