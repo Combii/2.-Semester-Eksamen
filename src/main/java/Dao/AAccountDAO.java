@@ -144,7 +144,6 @@ public class AAccountDAO implements AccountDAOInterface {
         }
     }
 
-    @Override
     public java.util.List findAll() throws SQLException {
         try {
             PreparedStatement ps = conn.prepareStatement("SELECT username FROM Account");
