@@ -24,7 +24,7 @@ public class AAccountDAO implements AccountDAOInterface {
     }
 
     @Override
-    public void save(Account account) throws SQLException {
+    public void save(Account account) throws SQLException  {
 
         String AccValuesCustomer = formatValues(new Object[]{account.getName(),account.getPassword(),account.getUserType()},true);
 

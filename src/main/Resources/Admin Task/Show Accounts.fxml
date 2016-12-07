@@ -8,7 +8,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane fx:id="anchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#onMousePressedAnchorPane" prefHeight="287.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="aPresentation.Controller.AdminTask.ShowAccountsController">
+<AnchorPane fx:id="anchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#onMousePressedAnchorPane" prefHeight="287.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="aPresentation.Controller.AdminTask.ShowAccountsController">
    <children>
       <TextField fx:id="name" layoutX="69.0" layoutY="129.0" promptText="username/email" />
       <Text layoutX="66.0" layoutY="73.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Show accounts">
@@ -19,7 +19,7 @@
       <Text layoutX="71.0" layoutY="116.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Search by Username or E-mail" />
       <TableView fx:id="table" layoutX="279.0" prefHeight="287.0" prefWidth="307.0">
          <columns>
-            <TableColumn prefWidth="306.0" text="Name" />
+            <TableColumn fx:id="columnName" prefWidth="306.0" text="Name" />
          </columns>
       </TableView>
       <ComboBox layoutX="72.0" layoutY="173.0" prefHeight="27.0" prefWidth="162.0" promptText="Show All" />
