@@ -52,9 +52,10 @@ public class UserValidation {
     }
 
     public static boolean userExist(String username) throws SQLException{
-        AccountDao dao = new AccountDao();
+        AccountDAOInterface dao = new AAccountDAO();
        //Is username already in DB?
-     return dao.userExists(username);
+     return dao.get(username) != null;
+
     }
 
     public static boolean isValidPassword(String password) {

@@ -13,7 +13,7 @@ import java.util.List;
 public class UserInformation {
 
 
-    public static StringBuilder getUser () throws SQLException{
+    public static StringBuilder getUser() throws SQLException{
         AccountDAOInterface a = new AAccountDAO();
         List<List<String>> list = a.getUsers();
 
