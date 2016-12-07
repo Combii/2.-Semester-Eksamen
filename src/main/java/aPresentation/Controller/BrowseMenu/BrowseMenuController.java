@@ -29,9 +29,10 @@ public class BrowseMenuController implements Initializable {
     @FXML
     TreeView<String> treeView;
 
+    Image icon = new Image(getClass().getResourceAsStream("/img/folder.png"));
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        TreeItem<String> root = new TreeItem<>("Root");
+        TreeItem<String> root = new TreeItem<>("Root", new ImageView(icon));
 
         TreeItem<String> nodeA = new TreeItem<>("node A");
         TreeItem<String> nodeB = new TreeItem<>("node B");
