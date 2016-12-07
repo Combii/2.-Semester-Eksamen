@@ -44,13 +44,9 @@ public class BrowseMenuController implements Initializable {
         nodeA.getChildren().addAll(nodeA1,nodeB1,nodeC1);
 
         treeView.setRoot(root);
-    }
-
-    @FXML
-    public void initialize() throws Exception {
         setGridPane("pics");
-    }
 
+    }
 
     private void setGridPane(String dropboxFolderPath){
         try {

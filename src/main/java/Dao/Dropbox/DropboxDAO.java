@@ -147,7 +147,7 @@ public class DropboxDAO implements DAO<List<FilePath>> {
 
         OutputStream os = new FileOutputStream(file);
         Thumbnails.of(originalImagePath)
-                .size(200, 200)
+                .size(150, 150)
                 .outputFormat("png")
                 .toOutputStream(os);
     }
