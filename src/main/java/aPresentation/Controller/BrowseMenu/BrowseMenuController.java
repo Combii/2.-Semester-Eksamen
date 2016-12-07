@@ -10,9 +10,11 @@ import javafx.scene.control.TreeItem;
 import javafx.scene.control.TreeView;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.ContextMenuEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 
+import java.awt.event.MouseEvent;
 import java.io.File;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -29,24 +31,31 @@ public class BrowseMenuController implements Initializable {
     @FXML
     TreeView<String> treeView;
 
-    Image icon = new Image(getClass().getResourceAsStream("/img/folder.png"));
+    Image icon = new Image("/img/folder.png",20,20,false,false);
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         TreeItem<String> root = new TreeItem<>("Root", new ImageView(icon));
+        root.setExpanded(true);
 
-        TreeItem<String> nodeA = new TreeItem<>("node A");
-        TreeItem<String> nodeB = new TreeItem<>("node B");
-        TreeItem<String> nodeC = new TreeItem<>("node C");
+        TreeItem<String> nodeA = new TreeItem<>("node A", new ImageView(icon));
+        TreeItem<String> nodeB = new TreeItem<>("node B", new ImageView(icon));
+        TreeItem<String> nodeC = new TreeItem<>("node C", new ImageView(icon));
         root.getChildren().addAll(nodeA,nodeB,nodeC);
+        nodeA.setExpanded(true);
 
-        TreeItem<String> nodeA1 = new TreeItem<>("node A 1");
-        TreeItem<String> nodeB1 = new TreeItem<>("node B 1");
-        TreeItem<String> nodeC1 = new TreeItem<>("node C 1");
+        TreeItem<String> nodeA1 = new TreeItem<>("node A 1", new ImageView(icon));
+        TreeItem<String> nodeB1 = new TreeItem<>("node B 1", new ImageView(icon));
+        TreeItem<String> nodeC1 = new TreeItem<>("node C 1", new ImageView(icon));
         nodeA.getChildren().addAll(nodeA1,nodeB1,nodeC1);
 
         treeView.setRoot(root);
         setGridPane("pics");
-
+    }
+    public void mouseClick(javafx.scene.input.MouseEvent mouseEvent){
+        if(mouseEvent.getClickCount() == 2) {
+            TreeItem<String> item = treeView.getSelectionModel().getSelectedItem();
+            System.out.println(item.getValue());
+        }
     }
 
     private void setGridPane(String dropboxFolderPath){
@@ -79,5 +88,7 @@ public class BrowseMenuController implements Initializable {
             e.printStackTrace();
         }
     }
+
+
 
 }
