@@ -1,9 +1,12 @@
 package aPresentation.Controller.AdminTask;
 
+import BusinessLogic.Account.Account;
+import BusinessLogic.Account.Administrator;
 import BusinessLogic.Account.UserInformation;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.control.ComboBox;
@@ -21,27 +24,36 @@ import java.sql.SQLException;
 
 public class ShowAccountsController {
 
-    @FXML
-    private TextField name;
-
-    @FXML
-    private TableView table;
-
-    @FXML
-    private TableColumn<UserInformation, String> columnName;
-    //private TableColumn<UserInformation, String> id;
-
     public AnchorPane anchorPane;
 
+    public TextField name;
+    public TextField nameOrEmail;
+
+    public TableView table;
+    public TableColumn columnName;
+
+    @SuppressWarnings("unchecked")
     public void initialize() throws SQLException {
         table.setEditable(true);
+
+        columnName = new TableColumn("Hey");
+        columnName.setMinWidth(200);
+
+        columnName.setCellValueFactory(new PropertyValueFactory<Administrator, String>("username"));
+
+        table.setItems(getAccounts());
+        table.getColumns().add(columnName);
     }
 
-    public ObservableList<UserInformation> getUsers(){
-        ObservableList<UserInformation> accounts = FXCollections.observableArrayList();
-        //accounts.addAll()
+    @SuppressWarnings("unchecked")
+    public ObservableList<Administrator> getAccounts() throws SQLException {
+        ObservableList<Administrator> accounts = FXCollections.observableArrayList();
+        accounts.addAll(UserInformation.getUsers());
 
-        return null;
+
+        //UserInformation.getUsers()
+
+        return accounts;
     }
 
     public void onMousePressedAnchorPane(MouseEvent mouseEvent) {

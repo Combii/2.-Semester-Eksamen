@@ -13,10 +13,9 @@ public class UserInformation {
 
 
 
-    public static void getUsers () throws SQLException{
-        AccountDAOInterface a = new AccountDAO();
-        List<String> list = a.getUsers();
-        //return list;
+    public static List getUsers() throws SQLException {
+        AccountDAOInterface dao = new AccountDAO();
+        return dao.getUsers();
     }
 
 }
