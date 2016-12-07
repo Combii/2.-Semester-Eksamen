@@ -4,7 +4,7 @@ import BusinessLogic.Account.Account;
 import BusinessLogic.Account.Admin;
 import BusinessLogic.Account.Customer;
 import BusinessLogic.Account.Employee;
-import Dao.AAccountDAO;
+import Dao.AccountDAO;
 import Dao.AccountDAOInterface;
 
 /**
@@ -46,7 +46,7 @@ public class CreateNewAccount {
 
     private static void saveAccountToDB() {
         try{
-        AccountDAOInterface dao = new AAccountDAO();
+        AccountDAOInterface dao = new AccountDAO();
         dao.save(account);
         }
         catch (Exception e){

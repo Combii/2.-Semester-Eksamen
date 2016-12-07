@@ -1,6 +1,6 @@
 package BusinessLogic.Account;
 
-import Dao.AAccountDAO;
+import Dao.AccountDAO;
 import Dao.AccountDAOInterface;
 
 import java.sql.SQLException;
@@ -12,23 +12,11 @@ import java.util.List;
 public class UserInformation {
 
 
-    public static StringBuilder getUser() throws SQLException{
-        AccountDAOInterface a = new AAccountDAO();
-        List<List<String>> list = a.getUsers();
 
-        StringBuilder sb = new StringBuilder();
-        for(List<String> arr : list){
-            sb.append(arr);
-            sb.append("\t");
-        }
-        return sb;
-    }
-
-
-    public static List getUsers () throws SQLException{
-        AccountDAOInterface a = new AAccountDAO();
+    public static void getUsers () throws SQLException{
+        AccountDAOInterface a = new AccountDAO();
         List<String> list = a.getUsers();
-        return list;
+        //return list;
     }
 
 }

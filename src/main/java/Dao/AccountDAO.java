@@ -13,13 +13,13 @@ import java.util.List;
 /**
  * Created by ${Boris} Grunwald} on 29/11/2016.
  */
-public class AAccountDAO implements AccountDAOInterface {
+public class AccountDAO implements AccountDAOInterface {
 
     private Connection conn;
     private PreparedStatement ps = null;
     private ResultSet rs = null;
 
-    public AAccountDAO() throws SQLException {
+    public AccountDAO() throws SQLException {
 
         conn = SQLDatabase.getDatabase().getConnection();
 
@@ -180,7 +180,10 @@ public class AAccountDAO implements AccountDAOInterface {
     }
 
     @Override
-    public List getUsers() throws SQLException {
+    public List getUsers() {
+
+
+        /*
         try {
             PreparedStatement ps = conn.prepareStatement("SELECT ID, username FROM Account");
             ResultSet rs = ps.executeQuery();
@@ -201,6 +204,19 @@ public class AAccountDAO implements AccountDAOInterface {
         } catch (Exception e) {
             return null;
         }
+        */
+    }
+
+    private List<Account> getAccountList() throws SQLException {
+        List<Account> rList = new ArrayList<>();
+
+        PreparedStatement ps = conn.prepareStatement(
+                "SELECT Account.username, UserInformation.name, UserInformation.lastName, UserInformation.Email FROM Account INNER JOIN UserInformation ON Account.ID=UserInformation.ID;");
+        ResultSet rs = ps.executeQuery();
+
+
+
+        Account newAc = new Account()
     }
 
 
