@@ -37,7 +37,7 @@ public class MediaplayerController implements Initializable {
     
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        String path = new File("C:\\Users\\Lenovo\\IdeaProjects\\2.-Semester-Eksamen\\src\\main\\java\\Media\\COSTA RICA IN 4K 60fps (ULTRA HD) w Freefly Movi.mp4").getAbsolutePath();
+        String path = new File("C:\\Users\\Lenovo\\IdeaProjects\\2.-Semester-Eksamen\\src\\main\\Resources\\Media\\COSTA RICA IN 4K 60fps (ULTRA HD) w Freefly Movi.mp4").getAbsolutePath();
         me = new Media(new File(path).toURI().toString());
         mp = new MediaPlayer(me);
         mv.setMediaPlayer(mp);
