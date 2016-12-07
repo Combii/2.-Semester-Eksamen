@@ -9,6 +9,8 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.Priority;
+import javafx.scene.layout.RowConstraints;
 
 import java.io.File;
 
@@ -34,17 +36,21 @@ public class BrowseMenuController {
 
             int rowCounter = 0, columnCounter = 0;
 
+
+
             for (FilePath i : list.getList()) {
 
-                Button button1 = new Button();
+                Button button = new Button();
 
                 File file = new File(i.getLocalPathThumbnail());
                 String localUrl = file.toURI().toURL().toString();
 
                 Image thumbnail = new Image(localUrl, false);
-
-                button1.setGraphic(new ImageView(thumbnail));
-                gridPane.add(button1, columnCounter, rowCounter);
+                ImageView view = new ImageView(thumbnail);
+                view.setFitHeight(100);
+                view.setFitWidth(150);
+                button.setGraphic(view);
+                gridPane.add(button, columnCounter, rowCounter);
 
                 columnCounter++;
                 if (columnCounter > 3) {
@@ -57,5 +63,6 @@ public class BrowseMenuController {
             e.printStackTrace();
         }
     }
+
 
 }
