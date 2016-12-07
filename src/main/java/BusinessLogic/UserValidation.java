@@ -71,6 +71,6 @@ public class UserValidation {
     }
 
     public static void startConnectionToDB() throws SQLException {
-        Database.startConnection();
+        SQLDatabase.startConnection();
     }
 }
