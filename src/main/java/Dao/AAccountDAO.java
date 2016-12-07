@@ -4,9 +4,10 @@ import BusinessLogic.Account.*;
 import BusinessLogic.Account.List.MyLinkedList;
 
 
-import java.awt.List;
+
 import java.sql.*;
-import java.util.*;
+import java.util.ArrayList;
+
 
 /**
  * Created by ${Boris} Grunwald} on 29/11/2016.
@@ -176,6 +177,30 @@ public class AAccountDAO implements AccountDAOInterface {
         ps.executeUpdate();
         closeStatementAndResultsetAndConnection();
 
+    }
+
+    @Override
+    public List getUsers() throws SQLException {
+        try {
+            PreparedStatement ps = conn.prepareStatement("SELECT ID, username FROM Account");
+            ResultSet rs = ps.executeQuery();
+            ResultSetMetaData md = rs.getMetaData();
+            int columnCount = md.getColumnCount();
+            List<List<String>> list = new ArrayList<List<String>>();
+
+            while (rs.next()) {
+                List<String> row = new ArrayList<String>(columnCount);
+                int i = 1;
+                while (i <= columnCount) {
+                    row.add(rs.getString(i++));
+                }
+                list.add(row);
+            }
+            closeStatementAndResultsetAndConnection();
+            return list;
+        } catch (Exception e) {
+            return null;
+        }
     }
 
 
