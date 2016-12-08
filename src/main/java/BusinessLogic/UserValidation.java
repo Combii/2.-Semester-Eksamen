@@ -55,11 +55,7 @@ public class UserValidation {
             String resourcePath = new File("src/main/Resources").getAbsolutePath();
             File file = new File(resourcePath + "/RememberMe/check.txt");
             if (file.exists()) {
-                if (file.delete()) {
-                    System.out.println(file.getName() + " is deleted!");
-                } else {
-                    System.out.println("Delete operation is failed.");
-                }
+               file.delete();
             }
         }
         else if(!username.isEmpty() && !password.isEmpty()){
