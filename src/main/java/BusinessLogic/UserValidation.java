@@ -1,13 +1,18 @@
 package BusinessLogic;
 
-import BusinessLogic.Account.Account;
+import BusinessLogic.Account.*;
 import BusinessLogic.Account.List.MyLinkedList;
 import Dao.*;
 
+import java.io.*;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Scanner;
 
 /**
  * Created by ${Boris} Grunwald} on 25/11/2016.
+ * Changed by David Stovlbaek 8. December 2016
  */
 public class UserValidation {
 
@@ -45,6 +50,66 @@ public class UserValidation {
 
     }
 
+    public static void setRememberMe(String username, String password) {
+        if(username == null || password == null){
+            String resourcePath = new File("src/main/Resources").getAbsolutePath();
+            File file = new File(resourcePath + "/RememberMe/check.txt");
+            if (file.exists()) {
+               file.delete();
+            }
+        }
+        else if(!username.isEmpty() && !password.isEmpty()){
+            try {
+                String resourcePath = new File("src/main/Resources").getAbsolutePath();
+                File file = new File(resourcePath + "/RememberMe/check.txt");
+
+                if (!file.exists()) {
+                    file.getParentFile().mkdirs();
+
+                    OutputStream outputStream = new FileOutputStream(file);
+                    outputStream.close();
+
+                    try (Writer writer = new BufferedWriter(new OutputStreamWriter(
+                            new FileOutputStream(file), "utf-8"))) {
+                        writer.write(HashCode.createHash(username) + "\n" + password);
+                    }
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    public static Account isRemembered() {
+        try {
+        String resourcePath = new File("src/main/Resources").getAbsolutePath();
+        File file = new File(resourcePath + "/RememberMe/check.txt");
+
+        if (file.exists()) {
+            AccountDAO dao = new AccountDAO();
+            List<Account> users = dao.getUsers();
+
+
+            Scanner sc = new Scanner(file);
+            String hashUsername = sc.next();
+            String password = sc.next();
+
+            for(Account i : users) {
+                if(i instanceof Administrator) {
+                    if (HashCode.verifyPassword(((Administrator) i).getUsername(), hashUsername) && HashCode.verifyPassword(password, i.getPassword())) {
+                        i.setPassword(password);
+                        return i;
+                    }
+                }
+            }
+        }
+        }
+        catch (Exception e){
+            e.printStackTrace();
+        }
+        return null;
+    }
+
     public static boolean isValidUsername(String username) {
 
         //Must be between 4-20 characters and contain only letters, numbers
@@ -74,4 +139,5 @@ public class UserValidation {
     public static void startConnectionToDB() throws SQLException {
         SQLDatabase.startConnection();
     }
+
 }
