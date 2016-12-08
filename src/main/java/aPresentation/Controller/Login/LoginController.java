@@ -1,7 +1,6 @@
 package aPresentation.Controller.Login;
 
 import BusinessLogic.Account.Account;
-import BusinessLogic.Account.Admin;
 import BusinessLogic.Account.Administrator;
 import aPresentation.ActiveAccountInformation.ActiveAccount;
 import BusinessLogic.HashCode;
@@ -53,7 +52,6 @@ public class LoginController {
         }
         Account account = UserValidation.isRemembered();
         if(account != null){
-
             if(account instanceof Administrator){
                 username.setText(((Administrator) account).getUsername());
                 password.setText(account.getPassword());
@@ -61,7 +59,6 @@ public class LoginController {
             }
         }
     }
-
 
     public void clickedOnLoginButton(ActionEvent actionEvent) throws HashCode.CannotPerformOperationException, SQLException, HashCode.InvalidHashException, IOException {
         try {
