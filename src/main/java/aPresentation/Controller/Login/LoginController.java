@@ -1,5 +1,6 @@
 package aPresentation.Controller.Login;
 
+import BusinessLogic.Account.MacAdress;
 import aPresentation.ActiveAccountInformation.ActiveAccount;
 import BusinessLogic.HashCode;
 import BusinessLogic.UserValidation;
@@ -9,6 +10,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
@@ -30,6 +32,7 @@ public class LoginController {
     public TextField username;
     public TextField password;
     public Button loginButton;
+    public CheckBox rememberMeCheckBox;
 
     public AnchorPane anchorPane;
     public Text textOverLoginButton;
@@ -54,6 +57,9 @@ public class LoginController {
             int number = UserValidation.isUser(username.getText(), password.getText());
 
             if (number == 0) {
+                if(rememberMeCheckBox.isSelected()) {
+                    MacAdress.getMacAddress();
+                }
                 ActiveAccount.setLoggedInUsername(username.getText());
                 stage = (Stage) loginButton.getScene().getWindow();
                 //load up OTHER FXML document

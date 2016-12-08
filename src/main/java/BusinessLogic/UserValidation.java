@@ -45,6 +45,14 @@ public class UserValidation {
 
     }
 
+    public static void setRememberMe(String username) {
+
+    }
+
+    public static void isRemembered(String macAddress) {
+
+    }
+
     public static boolean isValidUsername(String username) {
 
         //Must be between 4-20 characters and contain only letters, numbers
