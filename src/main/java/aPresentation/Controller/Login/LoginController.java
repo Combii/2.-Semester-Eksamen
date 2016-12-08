@@ -117,7 +117,14 @@ public class LoginController {
     }
 
     public void rememberMeCheckBox(ActionEvent actionEvent) {
-        UserValidation.setRememberMe(username.getText(), password.getText());
+        if(rememberMeCheckBox.isSelected()) {
+            UserValidation.setRememberMe(username.getText(), password.getText());
+        }
+        else{
+            UserValidation.setRememberMe(null, null);
+            username.setText("");
+            password.setText("");
+        }
     }
 
     public void keyPressedUsername(KeyEvent keyEvent) {

@@ -51,24 +51,36 @@ public class UserValidation {
     }
 
     public static void setRememberMe(String username, String password) {
-        try {
+        if(username == null || password == null){
             String resourcePath = new File("src/main/Resources").getAbsolutePath();
             File file = new File(resourcePath + "/RememberMe/check.txt");
-
-            if (!file.exists()) {
-                file.getParentFile().mkdirs();
-
-                OutputStream outputStream = new FileOutputStream(file);
-                outputStream.close();
-
-                try (Writer writer = new BufferedWriter(new OutputStreamWriter(
-                        new FileOutputStream(file), "utf-8"))) {
-                    writer.write(HashCode.createHash(username) + "\n" + password);
+            if (file.exists()) {
+                if (file.delete()) {
+                    System.out.println(file.getName() + " is deleted!");
+                } else {
+                    System.out.println("Delete operation is failed.");
                 }
             }
         }
-        catch (Exception e){
-            e.printStackTrace();
+        else if(!username.isEmpty() && !password.isEmpty()){
+            try {
+                String resourcePath = new File("src/main/Resources").getAbsolutePath();
+                File file = new File(resourcePath + "/RememberMe/check.txt");
+
+                if (!file.exists()) {
+                    file.getParentFile().mkdirs();
+
+                    OutputStream outputStream = new FileOutputStream(file);
+                    outputStream.close();
+
+                    try (Writer writer = new BufferedWriter(new OutputStreamWriter(
+                            new FileOutputStream(file), "utf-8"))) {
+                        writer.write(HashCode.createHash(username) + "\n" + password);
+                    }
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
     }
 
