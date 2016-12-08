@@ -15,7 +15,7 @@ public class UserValidation {
 
     public static int isUser(String username, String password) throws SQLException, HashCode.InvalidHashException, HashCode.CannotPerformOperationException {
 
-        AccountDAOInterface dao = new AAccountDAO();
+        AccountDAOInterface dao = new AccountDAO();
         Account acc;
 
 
@@ -33,7 +33,7 @@ public class UserValidation {
 
     public static boolean isCustomer(String password) throws SQLException, HashCode.InvalidHashException, HashCode.CannotPerformOperationException {
 
-        AccountDAOInterface dao = new AAccountDAO();
+        AccountDAOInterface dao = new AccountDAO();
 
         MyLinkedList<String> pass_hashes = dao.getCustomerPasswordHashes();
 
@@ -52,7 +52,7 @@ public class UserValidation {
     }
 
     public static boolean userExist(String username) throws SQLException{
-        AccountDAOInterface dao = new AAccountDAO();
+        AccountDAOInterface dao = new AccountDAO();
        //Is username already in DB?
      return dao.get(username) != null;
 

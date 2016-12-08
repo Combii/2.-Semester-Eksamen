@@ -1,12 +1,12 @@
 package aPresentation.Controller.AdminTask;
 
+import BusinessLogic.Account.Account;
 import BusinessLogic.Account.UserInformation;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.fxml.FXML;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.control.ComboBox;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
@@ -15,38 +15,49 @@ import java.sql.SQLException;
 
 /**
  * Created by Lenovo on 28-11-2016.
+ * Changed by David Stovlbaek 7. December 2016
  */
-//http://code.makery.ch/blog/javafx-8-tableview-sorting-filtering/
-//http://www.java2s.com/Code/Java/JavaFX/AddnewrowtoTableView.htm
-
+//JavaFX Java GUI Tutorial - 18 - Simple TableView - https://www.youtube.com/watch?v=mtdlX2NMy4M
 public class ShowAccountsController {
-
-    private ComboBox dropDown;
-
-    @FXML
-    private TextField name;
-
-    @FXML
-    private TableView table;
-
-    @FXML
-    private TableColumn<UserInformation, String> columnName;
-    //private TableColumn<UserInformation, String> id;
 
     public AnchorPane anchorPane;
 
+    public TextField name;
+    public TextField nameOrEmail;
+
+    public TableView table;
+    public TableColumn columnUsername, columnName, columnLastName, columnEmail;
+
+    @SuppressWarnings("unchecked")
     public void initialize() throws SQLException {
-
-
         table.setEditable(true);
-        ObservableList<UserInformation> masterData = FXCollections.observableArrayList(UserInformation.getUsers());
-        //TableColumn nameCol = new TableColumn("Name");
-        //nameCol.setCellValueFactory(new PropertyValueFactory<UserInformation,String>("name"));
 
-        table.setItems(masterData);
-        //table.getColumns().addAll(nameCol);
+        columnUsername = new TableColumn("Username");
+        columnUsername.setMinWidth(100);
+        columnUsername.setCellValueFactory(new PropertyValueFactory<Account, String>("username"));
+
+        columnName = new TableColumn("Name");
+        columnName.setMinWidth(100);
+        columnName.setCellValueFactory(new PropertyValueFactory<Account, String>("name"));
+
+        columnLastName = new TableColumn("Last Name");
+        columnLastName.setMinWidth(130);
+        columnLastName.setCellValueFactory(new PropertyValueFactory<Account, String>("lastName"));
+
+        columnEmail = new TableColumn("E-mail");
+        columnEmail.setMinWidth(130);
+        columnEmail.setCellValueFactory(new PropertyValueFactory<Account, String>("email"));
+
+        table.setItems(getAccounts());
+        table.getColumns().addAll(columnUsername, columnName, columnLastName, columnEmail);
     }
 
+    @SuppressWarnings("unchecked")
+    public ObservableList<Account> getAccounts() throws SQLException {
+        ObservableList<Account> accounts = FXCollections.observableArrayList();
+        accounts.addAll(UserInformation.getUsers());
+        return accounts;
+    }
 
     public void onMousePressedAnchorPane(MouseEvent mouseEvent) {
         anchorPane.requestFocus();
