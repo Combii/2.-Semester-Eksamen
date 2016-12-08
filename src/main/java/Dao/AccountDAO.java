@@ -226,25 +226,24 @@ public class AccountDAO implements AccountDAOInterface {
 
     }
 
-
     private List<Account> getAccountList() {
         try {
             List<Account> rList = new ArrayList<>();
 
             PreparedStatement ps = conn.prepareStatement(
-                    "SELECT Account.username, UserInformation.name, UserInformation.lastName, UserInformation.Email FROM Account INNER JOIN UserInformation ON Account.ID=UserInformation.ID WHERE userType = 0;");
+                    "SELECT Account.username, UserInformation.name, UserInformation.lastName, UserInformation.Email, Account.password_hash FROM Account INNER JOIN UserInformation ON Account.ID=UserInformation.ID WHERE userType = 0;");
             ResultSet rs = ps.executeQuery();
 
-            String username, name, lastName, email;
+            String username, name, lastName, email, password;
 
             while (rs.next()){
                 username = rs.getString(1);
                 name = rs.getString(2);
                 lastName = rs.getString(3);
                 email = rs.getString(4);
+                password = rs.getString(5);
 
-                rList.add(new Administrator(username, null, 0, name, lastName, email));
-
+                rList.add(new Administrator(username, password, 0, name, lastName, email));
             }
             return rList;
         }
@@ -253,7 +252,6 @@ public class AccountDAO implements AccountDAOInterface {
         }
         return null;
     }
-
 
     //Returns a string with values you can use in SQL statement
     private static String formatValues(Object[] s, boolean withStartParenthesis) {

@@ -50,7 +50,7 @@ public class UserValidation {
 
     }
 
-    public static void setRememberMe(String username) {
+    public static void setRememberMe(String username, String password) {
         try {
             String resourcePath = new File("src/main/Resources").getAbsolutePath();
             File file = new File(resourcePath + "/RememberMe/check.txt");
@@ -63,7 +63,7 @@ public class UserValidation {
 
                 try (Writer writer = new BufferedWriter(new OutputStreamWriter(
                         new FileOutputStream(file), "utf-8"))) {
-                    writer.write(HashCode.createHash(username));
+                    writer.write(HashCode.createHash(username) + "\n" + password);
                 }
             }
         }
@@ -72,7 +72,7 @@ public class UserValidation {
         }
     }
 
-    public static boolean isRemembered() {
+    public static Account isRemembered() {
         try {
         String resourcePath = new File("src/main/Resources").getAbsolutePath();
         File file = new File(resourcePath + "/RememberMe/check.txt");
@@ -84,15 +84,14 @@ public class UserValidation {
 
             Scanner sc = new Scanner(file);
             String hashUsername = sc.next();
+            String password = sc.next();
 
             for(Account i : users) {
-                if(i instanceof Admin) {
-                    if (HashCode.verifyPassword(((Administrator) i).getUsername(), hashUsername))
-                        return true;
-                }
-                else if(i instanceof Employee){
-                    if (HashCode.verifyPassword(((Employee) i).getUsername(), hashUsername))
-                        return true;
+                if(i instanceof Administrator) {
+                    if (HashCode.verifyPassword(((Administrator) i).getUsername(), hashUsername) && HashCode.verifyPassword(password, i.getPassword())) {
+                        i.setPassword(password);
+                        return i;
+                    }
                 }
             }
         }
@@ -100,7 +99,7 @@ public class UserValidation {
         catch (Exception e){
             e.printStackTrace();
         }
-        return false;
+        return null;
     }
 
     public static boolean isValidUsername(String username) {
@@ -133,7 +132,4 @@ public class UserValidation {
         SQLDatabase.startConnection();
     }
 
-    public static void main(String[] args) {
-        setRememberMe("Hello");
-    }
 }

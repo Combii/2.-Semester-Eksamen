@@ -1,5 +1,8 @@
 package aPresentation.Controller.Login;
 
+import BusinessLogic.Account.Account;
+import BusinessLogic.Account.Admin;
+import BusinessLogic.Account.Administrator;
 import aPresentation.ActiveAccountInformation.ActiveAccount;
 import BusinessLogic.HashCode;
 import BusinessLogic.UserValidation;
@@ -48,7 +51,15 @@ public class LoginController {
         catch (SQLNonTransientConnectionException e){
             textOverLoginButton.setText("Could not connect to Online SQLDatabase");
         }
+        Account account = UserValidation.isRemembered();
+        if(account != null){
 
+            if(account instanceof Administrator){
+                username.setText(((Administrator) account).getUsername());
+                password.setText(account.getPassword());
+                rememberMeCheckBox.setSelected(true);
+            }
+        }
     }
 
 
@@ -57,18 +68,7 @@ public class LoginController {
             int number = UserValidation.isUser(username.getText(), password.getText());
 
             if (number == 0) {
-                ActiveAccount.setLoggedInUsername(username.getText());
-                stage = (Stage) loginButton.getScene().getWindow();
-                //load up OTHER FXML document
-                root = FXMLLoader.load(getClass().getResource("/Admin Task/BorderPane/BorderPane.fxml"));
-                //create a new scene with root and set the stage
-                Scene scene = new Scene(root);
-                stage.setScene(scene);
-                stage.centerOnScreen();
-                stage.show();
-                stage.setHeight(750);
-                stage.setWidth(1000);
-                stage.centerOnScreen();
+                setBrowseMenu(username.getText());
             }
             else if(number == -1){
                 textOverLoginButton.setText("Username or Password is incorrect");
@@ -85,6 +85,26 @@ public class LoginController {
         }
     }
 
+    private void setBrowseMenu(String username){
+        try {
+            ActiveAccount.setLoggedInUsername(username);
+            stage = (Stage) loginButton.getScene().getWindow();
+            //load up OTHER FXML document
+            root = FXMLLoader.load(getClass().getResource("/Admin Task/BorderPane/BorderPane.fxml"));
+            //create a new scene with root and set the stage
+            Scene scene = new Scene(root);
+            stage.setScene(scene);
+            stage.centerOnScreen();
+            stage.show();
+            stage.setHeight(750);
+            stage.setWidth(1000);
+            stage.centerOnScreen();
+        }
+        catch (IOException e){
+            e.printStackTrace();
+        }
+    }
+
     public void customerLoginCheckBox(ActionEvent actionEvent) throws IOException {
 
         stage = (Stage) loginButton.getScene().getWindow();
@@ -97,7 +117,7 @@ public class LoginController {
     }
 
     public void rememberMeCheckBox(ActionEvent actionEvent) {
-
+        UserValidation.setRememberMe(username.getText(), password.getText());
     }
 
     public void keyPressedUsername(KeyEvent keyEvent) {
