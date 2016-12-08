@@ -46,7 +46,7 @@ public class UserValidation {
     }
 
     public static void setRememberMe(String username) {
-
+        
     }
 
     public static void isRemembered(String macAddress) {
