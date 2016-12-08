@@ -8,6 +8,7 @@ import java.sql.SQLException;
 
 /**
  * Created by ${Boris} Grunwald} on 25/11/2016.
+ * Changed by David Stovlbaek 8. December 2016
  */
 public class UserValidation {
 

@@ -285,11 +285,4 @@ public class AccountDAO implements AccountDAOInterface {
             ps.close();
         } catch (Exception e) { /* ignored */ }
     }
-
-    public static void main(String[] args) throws SQLException {
-        AccountDAOInterface a = new AccountDAO();
-
-        a.setRememberMe("Paul",MacAdress.getMacAddress());
-
-    }
 }
