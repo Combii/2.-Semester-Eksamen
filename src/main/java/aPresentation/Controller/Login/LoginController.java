@@ -1,6 +1,5 @@
 package aPresentation.Controller.Login;
 
-import BusinessLogic.Account.MacAdress;
 import aPresentation.ActiveAccountInformation.ActiveAccount;
 import BusinessLogic.HashCode;
 import BusinessLogic.UserValidation;
@@ -49,6 +48,7 @@ public class LoginController {
         catch (SQLNonTransientConnectionException e){
             textOverLoginButton.setText("Could not connect to Online SQLDatabase");
         }
+
     }
 
 
@@ -57,9 +57,6 @@ public class LoginController {
             int number = UserValidation.isUser(username.getText(), password.getText());
 
             if (number == 0) {
-                if(rememberMeCheckBox.isSelected()) {
-                    MacAdress.getMacAddress();
-                }
                 ActiveAccount.setLoggedInUsername(username.getText());
                 stage = (Stage) loginButton.getScene().getWindow();
                 //load up OTHER FXML document

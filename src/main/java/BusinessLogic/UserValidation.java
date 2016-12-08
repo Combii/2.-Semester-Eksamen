@@ -1,10 +1,14 @@
 package BusinessLogic;
 
-import BusinessLogic.Account.Account;
+import BusinessLogic.Account.*;
 import BusinessLogic.Account.List.MyLinkedList;
 import Dao.*;
 
+import java.io.*;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Scanner;
 
 /**
  * Created by ${Boris} Grunwald} on 25/11/2016.
@@ -47,11 +51,56 @@ public class UserValidation {
     }
 
     public static void setRememberMe(String username) {
-        
+        try {
+            String resourcePath = new File("src/main/Resources").getAbsolutePath();
+            File file = new File(resourcePath + "/RememberMe/check.txt");
+
+            if (!file.exists()) {
+                file.getParentFile().mkdirs();
+
+                OutputStream outputStream = new FileOutputStream(file);
+                outputStream.close();
+
+                try (Writer writer = new BufferedWriter(new OutputStreamWriter(
+                        new FileOutputStream(file), "utf-8"))) {
+                    writer.write(HashCode.createHash(username));
+                }
+            }
+        }
+        catch (Exception e){
+            e.printStackTrace();
+        }
     }
 
-    public static void isRemembered(String macAddress) {
+    public static boolean isRemembered() {
+        try {
+        String resourcePath = new File("src/main/Resources").getAbsolutePath();
+        File file = new File(resourcePath + "/RememberMe/check.txt");
 
+        if (file.exists()) {
+            AccountDAO dao = new AccountDAO();
+            List<Account> users = dao.getUsers();
+
+
+            Scanner sc = new Scanner(file);
+            String hashUsername = sc.next();
+
+            for(Account i : users) {
+                if(i instanceof Admin) {
+                    if (HashCode.verifyPassword(((Administrator) i).getUsername(), hashUsername))
+                        return true;
+                }
+                else if(i instanceof Employee){
+                    if (HashCode.verifyPassword(((Employee) i).getUsername(), hashUsername))
+                        return true;
+                }
+            }
+        }
+        }
+        catch (Exception e){
+            e.printStackTrace();
+        }
+        return false;
     }
 
     public static boolean isValidUsername(String username) {
@@ -82,5 +131,9 @@ public class UserValidation {
 
     public static void startConnectionToDB() throws SQLException {
         SQLDatabase.startConnection();
+    }
+
+    public static void main(String[] args) {
+        setRememberMe("Hello");
     }
 }

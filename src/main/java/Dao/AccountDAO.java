@@ -177,7 +177,7 @@ public class AccountDAO implements AccountDAOInterface {
     }
 
     @Override
-    public List getUsers() {
+    public List<Account> getUsers() {
         return getAccountList();
         /*
         try {

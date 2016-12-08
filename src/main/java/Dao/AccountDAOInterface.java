@@ -17,7 +17,7 @@ public interface AccountDAOInterface extends DAO<Account> {
 
     boolean exists(String username) throws SQLException;
 
-    List getUsers() throws SQLException;
+    List<Account> getUsers() throws SQLException;
 
     //For remembering a user
     void setRememberMe(String username, String macAddress) throws SQLException;
