@@ -13,7 +13,7 @@ import java.sql.SQLException;
  * @author samm0091
  * @version 25-11-2016.
  */
-public class AdminMenuController {
+public class EditAdminController {
 
     private EditAdminBLogic eab;
 
