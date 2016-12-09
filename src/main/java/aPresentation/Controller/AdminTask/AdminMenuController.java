@@ -36,17 +36,33 @@ public class AdminMenuController {
     private Button delete;
 
     @FXML
-    private void handleConfirmButton() throws SQLException {
+    private void ConfirmButtonClicked() throws SQLException {
         eab = new EditAdminBLogic();
         try {
+            if (eab.changeEmail(firstName.getText(), lastName.getText(), email.getText())) {
 
-        } catch (Exception e) {
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setTitle("Information Dialog");
+                alert.setHeaderText(null);
+                alert.setContentText("Email has been changed to " + email.getText());
+                alert.showAndWait();
+            }
+            else {
+                Alert alert2 = new Alert(Alert.AlertType.INFORMATION);
+                alert2.setTitle("Information Dialog");
+                alert2.setHeaderText(null);
+                alert2.setContentText("The entered E-mail is not valid");
+                alert2.showAndWait();
+            }
+
+        }
+        catch (Exception e) {
             e.printStackTrace();
         }
     }
 
     @FXML
-    private void handleDeleteButton() throws SQLException, IOException {
+    private void DeleteButtonClicked() throws SQLException, IOException {
         eab = new EditAdminBLogic();
         try {
             if (eab.deleteAdmin(firstName.getText())) {
@@ -55,20 +71,17 @@ public class AdminMenuController {
                 alert2.setHeaderText(null);
                 alert2.setContentText(firstName.getText() + " has been deleted");
                 alert2.showAndWait();
-            } else {
+            }
+            else {
                 Alert alert3 = new Alert(Alert.AlertType.INFORMATION);
                 alert3.setTitle("Information Dialog");
                 alert3.setHeaderText(null);
                 alert3.setContentText("User doesn't exist");
                 alert3.showAndWait();
             }
-        } catch (Exception e) {
         }
-        try {
-            eab.deleteAdmin(firstName.getText());
-        } catch (Exception e) {
+        catch (Exception e) {
             e.printStackTrace();
         }
-
     }
 }

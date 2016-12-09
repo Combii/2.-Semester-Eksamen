@@ -23,14 +23,16 @@ public class EditAdminBLogic {
         return false;
     }
 
-    public void validateAccount() throws SQLException {
+    public boolean changeEmail(String firstName, String lastName, String emailReplace) throws SQLException {
         ead = new EditAdminDao();
-        try {
-            ead.validateAccount();
+        if (UserValidation.isValidEmail(emailReplace)) {
+            try {
+                return ead.changeEmail(firstName, lastName, emailReplace);
+            }
+            catch (SQLException e) {
+                e.printStackTrace();
+            }
         }
-        catch (SQLException e) {
-            e.printStackTrace();
-        }
+        return false;
     }
-
 }
