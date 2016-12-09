@@ -26,7 +26,7 @@ public class ShowAccountsController {
     public TextField nameOrEmail;
 
     public TableView table;
-    public TableColumn columnUsername, columnName, columnLastName, columnEmail;
+    protected TableColumn columnUsername, columnName, columnLastName, columnEmail;
 
     @SuppressWarnings("unchecked")
     public void initialize() throws SQLException {
@@ -53,7 +53,7 @@ public class ShowAccountsController {
     }
 
     @SuppressWarnings("unchecked")
-    public ObservableList<Account> getAccounts() throws SQLException {
+    private ObservableList<Account> getAccounts() throws SQLException {
         ObservableList<Account> accounts = FXCollections.observableArrayList();
         accounts.addAll(UserInformation.getUsers());
         return accounts;
@@ -62,6 +62,5 @@ public class ShowAccountsController {
     public void onMousePressedAnchorPane(MouseEvent mouseEvent) {
         anchorPane.requestFocus();
     }
-
-
+    
 }
