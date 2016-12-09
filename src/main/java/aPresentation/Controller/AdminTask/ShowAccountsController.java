@@ -5,10 +5,8 @@ import BusinessLogic.Account.Administrator;
 import BusinessLogic.Account.UserInformation;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.input.InputMethodEvent;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
@@ -68,8 +66,9 @@ public class ShowAccountsController {
         return accounts;
     }
 
+    @SuppressWarnings("unchecked")
     public void enteredUsernameOrEmail(KeyEvent keyEvent) throws SQLException {
-        String usernameOrEmail = nameOrEmail.getText();
+        String usernameOrEmail = nameOrEmail.getText().toLowerCase();
         try {
             if (!usernameOrEmail.replaceAll(" ", "").equals("")) {
                 list = UserInformation.getUserList();
@@ -91,7 +90,7 @@ public class ShowAccountsController {
 
             for (Account i : list) {
                 if (i instanceof Administrator) {
-                    if (((Administrator) i).getUsername().contains(usernameOrEmail) || ((Administrator) i).getEmail().contains(usernameOrEmail)) {
+                    if (((Administrator) i).getUsername().toLowerCase().contains(usernameOrEmail) || ((Administrator) i).getEmail().contains(usernameOrEmail)) {
                     rList.add(i);
                     }
                 }
