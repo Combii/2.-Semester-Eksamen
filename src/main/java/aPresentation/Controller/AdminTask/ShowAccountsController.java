@@ -1,10 +1,13 @@
 package aPresentation.Controller.AdminTask;
 
 import BusinessLogic.Account.Account;
+import BusinessLogic.Account.Administrator;
 import BusinessLogic.Account.UserInformation;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.fxml.FXML;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.control.TableColumn;
@@ -12,6 +15,8 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by Lenovo on 28-11-2016.
@@ -23,10 +28,12 @@ public class ShowAccountsController {
     public AnchorPane anchorPane;
 
     public TextField name;
-    public TextField nameOrEmail;
+    @FXML public TextField nameOrEmail;
 
     public TableView table;
-    public TableColumn columnUsername, columnName, columnLastName, columnEmail;
+    protected TableColumn columnUsername, columnName, columnLastName, columnEmail;
+
+    private List<Account> list = null;
 
     @SuppressWarnings("unchecked")
     public void initialize() throws SQLException {
@@ -53,15 +60,50 @@ public class ShowAccountsController {
     }
 
     @SuppressWarnings("unchecked")
-    public ObservableList<Account> getAccounts() throws SQLException {
+    private ObservableList<Account> getAccounts() throws SQLException {
         ObservableList<Account> accounts = FXCollections.observableArrayList();
         accounts.addAll(UserInformation.getUsers());
         return accounts;
     }
 
+    @SuppressWarnings("unchecked")
+    public void enteredUsernameOrEmail(KeyEvent keyEvent) throws SQLException {
+        String usernameOrEmail = nameOrEmail.getText().toLowerCase();
+        try {
+            if (!usernameOrEmail.replaceAll(" ", "").equals("")) {
+                list = UserInformation.getUserList();
+
+                ObservableList<Account> accounts = FXCollections.observableArrayList();
+                accounts.addAll(setNewList(usernameOrEmail));
+                table.setItems(accounts);
+            }
+        }
+        catch (Exception e){
+            e.printStackTrace();
+        }
+    }
+
+    private List setNewList(String usernameOrEmail){
+        try {
+            list = UserInformation.getUserList();
+            List<Account> rList = new ArrayList<>();
+
+            for (Account i : list) {
+                if (i instanceof Administrator) {
+                    if (((Administrator) i).getUsername().toLowerCase().contains(usernameOrEmail) || ((Administrator) i).getEmail().contains(usernameOrEmail)) {
+                    rList.add(i);
+                    }
+                }
+            }
+            return rList;
+        }
+        catch (SQLException e){
+            e.printStackTrace();
+        }
+        return null;
+    }
+
     public void onMousePressedAnchorPane(MouseEvent mouseEvent) {
         anchorPane.requestFocus();
     }
-
-
 }
