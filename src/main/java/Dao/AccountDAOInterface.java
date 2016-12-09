@@ -19,13 +19,4 @@ public interface AccountDAOInterface extends DAO<Account> {
 
     List<Account> getUsers() throws SQLException;
 
-    //For remembering a user
-    void setRememberMe(String username, String macAddress) throws SQLException;
-
-    //For not remembering a user anymore
-    void setRememberMe(String username) throws SQLException;
-
-    //Is this users MAC-Address remembered?
-    boolean isRemembered(String macAddress) throws SQLException;
-
 }
