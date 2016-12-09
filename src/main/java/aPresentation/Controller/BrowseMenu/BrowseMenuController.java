@@ -4,8 +4,8 @@ import BusinessLogic.File.FileStorage;
 import Dao.FilePath;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-
 import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
@@ -25,8 +25,14 @@ public class BrowseMenuController {
     public GridPane gridPane;
 
     @FXML
+    private ComboBox gender;
+
+    @FXML
     public void initialize() throws Exception {
         setGridPane("pics");
+        gender.getItems().removeAll(gender.getItems());
+        gender.getItems().addAll("Male", "Female");
+        gender.getSelectionModel().select("Male");
     }
 
 
