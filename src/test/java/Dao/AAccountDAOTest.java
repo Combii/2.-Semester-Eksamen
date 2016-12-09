@@ -46,11 +46,6 @@ public class AAccountDAOTest {
     }
 
     @Test
-    public void save() throws Exception {
-
-    }
-
-    @Test
     public void get() throws Exception {
 
         assertEquals(true,dao.get("Anders").equals(a));
@@ -84,10 +79,5 @@ public class AAccountDAOTest {
         assertEquals(false,dao.exists("notaValidusername1242342"));
         assertEquals(false,dao.exists("w4e4te4%465465"));
 
-    }
-
-    @Test
-    public void delete() throws Exception {
-        dao.delete(234234234);
     }
 }

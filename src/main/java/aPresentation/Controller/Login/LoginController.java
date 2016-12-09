@@ -1,5 +1,7 @@
 package aPresentation.Controller.Login;
 
+import BusinessLogic.Account.Account;
+import BusinessLogic.Account.Administrator;
 import aPresentation.ActiveAccountInformation.ActiveAccount;
 import BusinessLogic.HashCode;
 import BusinessLogic.UserValidation;
@@ -9,6 +11,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
@@ -30,6 +33,7 @@ public class LoginController {
     public TextField username;
     public TextField password;
     public Button loginButton;
+    public CheckBox rememberMeCheckBox;
 
     public AnchorPane anchorPane;
     public Text textOverLoginButton;
@@ -46,26 +50,23 @@ public class LoginController {
         catch (SQLNonTransientConnectionException e){
             textOverLoginButton.setText("Could not connect to Online SQLDatabase");
         }
+        Account account = UserValidation.isRemembered();
+        if(account != null){
+            if(account instanceof Administrator){
+                username.setText(((Administrator) account).getUsername());
+                password.setText(account.getPassword());
+                rememberMeCheckBox.setSelected(true);
+            }
+        }
     }
-
 
     public void clickedOnLoginButton(ActionEvent actionEvent) throws HashCode.CannotPerformOperationException, SQLException, HashCode.InvalidHashException, IOException {
         try {
             int number = UserValidation.isUser(username.getText(), password.getText());
 
             if (number == 0) {
-                ActiveAccount.setLoggedInUsername(username.getText());
-                stage = (Stage) loginButton.getScene().getWindow();
-                //load up OTHER FXML document
-                root = FXMLLoader.load(getClass().getResource("/Admin Task/BorderPane/BorderPane.fxml"));
-                //create a new scene with root and set the stage
-                Scene scene = new Scene(root);
-                stage.setScene(scene);
-                stage.centerOnScreen();
-                stage.show();
-                stage.setHeight(750);
-                stage.setWidth(1000);
-                stage.centerOnScreen();
+                runRememberMeCheckBox();
+                setBrowseMenu(username.getText());
             }
             else if(number == -1){
                 textOverLoginButton.setText("Username or Password is incorrect");
@@ -82,6 +83,40 @@ public class LoginController {
         }
     }
 
+    private void runRememberMeCheckBox() {
+        if(rememberMeCheckBox.isSelected()) {
+            UserValidation.setRememberMe(username.getText(), password.getText());
+        }
+    }
+
+    public void clickedRememberMe(ActionEvent actionEvent) {
+        if(!rememberMeCheckBox.isSelected()){
+            UserValidation.setRememberMe(null, null);
+            username.setText("");
+            password.setText("");
+        }
+    }
+
+    private void setBrowseMenu(String username){
+        try {
+            ActiveAccount.setLoggedInUsername(username);
+            stage = (Stage) loginButton.getScene().getWindow();
+            //load up OTHER FXML document
+            root = FXMLLoader.load(getClass().getResource("/Admin Task/BorderPane/BorderPane.fxml"));
+            //create a new scene with root and set the stage
+            Scene scene = new Scene(root);
+            stage.setScene(scene);
+            stage.centerOnScreen();
+            stage.show();
+            stage.setHeight(750);
+            stage.setWidth(1000);
+            stage.centerOnScreen();
+        }
+        catch (IOException e){
+            e.printStackTrace();
+        }
+    }
+
     public void customerLoginCheckBox(ActionEvent actionEvent) throws IOException {
 
         stage = (Stage) loginButton.getScene().getWindow();
@@ -90,10 +125,6 @@ public class LoginController {
         stage.setScene(scene);
         stage.show();
 
-
-    }
-
-    public void rememberMeCheckBox(ActionEvent actionEvent) {
 
     }
 
@@ -114,5 +145,4 @@ public class LoginController {
     public void onMousePressedAnchorPane(MouseEvent mouseEvent) {
         anchorPane.requestFocus();
     }
-
 }

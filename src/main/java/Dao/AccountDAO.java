@@ -3,8 +3,6 @@ package Dao;
 import BusinessLogic.Account.*;
 import BusinessLogic.Account.List.MyLinkedList;
 
-
-
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -167,9 +165,6 @@ public class AccountDAO implements AccountDAOInterface {
         }
     }
 
-
-
-
     @Override
     public void delete(int id) throws SQLException {
 
@@ -180,7 +175,7 @@ public class AccountDAO implements AccountDAOInterface {
     }
 
     @Override
-    public List getUsers() {
+    public List<Account> getUsers() {
         return getAccountList();
         /*
         try {
@@ -206,24 +201,47 @@ public class AccountDAO implements AccountDAOInterface {
         */
     }
 
+    @Override
+    public void setRememberMe(String username, String macAddress) throws SQLException {
+
+        ps = conn.prepareStatement("UPDATE Account SET macAdresse = '"+macAddress+"' WHERE username = '"+username+"';");
+        ps.executeUpdate();
+    }
+
+    @Override
+    public void setRememberMe(String username) throws SQLException {
+
+        ps = conn.prepareStatement("UPDATE Account SET macAdresse = NULL WHERE username = '"+username+"';");
+        ps.executeUpdate();
+
+    }
+
+    public boolean isRemembered(String macAddress) throws SQLException {
+
+        ps = conn.prepareStatement("SELECT COUNT(macAdresse) FROM Account WHERE macAdresse = '"+macAddress+"';");
+        rs = ps.executeQuery();
+        return rs.getInt(1) == 1;
+
+    }
+
     private List<Account> getAccountList() {
         try {
             List<Account> rList = new ArrayList<>();
 
             PreparedStatement ps = conn.prepareStatement(
-                    "SELECT Account.username, UserInformation.name, UserInformation.lastName, UserInformation.Email FROM Account INNER JOIN UserInformation ON Account.ID=UserInformation.ID WHERE userType = 0;");
+                    "SELECT Account.username, UserInformation.name, UserInformation.lastName, UserInformation.Email, Account.password_hash FROM Account INNER JOIN UserInformation ON Account.ID=UserInformation.ID WHERE userType = 0;");
             ResultSet rs = ps.executeQuery();
 
-            String username, name, lastName, email;
+            String username, name, lastName, email, password;
 
             while (rs.next()){
                 username = rs.getString(1);
                 name = rs.getString(2);
                 lastName = rs.getString(3);
                 email = rs.getString(4);
+                password = rs.getString(5);
 
-                rList.add(new Administrator(username, null, 0, name, lastName, email));
-
+                rList.add(new Administrator(username, password, 0, name, lastName, email));
             }
             return rList;
         }
@@ -232,7 +250,6 @@ public class AccountDAO implements AccountDAOInterface {
         }
         return null;
     }
-
 
     //Returns a string with values you can use in SQL statement
     private static String formatValues(Object[] s, boolean withStartParenthesis) {
