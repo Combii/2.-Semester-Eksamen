@@ -4,22 +4,15 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.shape.Rectangle?>
-<?import javafx.scene.text.Font?>
-<?import javafx.scene.text.Text?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="aPresentation.Controller.AdminTask.AdminMenuController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="aPresentation.Controller.AdminTask.EditAdminController">
    <children>
       <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#c5cbd0" height="138.0" layoutX="107.0" layoutY="99.0" stroke="#00000045" strokeType="INSIDE" width="368.0" />
       <TextField fx:id="firstName" layoutX="125.0" layoutY="111.0" prefHeight="27.0" prefWidth="145.0" promptText="First name" />
       <TextField fx:id="lastName" layoutX="291.0" layoutY="111.0" promptText="Last name" />
       <TextField fx:id="userName" layoutX="125.0" layoutY="154.0" prefHeight="25.0" prefWidth="333.0" promptText="Username" />
       <TextField fx:id="email" layoutX="125.0" layoutY="193.0" prefHeight="25.0" prefWidth="333.0" promptText="Email" />
-      <Button fx:id="confirm" layoutX="122.0" layoutY="246.0" mnemonicParsing="false" onAction="#handleConfirmButton" prefHeight="25.0" prefWidth="156.0" text="Confirm" />
-      <Button fx:id="delete" layoutX="306.0" layoutY="246.0" mnemonicParsing="false" onAction="#handleDeleteButton" prefHeight="25.0" prefWidth="156.0" text="Delete" />
-      <Text layoutX="125.0" layoutY="83.0" strokeType="OUTSIDE" strokeWidth="0.0" text="&quot;Name&quot; &quot;ID&quot; - Admin">
-         <font>
-            <Font size="26.0" />
-         </font>
-      </Text>
+      <Button fx:id="confirm" layoutX="122.0" layoutY="246.0" mnemonicParsing="false" onAction="#ConfirmButtonClicked" prefHeight="25.0" prefWidth="156.0" text="Confirm" />
+      <Button fx:id="delete" layoutX="306.0" layoutY="246.0" mnemonicParsing="false" onAction="#DeleteButtonClicked" prefHeight="25.0" prefWidth="156.0" text="Delete" />
    </children>
 </AnchorPane>
