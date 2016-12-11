@@ -5,9 +5,9 @@ package BusinessLogic.Account;
  * 29 November 2016.
  */
 public class Account {
+
     private String password;
     private int userType;
-
     private String name;
 
     public Account(String name, String password, int userType) {
