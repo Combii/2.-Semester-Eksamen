@@ -201,29 +201,6 @@ public class AccountDAO implements AccountDAOInterface {
         */
     }
 
-    @Override
-    public void setRememberMe(String username, String macAddress) throws SQLException {
-
-        ps = conn.prepareStatement("UPDATE Account SET macAdresse = '"+macAddress+"' WHERE username = '"+username+"';");
-        ps.executeUpdate();
-    }
-
-    @Override
-    public void setRememberMe(String username) throws SQLException {
-
-        ps = conn.prepareStatement("UPDATE Account SET macAdresse = NULL WHERE username = '"+username+"';");
-        ps.executeUpdate();
-
-    }
-
-    public boolean isRemembered(String macAddress) throws SQLException {
-
-        ps = conn.prepareStatement("SELECT COUNT(macAdresse) FROM Account WHERE macAdresse = '"+macAddress+"';");
-        rs = ps.executeQuery();
-        return rs.getInt(1) == 1;
-
-    }
-
     private List<Account> getAccountList() {
         try {
             List<Account> rList = new ArrayList<>();

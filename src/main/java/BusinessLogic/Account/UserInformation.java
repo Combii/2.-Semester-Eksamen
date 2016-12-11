@@ -11,11 +11,18 @@ import java.util.List;
  */
 public class UserInformation {
 
+    private static List<Account> userList = null;
 
-
-    public static List getUsers() throws SQLException {
+    public static List<Account> getUsers() throws SQLException {
         AccountDAOInterface dao = new AccountDAO();
-        return dao.getUsers();
+        userList = dao.getUsers();
+        return userList;
     }
 
+    public static List<Account> getUserList() throws SQLException {
+        if(userList == null){
+            getUsers();
+        }
+        return userList;
+    }
 }
