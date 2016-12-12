@@ -157,7 +157,6 @@ public class BrowseMenuController implements Initializable {
 
     }
 
-
     //Source: http://docs.oracle.com/javafx/2/ui_controls/tree-view.htm
     private final class TextFieldTreeCellImpl extends TreeCell<String> {
 
