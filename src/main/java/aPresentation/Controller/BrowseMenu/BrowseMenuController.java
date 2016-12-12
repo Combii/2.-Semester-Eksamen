@@ -13,9 +13,12 @@ import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.control.Button;
 import javafx.scene.control.MenuItem;
+import javafx.scene.control.TextField;
 import javafx.scene.control.cell.TextFieldTreeCell;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
@@ -50,10 +53,18 @@ public class BrowseMenuController implements Initializable {
 
         TreeItem<String> root = new TreeItem<>("Root", new ImageView(icon));
         root.setExpanded(true);
+        treeView.setEditable(true);
 
-        //Gotten from http://stackoverflow.com/questions/15792090/javafx-treeview-item-action-event
+        //Source: http://stackoverflow.com/questions/15792090/javafx-treeview-item-action-event
         EventHandler<MouseEvent> mouseEventHandle = this::handleMouseClicked;
         treeView.addEventHandler(MouseEvent.MOUSE_CLICKED, mouseEventHandle);
+
+        treeView.setCellFactory(new Callback<TreeView<String>,TreeCell<String>>(){
+            @Override
+            public TreeCell<String> call(TreeView<String> p) {
+                return new TextFieldTreeCellImpl();
+            }
+        });
 
         contextMenu = new ContextMenu();
         
@@ -69,7 +80,9 @@ public class BrowseMenuController implements Initializable {
                 treeView.setRoot(new TreeItem<>("New Folder", new ImageView(icon)));
             } else {
                 TreeItem<String> t = treeView.getSelectionModel().getSelectedItem();
-                t.getChildren().add(new TreeItem<>("New Folder", new ImageView(icon)));
+                TreeItem<String> newI = new TreeItem<>("New Folder", new ImageView(icon));
+                t.getChildren().add(newI);
+                newI.getParent().setExpanded(true);
             }
         });
 
@@ -84,6 +97,74 @@ public class BrowseMenuController implements Initializable {
 
         treeView.setRoot(root);
         setGridPane("pics");
+    }
+
+    //Source: http://docs.oracle.com/javafx/2/ui_controls/tree-view.htm
+    private final class TextFieldTreeCellImpl extends TreeCell<String> {
+
+        private TextField textField;
+
+        public TextFieldTreeCellImpl() {
+        }
+
+        @Override
+        public void startEdit() {
+            super.startEdit();
+
+            if (textField == null) {
+                createTextField();
+            }
+            setText(null);
+            setGraphic(textField);
+            textField.selectAll();
+        }
+
+        @Override
+        public void cancelEdit() {
+            super.cancelEdit();
+            setText((String) getItem());
+            setGraphic(getTreeItem().getGraphic());
+        }
+
+        @Override
+        public void updateItem(String item, boolean empty) {
+            super.updateItem(item, empty);
+
+            if (empty) {
+                setText(null);
+                setGraphic(null);
+            } else {
+                if (isEditing()) {
+                    if (textField != null) {
+                        textField.setText(getString());
+                    }
+                    setText(null);
+                    setGraphic(textField);
+                } else {
+                    setText(getString());
+                    setGraphic(getTreeItem().getGraphic());
+                }
+            }
+        }
+
+        private void createTextField() {
+            textField = new TextField(getString());
+            textField.setOnKeyReleased(new EventHandler<KeyEvent>() {
+
+                @Override
+                public void handle(KeyEvent t) {
+                    if (t.getCode() == KeyCode.ENTER) {
+                        commitEdit(textField.getText());
+                    } else if (t.getCode() == KeyCode.ESCAPE) {
+                        cancelEdit();
+                    }
+                }
+            });
+        }
+
+        private String getString() {
+            return getItem() == null ? "" : getItem().toString();
+        }
     }
 
     //Gotten from http://stackoverflow.com/questions/15792090/javafx-treeview-item-action-event
