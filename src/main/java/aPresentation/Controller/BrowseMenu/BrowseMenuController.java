@@ -2,8 +2,6 @@ package aPresentation.Controller.BrowseMenu;
 
 import BusinessLogic.File.FileStorage;
 import Dao.FilePath;
-import javafx.beans.Observable;
-import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -22,8 +20,6 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
-import javafx.util.Callback;
-import javafx.util.StringConverter;
 
 
 import javax.xml.soap.Text;
@@ -32,7 +28,6 @@ import java.io.File;
 import java.net.URL;
 import java.util.ResourceBundle;
 import java.io.IOException;
-
 
 /**
  * Created by David Stovlbaek
@@ -173,10 +168,9 @@ public class BrowseMenuController implements Initializable {
         // Accept clicks only on node cells, and not on empty spaces of the TreeView
         if (node instanceof Text || (node instanceof TreeCell && ((TreeCell) node).getText() != null)) {
             String name = (String) ((TreeItem)treeView.getSelectionModel().getSelectedItem()).getValue();
-            System.out.println("Node click: " + name);
+            setGridPane(name);
         }
     }
-
 
     private void setGridPane(String dropboxFolderPath) {
         try {
@@ -223,5 +217,10 @@ public class BrowseMenuController implements Initializable {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+
+    private void getFolders(){
+
     }
 }
