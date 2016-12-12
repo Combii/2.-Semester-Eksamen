@@ -39,10 +39,10 @@ public class AAccountDAOTest {
     @After
     public void tearDown() throws Exception {
 
-       dao.delete(dao.getId("Anders"));
-        dao.delete(dao.getId("Anders"));
-        dao.delete(dao.getId("Jikol1906"));
-        dao.delete(dao.getId("username1234"));
+       dao.delete(String.valueOf(dao.getId("Anders")));
+        dao.delete(String.valueOf(dao.getId("Anders")));
+        dao.delete(String.valueOf(dao.getId("Jikol1906")));
+        dao.delete(String.valueOf(dao.getId("username1234")));
     }
 
     @Test

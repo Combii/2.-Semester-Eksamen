@@ -37,6 +37,7 @@ public class FolderDAO {
 
         PreparedStatement ps = conn.prepareStatement("SELECT * FROM Folder;");
         ResultSet rs = ps.executeQuery();
+        return null;
 
     }
 
