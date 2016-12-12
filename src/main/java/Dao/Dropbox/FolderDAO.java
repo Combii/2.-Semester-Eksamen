@@ -24,9 +24,10 @@ public class FolderDAO implements DAO<String> {
     }
 
     @Override
-    public void save(String s) throws SQLException {
+    public void save(String folderName) throws SQLException {
 
-        conn.prepareStatement("INSERT INTO Folder (folderName) VALUE ")
+        ps = conn.prepareStatement("INSERT INTO Folder (folderName) VALUE '"+folderName+"';");
+        ps.executeUpdate();
 
     }
 
@@ -36,7 +37,11 @@ public class FolderDAO implements DAO<String> {
     }
 
     @Override
-    public void delete(int id) throws SQLException {
+    public void delete(String name) throws SQLException {
+
+        ps = conn.prepareStatement("DELETE FROM Folder WHERE folderName = " + name);
+        ps.executeUpdate();
+        closeStatementAndResultsetAndConnection();
 
     }
 

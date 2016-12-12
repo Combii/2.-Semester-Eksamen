@@ -166,7 +166,7 @@ public class AccountDAO implements AccountDAOInterface {
     }
 
     @Override
-    public void delete(int id) throws SQLException {
+    public void delete(String id) throws SQLException {
 
         ps = conn.prepareStatement("DELETE FROM Account WHERE ID = " + id);
         ps.executeUpdate();
