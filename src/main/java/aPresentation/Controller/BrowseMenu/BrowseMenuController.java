@@ -5,21 +5,25 @@ import Dao.FilePath;
 import javafx.beans.Observable;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.control.Button;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.cell.TextFieldTreeCell;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.util.Callback;
 import javafx.util.StringConverter;
 
 
+import javax.xml.soap.Text;
 import java.awt.*;
 import java.io.File;
 import java.net.URL;
@@ -43,10 +47,12 @@ public class BrowseMenuController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        treeView.setEditable(true);
-        treeView.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
+
         TreeItem<String> root = new TreeItem<>("Root", new ImageView(icon));
         root.setExpanded(true);
+
+        EventHandler<MouseEvent> mouseEventHandle = this::handleMouseClicked;
+        treeView.addEventHandler(MouseEvent.MOUSE_CLICKED, mouseEventHandle);
 
         contextMenu = new ContextMenu();
 
@@ -54,9 +60,8 @@ public class BrowseMenuController implements Initializable {
 
         MenuItem newF = new MenuItem("Add folder");
         MenuItem del = new MenuItem("Delete folder");
-        MenuItem ren = new MenuItem("Rename");
 
-        contextMenu.getItems().addAll(newF, del,ren);
+        contextMenu.getItems().addAll(newF, del);
         treeView.setContextMenu(contextMenu);
 
         //New Folder pressed
@@ -76,8 +81,19 @@ public class BrowseMenuController implements Initializable {
                 else t.getParent().getChildren().remove(t);
         });
 
+
+
         treeView.setRoot(root);
         setGridPane("pics");
+    }
+
+    private void handleMouseClicked(MouseEvent event) {
+        Node node = event.getPickResult().getIntersectedNode();
+        // Accept clicks only on node cells, and not on empty spaces of the TreeView
+        if (node instanceof Text || (node instanceof TreeCell && ((TreeCell) node).getText() != null)) {
+            String name = (String) ((TreeItem)treeView.getSelectionModel().getSelectedItem()).getValue();
+            System.out.println("Node click: " + name);
+        }
     }
 
 
