@@ -190,9 +190,6 @@ public class DropboxDAO implements DAO<List<FilePath>> {
     }
 
     @Override
-    public void delete(int id) throws SQLException {
-    }
-
     public void delete(String dropBoxPath) {
         try{
         ps = conn.prepareStatement("DELETE FROM FilePathDropboxDB WHERE path = '" + dropBoxPath + "');");
