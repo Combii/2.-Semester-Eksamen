@@ -31,22 +31,11 @@ public class FolderDAO {
         PreparedStatement ps = conn.prepareStatement("SELECT * FROM Folder;");
         ResultSet rs = ps.executeQuery();
 
-        while (rs.next()) {
-            rList.add(rs.getString(1));
-        }
+
+    public void delete(String name) throws SQLException {
+        ps = conn.prepareStatement("DELETE FROM Folder WHERE folderName = " + name);
+        ps.executeUpdate();
         closeStatementAndResultsetAndConnection();
-        return rList;
-    }
-
-
-    public void save(String s) throws SQLException {
-
-        conn.prepareStatement("INSERT INTO Folder (folderName) VALUE ");
-
-    }
-
-    public void delete(int id) throws SQLException {
-
     }
 
     // Need to close ResultSet, PreparedStatement and connection after use
