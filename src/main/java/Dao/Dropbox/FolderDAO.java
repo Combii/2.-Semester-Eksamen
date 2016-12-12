@@ -7,11 +7,13 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by ${Boris} Grunwald} on 12/12/2016.
  */
-public class FolderDAO implements DAO<String> {
+public class FolderDAO {
 
     private Connection conn;
     private PreparedStatement ps = null;
@@ -23,19 +25,26 @@ public class FolderDAO implements DAO<String> {
 
     }
 
-    @Override
+    public List<String> getFolders() throws SQLException {
+        List<String> rList = new ArrayList<>();
+
+        PreparedStatement ps = conn.prepareStatement("SELECT * FROM Folder;");
+        ResultSet rs = ps.executeQuery();
+
+        while (rs.next()) {
+            rList.add(rs.getString(1));
+        }
+        closeStatementAndResultsetAndConnection();
+        return rList;
+    }
+
+
     public void save(String s) throws SQLException {
 
-        conn.prepareStatement("INSERT INTO Folder (folderName) VALUE ")
+        conn.prepareStatement("INSERT INTO Folder (folderName) VALUE ");
 
     }
 
-    @Override
-    public String get(String name) throws SQLException {
-        return null;
-    }
-
-    @Override
     public void delete(int id) throws SQLException {
 
     }
