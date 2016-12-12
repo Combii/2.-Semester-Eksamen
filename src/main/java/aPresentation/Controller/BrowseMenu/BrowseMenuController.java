@@ -51,6 +51,7 @@ public class BrowseMenuController implements Initializable {
         TreeItem<String> root = new TreeItem<>("Root", new ImageView(icon));
         root.setExpanded(true);
 
+        //Gotten from http://stackoverflow.com/questions/15792090/javafx-treeview-item-action-event
         EventHandler<MouseEvent> mouseEventHandle = this::handleMouseClicked;
         treeView.addEventHandler(MouseEvent.MOUSE_CLICKED, mouseEventHandle);
 
@@ -85,6 +86,7 @@ public class BrowseMenuController implements Initializable {
         setGridPane("pics");
     }
 
+    //Gotten from http://stackoverflow.com/questions/15792090/javafx-treeview-item-action-event
     private void handleMouseClicked(MouseEvent event) {
         Node node = event.getPickResult().getIntersectedNode();
         // Accept clicks only on node cells, and not on empty spaces of the TreeView
