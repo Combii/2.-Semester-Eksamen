@@ -55,9 +55,7 @@ public class BrowseMenuController implements Initializable {
         treeView.addEventHandler(MouseEvent.MOUSE_CLICKED, mouseEventHandle);
 
         contextMenu = new ContextMenu();
-
-
-
+        
         MenuItem newF = new MenuItem("Add folder");
         MenuItem del = new MenuItem("Delete folder");
 
