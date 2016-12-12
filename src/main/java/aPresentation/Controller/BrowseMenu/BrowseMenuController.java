@@ -12,7 +12,6 @@ import javafx.scene.control.*;
 import javafx.scene.control.Button;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextField;
-import javafx.scene.control.cell.TextFieldTreeCell;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
@@ -41,6 +40,8 @@ public class BrowseMenuController implements Initializable {
 
     @FXML
     TreeView<String> treeView;
+
+    FileStorage currentListView;
 
     Image icon = new Image("/img/folder.png", 20, 20, false, false);
 
@@ -94,6 +95,68 @@ public class BrowseMenuController implements Initializable {
         treeView.setRoot(root);
         setGridPane("pics");
     }
+
+    //Gotten from http://stackoverflow.com/questions/15792090/javafx-treeview-item-action-event
+    private void handleMouseClicked(MouseEvent event) {
+        Node node = event.getPickResult().getIntersectedNode();
+        // Accept clicks only on node cells, and not on empty spaces of the TreeView
+        if (node instanceof Text || (node instanceof TreeCell && ((TreeCell) node).getText() != null)) {
+            String name = (String) ((TreeItem)treeView.getSelectionModel().getSelectedItem()).getValue();
+            setGridPane(name);
+        }
+    }
+
+    private void setGridPane(String dropboxFolderPath) {
+        try {
+            FileStorage list = new FileStorage();
+            list.downloadFilesToList(dropboxFolderPath);
+
+            int rowCounter = 0, columnCounter = 0;
+
+
+            for (final FilePath i : list.getList()) {
+
+                Button button = new Button();
+
+                //Handle when button is clicked on
+                button.setOnAction(new javafx.event.EventHandler<ActionEvent>() {
+                    @Override
+                    public void handle(ActionEvent event) {
+                        try {
+                            //https://stackoverflow.com/questions/5824916/how-do-i-open-an-image-in-the-default-image-viewer-using-java-on-windows
+                            File file = new File(i.getLocalPath());
+                            Desktop.getDesktop().open(file);
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                });
+
+                File file = new File(i.getLocalPathThumbnail());
+                String localUrl = file.toURI().toURL().toString();
+
+                Image thumbnail = new Image(localUrl, false);
+                ImageView view = new ImageView(thumbnail);
+                view.setFitHeight(100);
+                view.setFitWidth(150);
+                button.setGraphic(view);
+                gridPane.add(button, columnCounter, rowCounter);
+
+                columnCounter++;
+                if (columnCounter > 3) {
+                    columnCounter = 0;
+                    rowCounter++;
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void getFolders(){
+
+    }
+
 
     //Source: http://docs.oracle.com/javafx/2/ui_controls/tree-view.htm
     private final class TextFieldTreeCellImpl extends TreeCell<String> {
@@ -161,66 +224,5 @@ public class BrowseMenuController implements Initializable {
         private String getString() {
             return getItem() == null ? "" : getItem().toString();
         }
-    }
-
-    //Gotten from http://stackoverflow.com/questions/15792090/javafx-treeview-item-action-event
-    private void handleMouseClicked(MouseEvent event) {
-        Node node = event.getPickResult().getIntersectedNode();
-        // Accept clicks only on node cells, and not on empty spaces of the TreeView
-        if (node instanceof Text || (node instanceof TreeCell && ((TreeCell) node).getText() != null)) {
-            String name = (String) ((TreeItem)treeView.getSelectionModel().getSelectedItem()).getValue();
-            setGridPane(name);
-        }
-    }
-
-    private void setGridPane(String dropboxFolderPath) {
-        try {
-            FileStorage list = new FileStorage();
-            list.downloadFilesToList(dropboxFolderPath);
-
-            int rowCounter = 0, columnCounter = 0;
-
-
-            for (final FilePath i : list.getList()) {
-
-                Button button = new Button();
-
-                //Handle when button is clicked on
-                button.setOnAction(new javafx.event.EventHandler<ActionEvent>() {
-                    @Override
-                    public void handle(ActionEvent event) {
-                        try {
-                            //https://stackoverflow.com/questions/5824916/how-do-i-open-an-image-in-the-default-image-viewer-using-java-on-windows
-                            File file = new File(i.getLocalPath());
-                            Desktop.getDesktop().open(file);
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                        }
-                    }
-                });
-
-                File file = new File(i.getLocalPathThumbnail());
-                String localUrl = file.toURI().toURL().toString();
-
-                Image thumbnail = new Image(localUrl, false);
-                ImageView view = new ImageView(thumbnail);
-                view.setFitHeight(100);
-                view.setFitWidth(150);
-                button.setGraphic(view);
-                gridPane.add(button, columnCounter, rowCounter);
-
-                columnCounter++;
-                if (columnCounter > 3) {
-                    columnCounter = 0;
-                    rowCounter++;
-                }
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
-    private void getFolders(){
-
     }
 }
