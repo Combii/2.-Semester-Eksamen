@@ -42,7 +42,7 @@ public class FilePath {
         this.dropBoxPath = dropBoxPath;
         //Used https://commons.apache.org/proper/commons-io/
         localPathThumbnail = convertStringThumbnail(this.localPath);
-        fileType = getFileType(dropBoxPath);
+        fileType = getFileType(localPath);
         folder = getFolder(dropBoxPath);
     }
 
@@ -60,6 +60,9 @@ public class FilePath {
                 m.find();
                 dropBoxPath = m.group(1);
         }
+        else if(!dropBoxPath.contains("/")){
+            return "/" + dropBoxPath + "/" + fileType;
+        }
         return dropBoxPath;
     }
 
@@ -76,7 +79,7 @@ public class FilePath {
     }
 
     private String getFileType(String path){
-        int lastIndex = path.lastIndexOf('.');
+        int lastIndex = path.lastIndexOf('/');
         return path.substring(lastIndex+1, path.length());
     }
 
@@ -88,10 +91,15 @@ public class FilePath {
     }
 
     private String getFolder(String path){
-        int lastIndex = path.lastIndexOf("/");
-        path = path.substring(0, lastIndex);
-        int lastIndex2 = path.lastIndexOf("/");
-        return path.substring(lastIndex2+1, lastIndex);
+        try {
+            int lastIndex = path.lastIndexOf("/");
+            path = path.substring(0, lastIndex);
+            int lastIndex2 = path.lastIndexOf("/");
+            return path.substring(lastIndex2 + 1, lastIndex);
+        }
+        catch (Exception e){
+            return path;
+        }
     }
 
     @Override
