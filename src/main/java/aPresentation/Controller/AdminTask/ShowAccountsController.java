@@ -5,7 +5,9 @@ import BusinessLogic.Account.Administrator;
 import BusinessLogic.Account.UserInformation;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
@@ -25,12 +27,12 @@ import java.util.List;
 //JavaFX Java GUI Tutorial - 18 - Simple TableView - https://www.youtube.com/watch?v=mtdlX2NMy4M
 public class ShowAccountsController {
 
-    public AnchorPane anchorPane;
+    @FXML public AnchorPane anchorPane;
 
-    public TextField name;
     @FXML public TextField nameOrEmail;
+    @FXML public ComboBox comboBox;
 
-    public TableView table;
+    @FXML public TableView table;
     protected TableColumn columnUsername, columnName, columnLastName, columnEmail;
 
     private List<Account> list = null;
@@ -57,6 +59,10 @@ public class ShowAccountsController {
 
         table.setItems(getAccounts());
         table.getColumns().addAll(columnUsername, columnName, columnLastName, columnEmail);
+
+        comboBox.getItems().removeAll(comboBox.getItems());
+        comboBox.getItems().addAll("Show All", "Admins/Employees", "Admins", "Employees", "Customers");
+        comboBox.getSelectionModel().select("Show All");
     }
 
     @SuppressWarnings("unchecked")
@@ -103,7 +109,12 @@ public class ShowAccountsController {
         return null;
     }
 
+    public void selectedComboBox(ActionEvent actionEvent) {
+
+    }
+
     public void onMousePressedAnchorPane(MouseEvent mouseEvent) {
         anchorPane.requestFocus();
     }
+
 }

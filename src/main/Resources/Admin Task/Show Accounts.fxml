@@ -17,6 +17,6 @@
       </Text>
       <Text layoutX="71.0" layoutY="116.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Search by Username or E-mail" />
       <TableView fx:id="table" layoutX="269.0" layoutY="-1.0" prefHeight="287.0" prefWidth="588.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="269.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
-      <ComboBox layoutX="72.0" layoutY="173.0" prefHeight="27.0" prefWidth="162.0" promptText="Show All" />
+      <ComboBox fx:id="comboBox" layoutX="72.0" layoutY="173.0" onAction="#selectedComboBox" prefHeight="27.0" prefWidth="162.0" promptText="Show All" />
    </children>
 </AnchorPane>
