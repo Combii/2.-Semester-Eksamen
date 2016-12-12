@@ -14,11 +14,16 @@ import java.util.List;
  * 01 December 2016.
  */
 public class FileStorage {
+    private String folderName;
     private List<FilePath> list = new ArrayList<>();
     private DropboxDAO dropboxDAO = null;
 
     public List<FilePath> getList() {
         return list;
+    }
+
+    public String getFolderName() {
+        return folderName;
     }
 
     public void setList(List<FilePath> list) {
@@ -28,6 +33,7 @@ public class FileStorage {
     public void downloadFilesToList(String dropboxPathFolder) throws IOException, DbxException {
         createDropboxDAO();
         list = dropboxDAO.get(dropboxPathFolder);
+        folderName = dropboxPathFolder;
     }
 
     public void uploadListToDropbox() throws IOException, DbxException {
@@ -48,6 +54,10 @@ public class FileStorage {
         for (final File fileEntry : file.listFiles()) {
             if (!fileEntry.isDirectory()) {
                 list.add(new FilePath(fileEntry.getAbsolutePath(), "")); //Håndter FilePath til dropbox med denne path
+
+                if(folderName == null) {
+                    folderName = list.get(0).getDropBoxPath();
+                }
             }
         }
     }

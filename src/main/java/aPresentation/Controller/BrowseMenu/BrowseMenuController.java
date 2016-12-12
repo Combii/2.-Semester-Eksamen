@@ -220,7 +220,6 @@ public class BrowseMenuController implements Initializable {
         }
     }
 
-
     private void getFolders(){
 
     }
