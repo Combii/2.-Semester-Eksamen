@@ -15,9 +15,7 @@ import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.KeyCode;
-import javafx.scene.input.KeyEvent;
-import javafx.scene.input.MouseEvent;
+import javafx.scene.input.*;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.util.Callback;
@@ -27,6 +25,7 @@ import javax.xml.soap.Text;
 import java.awt.*;
 import java.io.File;
 import java.net.URL;
+import java.sql.SQLException;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.io.IOException;
@@ -43,6 +42,8 @@ public class BrowseMenuController implements Initializable {
     @FXML
     TreeView<String> treeView;
 
+    private String currentFolderOpen = "";
+
     Image icon = new Image("/img/folder.png", 20, 20, false, false);
 
     @Override
@@ -52,6 +53,8 @@ public class BrowseMenuController implements Initializable {
     }
 
     private void setGridPane(String dropboxFolderPath) {
+        currentFolderOpen = dropboxFolderPath;
+
         gridPane.getChildren().clear();
         try {
             FileStorage list = new FileStorage();
@@ -247,4 +250,23 @@ public class BrowseMenuController implements Initializable {
         });
     }
 
+
+    public void dragDrop(DragEvent dragEvent) {
+        Dragboard db = dragEvent.getDragboard();
+
+        if(db.hasFiles()){
+            try {
+                FileStorage list = new FileStorage();
+
+                for (File i : db.getFiles()) {
+                    list.addToList(new FilePath(i.getAbsolutePath(), currentFolderOpen));
+                }
+                list.uploadListToDropbox();
+            }
+            catch (Exception e){
+                e.printStackTrace();
+            }
+        }
+        setGridPane(currentFolderOpen);
+    }
 }
