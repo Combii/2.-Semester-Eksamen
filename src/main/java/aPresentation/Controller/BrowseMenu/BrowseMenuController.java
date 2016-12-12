@@ -2,8 +2,6 @@ package aPresentation.Controller.BrowseMenu;
 
 import BusinessLogic.File.FileStorage;
 import Dao.FilePath;
-import javafx.beans.Observable;
-import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -13,14 +11,11 @@ import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.control.Button;
 import javafx.scene.control.MenuItem;
-import javafx.scene.control.cell.TextFieldTreeCell;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
-import javafx.util.Callback;
-import javafx.util.StringConverter;
 
 
 import javax.xml.soap.Text;
@@ -95,7 +90,6 @@ public class BrowseMenuController implements Initializable {
             System.out.println("Node click: " + name);
         }
     }
-
 
     private void setGridPane(String dropboxFolderPath) {
         try {
