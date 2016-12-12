@@ -25,11 +25,20 @@ public class FolderDAO {
 
     }
 
+    public void save(String folderName) throws SQLException {
+
+        ps = conn.prepareStatement("INSERT INTO Folder (folderName) VALUE '"+folderName+"';");
+        ps.executeUpdate();
+
+    }
+
     public List<String> getFolders() throws SQLException {
         List<String> rList = new ArrayList<>();
 
         PreparedStatement ps = conn.prepareStatement("SELECT * FROM Folder;");
         ResultSet rs = ps.executeQuery();
+
+    }
 
 
     public void delete(String name) throws SQLException {
