@@ -25,7 +25,6 @@ import java.net.URL;
 import java.util.ResourceBundle;
 import java.io.IOException;
 
-
 /**
  * Created by David Stovlbaek
  * 26 November 2016.
