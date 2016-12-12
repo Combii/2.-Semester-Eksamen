@@ -86,7 +86,7 @@ public class BrowseMenuController implements Initializable {
         // Accept clicks only on node cells, and not on empty spaces of the TreeView
         if (node instanceof Text || (node instanceof TreeCell && ((TreeCell) node).getText() != null)) {
             String name = (String) ((TreeItem)treeView.getSelectionModel().getSelectedItem()).getValue();
-            System.out.println("Node click: " + name);
+            setGridPane(name);
         }
     }
 
@@ -135,5 +135,10 @@ public class BrowseMenuController implements Initializable {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+
+    private void getFolders(){
+
     }
 }
