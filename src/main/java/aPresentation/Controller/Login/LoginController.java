@@ -65,6 +65,7 @@ public class LoginController {
             int number = UserValidation.isUser(username.getText(), password.getText());
 
             if (number == 0) {
+                runRememberMeCheckBox();
                 setBrowseMenu(username.getText());
             }
             else if(number == -1){
@@ -79,6 +80,20 @@ public class LoginController {
         catch (StringIndexOutOfBoundsException | NullPointerException e){
             textOverLoginButton.setText("Username or Password is incorrect");
             password.clear();
+        }
+    }
+
+    private void runRememberMeCheckBox() {
+        if(rememberMeCheckBox.isSelected()) {
+            UserValidation.setRememberMe(username.getText(), password.getText());
+        }
+    }
+
+    public void clickedRememberMe(ActionEvent actionEvent) {
+        if(!rememberMeCheckBox.isSelected()){
+            UserValidation.setRememberMe(null, null);
+            username.setText("");
+            password.setText("");
         }
     }
 
@@ -113,17 +128,6 @@ public class LoginController {
 
     }
 
-    public void rememberMeCheckBox(ActionEvent actionEvent) {
-        if(rememberMeCheckBox.isSelected()) {
-            UserValidation.setRememberMe(username.getText(), password.getText());
-        }
-        else{
-            UserValidation.setRememberMe(null, null);
-            username.setText("");
-            password.setText("");
-        }
-    }
-
     public void keyPressedUsername(KeyEvent keyEvent) {
         textOverLoginButton.setText("");
         if(keyEvent.getCode().toString().equals("ENTER"))
@@ -141,5 +145,4 @@ public class LoginController {
     public void onMousePressedAnchorPane(MouseEvent mouseEvent) {
         anchorPane.requestFocus();
     }
-
 }

@@ -11,32 +11,37 @@ public class EditAdminDao {
 
     private SQLDatabase db;
 
-    public void validateAccount() throws SQLException {
-
+    public boolean changeEmail(String firstName, String lastName, String emailReplace) throws SQLException {
         db = SQLDatabase.getDatabase();
-
-        String query = "SELECT * FROM customers";
+        String query = "SELECT * FROM UserInformation";
         ResultSet resultSet;
 
         try {
             resultSet = db.query(query);
             while (resultSet.next()) {
-                String userName = resultSet.getString("username");
-                System.out.println("The username: " + userName);
+                String name = resultSet.getString("name");
 
-                String password = resultSet.getString("password_hash");
-                System.out.println("The password: " + password);
+                String lastN = resultSet.getString("lastName");
+
+                String emailStart = resultSet.getString("Email");
+
+                if (name.equals(firstName) && lastN.equals(lastName)) {
+                    String sql = "UPDATE UserInformation SET Email " + "= REPLACE(Email, " + "'" + emailStart + "'" + ", " + "'" + emailReplace + "'" + ")";
+                    db.queryUpdate(sql);
+                    return true;
+                }
             }
 
         }
         catch (SQLException e) {
             e.printStackTrace();
         }
+        return false;
     }
 
     public boolean deleteAdmin(String firstName) throws SQLException {
         db = SQLDatabase.getDatabase();
-        String query = "SELECT * FROM AccountDAOInterface";
+        String query = "SELECT * FROM Account";
         ResultSet resultSet;
 
         try {
@@ -45,7 +50,7 @@ public class EditAdminDao {
                 String username = resultSet.getString("username");
 
                 if (username.equals(firstName)) {
-                    String sql = "DELETE FROM AccountDAOInterface WHERE username =" + "'" + firstName + "'";
+                    String sql = "DELETE FROM Account WHERE username =" + "'" + firstName + "'";
                     db.queryUpdate(sql);
                     return true;
                 }
