@@ -32,12 +32,13 @@ public class UserValidationTest {
 
     @After
     public void tearDown() throws Exception {
-        /*
-        d.delete(d.getId("bob"));
-        d.delete(d.getId("bob1"));
-        d.delete(d.getId("bbob1"));
-        d.delete(d.getId("Preben"));
-        */
+
+
+        d.delete(String.valueOf(d.getId("bob")));
+        d.delete(String.valueOf(d.getId("bob1")));
+        d.delete(String.valueOf(d.getId("bbob1")));
+        d.delete(String.valueOf(d.getId("Preben")));
+
     }
 
     @Test

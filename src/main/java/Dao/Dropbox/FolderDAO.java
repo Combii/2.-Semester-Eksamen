@@ -1,5 +1,7 @@
 package Dao.Dropbox;
 
+
+import Dao.DAO;
 import Dao.SQLDatabase;
 
 import java.sql.Connection;
@@ -19,7 +21,10 @@ public class FolderDAO {
     private ResultSet rs = null;
 
     public FolderDAO() throws SQLException {
+
         conn = SQLDatabase.getDatabase().getConnection();
+
+
     }
 
     public void save(String folderName) throws SQLException {
@@ -30,7 +35,9 @@ public class FolderDAO {
     }
 
     public List<String> getFolders() throws SQLException {
+
         List<String> rList = new ArrayList<>();
+
 
         PreparedStatement ps = conn.prepareStatement("SELECT folderName FROM Folder;");
         ResultSet rs = ps.executeQuery();
@@ -40,6 +47,7 @@ public class FolderDAO {
         }
 
         return rList;
+
     }
 
 

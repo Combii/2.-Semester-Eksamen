@@ -218,7 +218,7 @@ public class AccountDAO implements AccountDAOInterface {
                 email = rs.getString(4);
                 password = rs.getString(5);
 
-                rList.add(new Administrator(username, password, 0, name, lastName, email));
+                rList.add(new Admin(username, password, 0, name, lastName, email));
             }
             return rList;
         }
