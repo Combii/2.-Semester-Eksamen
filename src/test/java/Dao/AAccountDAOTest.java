@@ -43,6 +43,7 @@ public class AAccountDAOTest {
         dao.delete(String.valueOf(dao.getId("Anders")));
         dao.delete(String.valueOf(dao.getId("Jikol1906")));
         dao.delete(String.valueOf(dao.getId("username1234")));
+
     }
 
     @Test

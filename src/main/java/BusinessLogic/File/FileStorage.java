@@ -42,12 +42,16 @@ public class FileStorage {
     }
 
     public void addLocalFilesToList(String localPathFolder) throws IOException {
+        addLocalFilesToList(localPathFolder, "");
+    }
+
+    public void addLocalFilesToList(String localPathFolder, String dropboxFolderPath) throws IOException {
         createDropboxDAO();
 
         File file = new File(localPathFolder);
         for (final File fileEntry : file.listFiles()) {
             if (!fileEntry.isDirectory()) {
-                list.add(new FilePath(fileEntry.getAbsolutePath(), "")); //Håndter FilePath til dropbox med denne path
+                list.add(new FilePath(fileEntry.getAbsolutePath(), dropboxFolderPath)); //Håndter FilePath til dropbox med denne path
             }
         }
     }
