@@ -3,7 +3,7 @@ package BusinessLogic.Account;
 /**
  * Created by ${Boris} Grunwald} on 29/11/2016.
  */
-public class Administrator extends Account {
+public abstract class Administrator extends Account {
 
     private String username;
     private String email;

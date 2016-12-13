@@ -4,7 +4,7 @@ package BusinessLogic.Account;
  * Created by David Stovlbaek
  * 29 November 2016.
  */
-public class Account {
+public abstract class Account {
 
     private String password;
     private int userType;
