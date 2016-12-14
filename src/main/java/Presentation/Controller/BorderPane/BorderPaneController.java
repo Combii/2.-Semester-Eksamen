@@ -1,7 +1,7 @@
-package aPresentation.Controller.BorderPane;
+package Presentation.Controller.BorderPane;
 
 
-import aPresentation.ActiveAccountInformation.ActiveAccount;
+import Presentation.ActiveAccountInformation.ActiveAccount;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;

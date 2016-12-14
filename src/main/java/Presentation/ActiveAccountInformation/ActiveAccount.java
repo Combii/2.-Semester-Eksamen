@@ -1,4 +1,4 @@
-package aPresentation.ActiveAccountInformation;
+package Presentation.ActiveAccountInformation;
 
 /**
  * Created by David Stovlbaek

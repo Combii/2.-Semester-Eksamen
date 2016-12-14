@@ -1,8 +1,8 @@
-package aPresentation.Controller.Login;
+package Presentation.Controller.Login;
 
 import BusinessLogic.Account.Account;
 import BusinessLogic.Account.Administrator;
-import aPresentation.ActiveAccountInformation.ActiveAccount;
+import Presentation.ActiveAccountInformation.ActiveAccount;
 import BusinessLogic.HashCode;
 import BusinessLogic.UserValidation;
 import javafx.event.ActionEvent;

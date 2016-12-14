@@ -8,7 +8,7 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="287.0" prefWidth="451.0" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="aPresentation.Controller.Login.CustomerLoginController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="287.0" prefWidth="451.0" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Presentation.Controller.Login.CustomerLoginController">
    <children>
       <ButtonBar layoutX="144.0" layoutY="305.0" prefHeight="40.0" prefWidth="80.0" />
       <TextField fx:id="passwordField" layoutX="93.0" layoutY="103.0" onKeyPressed="#keyPressedPassword" prefHeight="28.0" prefWidth="274.0" promptText="Password" />

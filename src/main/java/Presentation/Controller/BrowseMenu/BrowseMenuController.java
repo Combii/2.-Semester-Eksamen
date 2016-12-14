@@ -1,4 +1,4 @@
-package aPresentation.Controller.BrowseMenu;
+package Presentation.Controller.BrowseMenu;
 
 import BusinessLogic.File.FileStorage;
 import BusinessLogic.File.Folder;
@@ -25,7 +25,6 @@ import javax.xml.soap.Text;
 import java.awt.*;
 import java.io.File;
 import java.net.URL;
-import java.sql.SQLException;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.io.IOException;

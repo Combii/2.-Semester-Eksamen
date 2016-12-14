@@ -1,14 +1,12 @@
-package aPresentation.Controller.AdminTask;
+package Presentation.Controller.AdminTask;
 
 import BusinessLogic.CreateNewAccount;
-import BusinessLogic.GeneratePassword;
 import javafx.event.ActionEvent;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.text.Text;
 
 import java.sql.SQLException;
 
